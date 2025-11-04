@@ -1,4 +1,4 @@
-# heckerdev.net
+# portfolio.heckerdev.net
 
 minimalist personal website with terminal aesthetic.
 
@@ -22,4 +22,4 @@ npm run dev
 - last.fm recent tracks
 - monospace terminal design
 
-live at [https://heckerdev.net](https://heckerdev.net)
+live at [https://portfolio.heckerdev.net](https://portfolio.heckerdev.net)
