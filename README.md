@@ -1,4 +1,4 @@
-# f1sh.dev
+# heckerdev.net
 
 minimalist personal website with terminal aesthetic.
 
