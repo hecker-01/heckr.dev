@@ -9,7 +9,7 @@ vue 3 | tailwind | vite | catppuccin mocha
 ## setup
 
 ```bash
-git clone https://github.com/lostf1sh/website
+git clone https://github.com/hecker-01/website
 cd website
 npm install
 npm run dev
@@ -22,4 +22,4 @@ npm run dev
 - last.fm recent tracks
 - monospace terminal design
 
-live at [f1sh.dev](https://f1sh.dev)
+live at [https://heckerdev.net](https://heckerdev.net)
