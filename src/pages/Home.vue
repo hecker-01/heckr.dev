@@ -190,14 +190,16 @@ onBeforeUnmount(() => {
             ~$ cat about.txt
           </div>
           <p class="text-catppuccin-text leading-relaxed mb-4">
-            I code Minecraft Plugins & Mods and Discord Bots. I also have
-            experience with HTML, CSS & JavaScript and much more!
+            Hi! I'm HeckerDev, I code things for Minecraft, Discord, random CLI
+            tools & websites<br />
+            I have experince in alot of different programming languages and
+            frameworks, and I love learning new ones!
           </p>
         </div>
 
         <div class="border-l-2 border-catppuccin-surface pl-4 mb-4">
           <div class="text-catppuccin-subtle text-sm mb-2">
-            ~$ ps aux | grep jesse
+            ~$ ps aux | grep hecker
           </div>
           <div class="space-y-1 text-sm">
             <div
@@ -258,8 +260,8 @@ onBeforeUnmount(() => {
         <div class="border-l-2 border-catppuccin-surface pl-4 mb-4">
           <div class="text-catppuccin-subtle text-sm mb-2">~$ ls ~/tools</div>
           <div class="text-sm text-catppuccin-text">
-            Java | JavaScript | Discord.js | Node.js | TailwindCSS | MySQL |
-            SvelteKit | Python | React | TypeScript | Next.js
+            Java | JavaScript | Discord.js | Node.js | MySQL | Python | React |
+            TypeScript | Next.js
           </div>
         </div>
       </div>
