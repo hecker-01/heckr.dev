@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_KEY = "c9ee964e5a0bffdb2aba28397f852bbf";
-const USER = "Hecker-01";
+const USER = "Hecker_01";
 const BASE_URL = "https://ws.audioscrobbler.com/2.0/";
 
 export const getRecentTracks = async () => {

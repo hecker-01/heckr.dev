@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
           <h1 class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-2">
             <span class="text-catppuccin-mauve">jesse</span>
             <span class="text-catppuccin-subtle">@</span>
-            <span class="text-catppuccin-blue">HeckerDev.net</span>
+            <span class="text-catppuccin-blue">heckerdev.net</span>
           </h1>
           <div class="text-sm text-catppuccin-gray mb-4">
             <span class="text-catppuccin-subtle">aka </span
