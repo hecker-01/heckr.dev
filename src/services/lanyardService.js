@@ -17,7 +17,7 @@ class LanyardService {
     this.reconnectTimeout = null;
     this.reconnectAttempts = 0;
     this.maxAttempts = 5;
-    this.userId = "470904884946796544";
+    this.userId = "766897363050037248";
     this.isConnecting = false;
   }
 
@@ -44,7 +44,7 @@ class LanyardService {
           JSON.stringify({
             op: 2,
             d: { subscribe_to_id: this.userId },
-          }),
+          })
         );
       };
 
@@ -119,9 +119,7 @@ class LanyardService {
 
     lanyardData.editorActivity = data.activities?.find(
       (a) =>
-        a.name === "Visual Studio Code" ||
-        a.name === "Code" ||
-        a.name === "Zed",
+        a.name === "Visual Studio Code" || a.name === "Code" || a.name === "Zed"
     );
   }
 
@@ -141,7 +139,7 @@ class LanyardService {
     this.reconnectAttempts++;
     const delay = Math.min(
       1000 * Math.pow(2, this.reconnectAttempts - 1),
-      30000,
+      30000
     );
 
     this.reconnectTimeout = setTimeout(() => this.connect(), delay);

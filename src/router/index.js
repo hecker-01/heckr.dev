@@ -7,13 +7,13 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { title: "Personal Website | f1sh.dev" },
+    meta: { title: "Home • HeckerDev.net" },
   },
   {
     path: "/blog",
     name: "Blog",
     component: Blog,
-    meta: { title: "Blog | f1sh.dev" },
+    meta: { title: "Blog • HeckerDev.net" },
   },
 ];
 
@@ -26,7 +26,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || "f1sh.dev";
+  document.title = to.meta.title || "HeckerDev.net";
   next();
 });
 
