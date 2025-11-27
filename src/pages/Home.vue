@@ -1,7 +1,8 @@
 <script setup>
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import { lanyardData } from "@/services/lanyardService";
-import { getRecentTracks } from "@/services/lastfmService";
+import { getShowcaseItems } from "@/services/showcaseService";
+import { getAllReposWithLanguages } from "@/services/githubService";
 
 const discordStatusColor = computed(() => lanyardData.discordStatusColor);
 const spotify = computed(() => lanyardData.spotify);
@@ -50,48 +51,15 @@ const editorStatus = computed(() => {
 
 const repos = ref([]);
 const reposLoading = ref(true);
-const allTracks = ref([]);
-const songsLoading = ref(true);
-const songsInitialLoad = ref(true);
-const songsError = ref(null);
-let updateInterval = null;
+const languages = ref([]);
+const showcaseItems = ref([]);
+const currentShowcaseIndex = ref(0);
+const isHovering = ref(false);
+let showcaseInterval = null;
 
-const currentTrack = computed(() =>
-  allTracks.value.find((track) => track["@attr"]?.nowplaying)
-);
-
-const consolidatedTracks = computed(() => {
-  const tracks = allTracks.value.filter((track) => !track["@attr"]?.nowplaying);
-  const consolidated = [];
-  let currentTrack = null;
-  let count = 1;
-
-  tracks.forEach((track, index) => {
-    const key = `${track.name}-${track.artist["#text"]}`;
-    if (currentTrack === key) {
-      count++;
-    } else {
-      if (currentTrack) {
-        const prevTrack = tracks[index - 1];
-        consolidated.push({
-          ...prevTrack,
-          playcount: count,
-          date: prevTrack.date?.["#text"],
-        });
-      }
-      currentTrack = key;
-      count = 1;
-    }
-    if (index === tracks.length - 1) {
-      consolidated.push({
-        ...track,
-        playcount: count,
-        date: track.date?.["#text"],
-      });
-    }
-  });
-
-  return consolidated.slice(0, 10);
+const currentShowcaseItem = computed(() => {
+  if (!showcaseItems.value.length) return null;
+  return showcaseItems.value[currentShowcaseIndex.value];
 });
 
 const displayedRepos = computed(() => {
@@ -102,25 +70,13 @@ const displayedRepos = computed(() => {
     .slice(0, 6);
 });
 
-const fetchSongs = async () => {
-  try {
-    songsLoading.value = true;
-    allTracks.value = await getRecentTracks();
-    songsError.value = null;
-  } catch {
-    songsError.value = "couldn't load tracks";
-  } finally {
-    songsLoading.value = false;
-    songsInitialLoad.value = false;
-  }
-};
-
 const fetchProjects = async () => {
   try {
     reposLoading.value = true;
-    const res = await fetch("https://api.github.com/users/hecker-01/repos");
-    const data = await res.json();
-    repos.value = Array.isArray(data) ? data : [];
+    const { repos: repoData, languages: langData } =
+      await getAllReposWithLanguages("hecker-01");
+    repos.value = repoData;
+    languages.value = langData;
   } catch {
   } finally {
     reposLoading.value = false;
@@ -129,12 +85,23 @@ const fetchProjects = async () => {
 
 onMounted(() => {
   fetchProjects();
-  fetchSongs();
-  updateInterval = setInterval(fetchSongs, 30000);
+  showcaseItems.value = getShowcaseItems();
+
+  // Start cycling through showcase items every 10 seconds (pause on hover)
+  if (showcaseItems.value.length > 1) {
+    showcaseInterval = setInterval(() => {
+      if (!isHovering.value) {
+        currentShowcaseIndex.value =
+          (currentShowcaseIndex.value + 1) % showcaseItems.value.length;
+      }
+    }, 10000);
+  }
 });
 
 onBeforeUnmount(() => {
-  if (updateInterval) clearInterval(updateInterval);
+  if (showcaseInterval) {
+    clearInterval(showcaseInterval);
+  }
 });
 </script>
 
@@ -169,19 +136,12 @@ onBeforeUnmount(() => {
               [github]
             </a>
             <!-- <a
-                            href="https://www.instagram.com/lxstf1sh"
-                            target="_blank"
-                            class="text-catppuccin-subtle hover:text-catppuccin-pink transition-colors"
-                        >
-                            [instagram]
-                        </a> -->
-            <a
               href="https://open.spotify.com/user/jesse_flantua"
               target="_blank"
               class="text-catppuccin-subtle hover:text-catppuccin-green transition-colors"
             >
               [spotify]
-            </a>
+            </a> -->
           </div>
         </div>
 
@@ -259,15 +219,32 @@ onBeforeUnmount(() => {
 
         <div class="border-l-2 border-catppuccin-surface pl-4 mb-4">
           <div class="text-catppuccin-subtle text-sm mb-2">~$ ls ~/tools</div>
-          <div class="text-sm text-catppuccin-text">
-            Java | JavaScript | Discord.js | Node.js | MySQL | Python | React |
-            TypeScript | Next.js
+          <div v-if="reposLoading" class="text-sm text-catppuccin-subtle">
+            loading languages...
+          </div>
+          <div
+            v-else-if="languages.length"
+            class="text-sm text-catppuccin-text"
+          >
+            <span v-for="(lang, index) in languages" :key="lang.language">
+              {{ lang.language }}({{ lang.count }})<span
+                v-if="index < languages.length - 1"
+                class="text-catppuccin-subtle"
+              >
+                |
+              </span>
+            </span>
+          </div>
+          <div v-else class="text-sm text-catppuccin-subtle">
+            no languages found
           </div>
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-6">
-        <div class="border-l-2 border-catppuccin-surface pl-4 min-w-0">
+      <div class="grid lg:grid-cols-2 gap-6 lg:items-start">
+        <div
+          class="border-l-2 border-catppuccin-surface pl-4 min-w-0 flex flex-col"
+        >
           <div class="text-catppuccin-subtle text-sm mb-3">
             ~$ ls ~/projects
           </div>
@@ -349,126 +326,94 @@ onBeforeUnmount(() => {
           </div>
         </div>
 
-        <div class="border-l-2 border-catppuccin-surface pl-4 min-w-0">
+        <div
+          class="border-l-2 border-catppuccin-surface pl-4 min-w-0 flex flex-col"
+        >
           <div class="text-catppuccin-subtle text-sm mb-3">
-            ~$ cat recent_tracks.log
-          </div>
-
-          <div v-if="songsLoading" class="space-y-2">
-            <div
-              v-for="i in 6"
-              :key="`loading-${i}`"
-              class="rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 p-3 animate-pulse"
-            >
-              <div class="flex items-start gap-3">
-                <span class="text-catppuccin-subtle">></span>
-                <div class="flex-1 min-w-0">
-                  <div
-                    class="h-3 bg-catppuccin-surface/70 rounded w-2/3 mb-2"
-                  ></div>
-                  <div class="h-2 bg-catppuccin-surface/50 rounded w-1/3"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div v-else-if="songsError" class="text-sm text-catppuccin-red">
-            error: {{ songsError }}
+            ~$ cat ~/showcase
           </div>
 
           <div
-            v-else-if="!consolidatedTracks.length && !currentTrack"
+            v-if="!showcaseItems.length"
             class="text-sm text-catppuccin-subtle"
           >
-            no tracks found
+            no items to showcase
           </div>
 
-          <TransitionGroup
+          <div
             v-else
-            :name="songsInitialLoad ? '' : 'list'"
-            tag="div"
-            class="space-y-2"
+            class="relative min-h-48 flex-1"
+            @mouseenter="isHovering = true"
+            @mouseleave="isHovering = false"
           >
-            <a
-              v-if="currentTrack"
-              :href="currentTrack.url"
-              target="_blank"
-              :key="`current-${currentTrack.name}-${currentTrack.artist['#text']}`"
-              class="block group rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-colors"
-            >
-              <div class="flex items-start gap-3 text-sm px-3 py-2">
-                <span class="text-catppuccin-green">♪</span>
-
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-2">
-                    <span
-                      class="text-catppuccin-text group-hover:text-catppuccin-green transition-colors truncate"
-                      :title="currentTrack.name"
-                    >
-                      {{ currentTrack.name }}
-                    </span>
-
-                    <span class="text-catppuccin-green text-xs flex-shrink-0"
-                      >[now]</span
-                    >
-                  </div>
-
-                  <p
-                    class="text-xs text-catppuccin-gray truncate"
-                    :title="currentTrack.artist['#text']"
-                  >
-                    {{ currentTrack.artist["#text"] }}
-                  </p>
-                </div>
-              </div>
-            </a>
-
-            <a
-              v-for="(track, index) in consolidatedTracks.slice(
-                0,
-                currentTrack ? 5 : 6
-              )"
-              :key="`${track.name}-${track.artist['#text']}-${track.date}`"
-              :href="track.url"
-              target="_blank"
-              :style="{
-                transitionDelay: `${(index + (currentTrack ? 1 : 0)) * 50}ms`,
-              }"
-              class="block group rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-colors"
-            >
-              <div class="flex items-start gap-3 text-sm px-3 py-2">
-                <span
-                  class="text-catppuccin-subtle group-hover:text-catppuccin-green transition-colors"
-                  >></span
+            <Transition name="showcase" mode="out-in">
+              <a
+                v-if="currentShowcaseItem"
+                :key="currentShowcaseItem.id"
+                :href="currentShowcaseItem.link"
+                target="_blank"
+                class="group rounded-md border bg-catppuccin-base/20 hover:bg-catppuccin-base/30 transition-all overflow-hidden border-catppuccin-surface/60 h-full flex flex-col"
+                :style="{ borderColor: `${currentShowcaseItem.accentColor}40` }"
+              >
+                <div
+                  v-if="currentShowcaseItem.screenshot"
+                  class="w-full flex-1 overflow-hidden bg-catppuccin-surface/30"
                 >
-
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-2">
-                    <span
-                      class="text-catppuccin-text group-hover:text-catppuccin-green transition-colors truncate"
-                      :title="track.name"
-                    >
-                      {{ track.name }}
-                    </span>
-
-                    <span
-                      v-if="track.playcount > 1"
-                      class="text-catppuccin-yellow text-xs flex-shrink-0"
-                    >
-                      ×{{ track.playcount }}
-                    </span>
-                  </div>
-
-                  <p
-                    class="text-xs text-catppuccin-gray truncate"
-                    :title="track.artist['#text']"
-                  >
-                    {{ track.artist["#text"] }}
-                  </p>
+                  <img
+                    :src="currentShowcaseItem.screenshot"
+                    :alt="currentShowcaseItem.name"
+                    class="w-full h-full min-h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
-              </div>
-            </a>
-          </TransitionGroup>
+
+                <div class="px-3 py-3 flex-shrink-0">
+                  <div class="flex items-start gap-3">
+                    <span
+                      class="transition-colors"
+                      :style="{ color: currentShowcaseItem.accentColor }"
+                      >></span
+                    >
+
+                    <div class="flex-1 min-w-0">
+                      <h3
+                        class="text-sm font-medium text-catppuccin-text transition-colors mb-1"
+                        :style="{ color: currentShowcaseItem.accentColor }"
+                      >
+                        {{ currentShowcaseItem.name }}
+                      </h3>
+
+                      <p class="text-xs text-catppuccin-gray leading-relaxed">
+                        {{ currentShowcaseItem.description }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Transition>
+
+            <!-- Indicator dots -->
+            <div
+              v-if="showcaseItems.length > 1"
+              class="flex justify-center gap-1.5 mt-3"
+            >
+              <button
+                v-for="(item, index) in showcaseItems"
+                :key="`dot-${item.id}`"
+                @click="currentShowcaseIndex = index"
+                class="w-1.5 h-1.5 rounded-full transition-all"
+                :class="
+                  index === currentShowcaseIndex
+                    ? 'bg-catppuccin-mauve w-4'
+                    : 'bg-catppuccin-surface/60 hover:bg-catppuccin-surface'
+                "
+                :style="
+                  index === currentShowcaseIndex
+                    ? { backgroundColor: currentShowcaseItem.accentColor }
+                    : {}
+                "
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -497,5 +442,23 @@ onBeforeUnmount(() => {
 
 .list-move {
   transition: transform 0.4s ease;
+}
+
+.showcase-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.showcase-leave-active {
+  transition: all 0.4s ease-in;
+}
+
+.showcase-enter-from {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.showcase-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
 }
 </style>
