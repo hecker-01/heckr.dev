@@ -464,7 +464,7 @@ onBeforeUnmount(() => {
                 v-for="(item, index) in showcaseItems"
                 :key="`dot-${item.id}`"
                 @click="currentShowcaseIndex = index"
-                class="w-1.5 h-1.5 rounded-full transition-all"
+                class="w-2 h-2.5 rounded-full transition-all"
                 :class="
                   index === currentShowcaseIndex
                     ? 'bg-catppuccin-mauve w-4'
