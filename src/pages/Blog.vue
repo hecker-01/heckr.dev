@@ -253,7 +253,7 @@ watch(
             <h1
               class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-4"
             >
-              <span class="text-catppuccin-mauve">blog</span>
+              <span class="text-catppuccin-mauve">Blog</span>
             </h1>
             <p class="text-sm text-catppuccin-gray leading-relaxed mb-6">
               thoughts on code, tools, and random stuff i find interesting.

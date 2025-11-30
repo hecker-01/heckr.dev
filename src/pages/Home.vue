@@ -28,14 +28,27 @@ const editorStatus = computed(() => {
 
   const editorName = editorActivity.value.name;
   const isZed = editorName === "Zed";
+  const isIntelliJ =
+    editorName === "IntelliJ IDEA Ultimate" || editorName === "IntelliJ IDEA";
+  const isAndroidStudio = editorName === "Android Studio";
+  const isJetBrains = isIntelliJ || isAndroidStudio;
 
-  let filename = isZed
-    ? editorActivity.value.state || ""
-    : editorActivity.value.details || "";
+  let filename = "";
+  let workspace = "";
 
-  let workspace = isZed
-    ? editorActivity.value.details || ""
-    : editorActivity.value.state || "";
+  if (isJetBrains) {
+    // JetBrains IDEs use: details = "Editing <filename>", state = "<project name>"
+    filename = editorActivity.value.details || "";
+    workspace = editorActivity.value.state || "";
+  } else if (isZed) {
+    // Zed uses: state = filename, details = workspace
+    filename = editorActivity.value.state || "";
+    workspace = editorActivity.value.details || "";
+  } else {
+    // VS Code and others use: details = filename, state = workspace
+    filename = editorActivity.value.details || "";
+    workspace = editorActivity.value.state || "";
+  }
 
   filename = filename
     .replace(/editing /i, "")
@@ -258,7 +271,14 @@ onBeforeUnmount(() => {
               class="flex items-center gap-2"
             >
               <span class="text-catppuccin-blue">{{
-                editorStatus.name === "Zed" ? "zed" : "vscode"
+                editorStatus.name === "Zed"
+                  ? "zed"
+                  : editorStatus.name === "IntelliJ IDEA Ultimate" ||
+                    editorStatus.name === "IntelliJ IDEA"
+                  ? "intellij"
+                  : editorStatus.name === "Android Studio"
+                  ? "android-studio"
+                  : "vscode"
               }}</span>
               <span class="text-catppuccin-subtle">:</span>
               <span class="text-catppuccin-text truncate">
