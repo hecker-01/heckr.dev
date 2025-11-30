@@ -1,6 +1,6 @@
 ---
 title: ai browsers are just chromium
-date: 2024-03-28
+date: 2025-10-19
 tags: [browsers, ai, tech-criticism]
 excerpt: stop shipping chromium with a chatbot sidebar and calling it revolutionary. please.
 ---
@@ -39,6 +39,7 @@ looking at you, comet. and atlas. and literally every other "ai-first" browser.
 actually rethinking browsing. not just bolting ai onto the side.
 
 **ideas that would actually be interesting:**
+
 - ai that understands page structure beyond just text
 - intelligent tab management that actually works
 - privacy-first ai that runs locally
@@ -54,13 +55,14 @@ and now ai browsers are making it worse by pretending a wrapper is innovation.
 
 ## the sidebar problem
 
-you know what i can do? open chatgpt in a tab. or use raycast. or literally any other tool. 
+you know what i can do? open chatgpt in a tab. or use raycast. or literally any other tool.
 
 putting it in a sidebar doesn't make it special. it makes it annoying.
 
 ## what i actually want
 
 give me a browser that:
+
 - respects my ram
 - doesn't track everything
 - has actual innovation in navigation
@@ -69,7 +71,7 @@ give me a browser that:
 
 ## the truth
 
-these aren't ai browsers. they're chromium distributions with a chatbot. 
+these aren't ai browsers. they're chromium distributions with a chatbot.
 
 stop calling it innovation. it's not. it's lazy.
 

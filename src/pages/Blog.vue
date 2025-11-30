@@ -51,27 +51,88 @@ const clearPostQuery = () => {
   delete newQuery.post;
   router.replace({ name: "Blog", query: newQuery });
 };
-
 const goBack = ({ skipQueryUpdate = false } = {}) => {
   view.value = "list";
   currentPost.value = null;
   window.scrollTo({ top: 0, behavior: "smooth" });
-  if (!skipQueryUpdate) {
-    clearPostQuery();
+  if (!skipQueryUpdate && "post" in route.query) {
+    const newQuery = { ...route.query };
+    delete newQuery.post;
+    router.replace({ name: "Blog", query: newQuery });
   }
 };
-
 const toggleTag = (tag) => {
   selectedTag.value = selectedTag.value === tag ? null : tag;
 };
-
+const calculateReadingTime = (text) => {
+  const wordsPerMinute = 200;
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return minutes;
+};
 const parseMarkdown = (content) => {
   let html = content;
+  // Store code blocks temporarily to prevent other replacements from affecting them
+  const codeBlocks = [];
+  html = html.replace(/```(\w*)\s*\n?([\s\S]*?)```/g, (match, lang, code) => {
+    const placeholder = `__CODEBLOCK_${codeBlocks.length}__`;
+    const escapedCode = code
+      .trim()
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    const languageClass = lang ? `language-${lang.toLowerCase()}` : "";
+    const blockId = `code-block-${codeBlocks.length}`;
+    codeBlocks.push(
+      `<div class="relative group">
+                <button data-clipboard-target="#${blockId}" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-xs text-catppuccin-subtle hover:text-catppuccin-mauve px-2 py-1 bg-catppuccin-crust border border-catppuccin-surface rounded hover:bg-catppuccin-mauve/10 cursor-pointer z-10">
+                    copy
+                </button>
+                <pre class="bg-catppuccin-surface/50 border border-catppuccin-overlay/30 rounded p-4 overflow-x-auto my-4"><code id="${blockId}" class="${languageClass}">${escapedCode}</code></pre>
+            </div>`
+    );
+    return placeholder;
+  });
+  // Parse tables
+  const tables = [];
+  html = html.replace(/((?:\|[^\n]+\|\r?\n?)+)/g, (match) => {
+    // Check if this looks like a table (has at least header and separator)
+    const lines = match.trim().split(/\r?\n/);
+    if (lines.length < 2) return match;
 
-  html = html.replace(
-    /```(\w+)?\n([\s\S]*?)```/g,
-    '<pre class="bg-catppuccin-surface/50 border border-catppuccin-overlay/30 rounded p-4 overflow-x-auto my-4"><code>$2</code></pre>'
-  );
+    // Check for separator row (|---|---|)
+    const hasSeparator = /^\|[\s\-:|]+\|$/.test(lines[1]);
+    if (!hasSeparator) return match;
+
+    const placeholder = `__TABLE_${tables.length}__`;
+    const headerRow = lines[0];
+    const dataRows = lines.slice(2);
+
+    let tableHtml = '<table class="w-full my-4 text-sm border-collapse">';
+
+    const headers = headerRow.split("|").filter((c) => c.trim());
+    tableHtml += "<thead><tr>";
+    headers.forEach((h) => {
+      tableHtml += `<th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">${h.trim()}</th>`;
+    });
+    tableHtml += "</tr></thead>";
+
+    tableHtml += "<tbody>";
+    dataRows.forEach((row) => {
+      if (row.trim() && !/^\|[\s\-:|]+\|$/.test(row)) {
+        const cells = row.split("|").filter((c) => c.trim());
+        tableHtml += "<tr>";
+        cells.forEach((c) => {
+          tableHtml += `<td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">${c.trim()}</td>`;
+        });
+        tableHtml += "</tr>";
+      }
+    });
+    tableHtml += "</tbody></table>";
+
+    tables.push(tableHtml);
+    return placeholder;
+  });
 
   html = html.replace(
     /^### (.*$)/gim,
@@ -106,21 +167,57 @@ const parseMarkdown = (content) => {
   html = html
     .split("\n\n")
     .map((p) => {
-      if (!p.trim().startsWith("<")) {
+      if (
+        !p.trim().startsWith("<") &&
+        !p.trim().startsWith("__CODEBLOCK_") &&
+        !p.trim().startsWith("__TABLE_")
+      ) {
         return `<p class="text-catppuccin-text leading-relaxed mb-4">${p}</p>`;
       }
       return p;
     })
     .join("\n");
-
+  // Restore code blocks
+  codeBlocks.forEach((block, i) => {
+    html = html.replace(`__CODEBLOCK_${i}__`, block);
+  });
+  // Restore tables
+  tables.forEach((table, i) => {
+    html = html.replace(`__TABLE_${i}__`, table);
+  });
   return html;
 };
-
+const readingTime = (content) => {
+  const text = content
+    .replace(/```[\s\S]*?```/g, "") // Remove code blocks
+    .replace(/[^\w\s]/g, " ") // Remove special chars
+    .replace(/\s+/g, " ") // Normalize spaces
+    .trim();
+  return calculateReadingTime(text);
+};
 onMounted(() => {
   loadPosts();
   document.documentElement.style.overflowY = "auto";
   document.body.style.overflowY = "auto";
-
+  // Initialize Clipboard.js
+  const clipboard = new ClipboardJS("[data-clipboard-target]");
+  clipboard.on("success", function (e) {
+    const button = e.trigger;
+    const originalText = button.textContent;
+    button.textContent = "copied!";
+    button.classList.add("text-catppuccin-green");
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove("text-catppuccin-green");
+    }, 2000);
+    e.clearSelection();
+  });
+  // Initialize Prism syntax highlighting
+  setTimeout(() => {
+    if (window.Prism) {
+      Prism.highlightAll();
+    }
+  }, 100);
   const slugFromQuery = route.query.post;
   if (slugFromQuery) {
     openPost(slugFromQuery);
@@ -134,8 +231,8 @@ onBeforeUnmount(() => {
 
 watch(
   () => route.query.post,
-  (slug, prev) => {
-    if (slug && slug !== prev) {
+  (slug, prevSlug) => {
+    if (slug && slug !== prevSlug) {
       openPost(slug);
     } else if (!slug && view.value === "post") {
       goBack({ skipQueryUpdate: true });
@@ -274,6 +371,8 @@ watch(
               class="flex items-center gap-4 text-sm text-catppuccin-subtle mb-4"
             >
               <span>{{ formatDate(currentPost.date) }}</span>
+              <span class="text-catppuccin-surface">•</span>
+              <span>~{{ readingTime(currentPost.content) }} min read</span>
               <span class="text-catppuccin-surface">•</span>
               <div class="flex gap-2">
                 <span

@@ -2,7 +2,11 @@
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import { lanyardData } from "@/services/lanyardService";
 import { getShowcaseItems } from "@/services/showcaseService";
-import { getAllReposWithLanguages } from "@/services/githubService";
+import {
+  getAllReposWithLanguages,
+  getContributionData,
+  getContributionLevel,
+} from "@/services/githubService";
 
 const discordStatusColor = computed(() => lanyardData.discordStatusColor);
 const spotify = computed(() => lanyardData.spotify);
@@ -55,6 +59,8 @@ const languages = ref([]);
 const showcaseItems = ref([]);
 const currentShowcaseIndex = ref(0);
 const isHovering = ref(false);
+const contributions = ref([]);
+const contributionsLoading = ref(true);
 let showcaseInterval = null;
 
 const currentShowcaseItem = computed(() => {
@@ -83,8 +89,63 @@ const fetchProjects = async () => {
   }
 };
 
+const fetchContributions = async () => {
+  try {
+    contributionsLoading.value = true;
+    contributions.value = await getContributionData();
+  } catch {
+  } finally {
+    contributionsLoading.value = false;
+  }
+};
+const contributionWeeks = computed(() => {
+  const weeks = [];
+  for (let i = 0; i < contributions.value.length; i += 7) {
+    weeks.push(contributions.value.slice(i, i + 7));
+  }
+  return weeks;
+});
+const totalContributions = computed(() => {
+  return contributions.value.reduce((sum, day) => sum + day.count, 0);
+});
+const monthLabels = computed(() => {
+  if (!contributions.value.length) return [];
+
+  const months = [];
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let lastMonth = -1;
+
+  contributionWeeks.value.forEach((week, weekIndex) => {
+    const firstDay = week[0];
+    if (firstDay) {
+      const date = new Date(firstDay.date);
+      const month = date.getMonth();
+      if (month !== lastMonth) {
+        months.push({ name: monthNames[month], weekIndex });
+        lastMonth = month;
+      }
+    }
+  });
+
+  return months;
+})();
+
 onMounted(() => {
   fetchProjects();
+  fetchContributions();
   showcaseItems.value = getShowcaseItems();
 
   // Start cycling through showcase items every 10 seconds (pause on hover)
@@ -253,15 +314,17 @@ onBeforeUnmount(() => {
             <div
               v-for="i in 6"
               :key="`repo-loading-${i}`"
-              class="rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 p-3 animate-pulse"
+              class="rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 p-3"
             >
               <div class="flex items-start gap-3">
                 <span class="text-catppuccin-subtle">></span>
                 <div class="flex-1 min-w-0">
                   <div
-                    class="h-3 bg-catppuccin-surface/70 rounded w-2/3 mb-2"
+                    class="h-3 bg-catppuccin-surface/70 rounded w-2/3 mb-2 cursor-blink"
                   ></div>
-                  <div class="h-2 bg-catppuccin-surface/50 rounded w-1/3"></div>
+                  <div
+                    class="h-2 bg-catppuccin-surface/50 rounded w-1/3 cursor-blink"
+                  ></div>
                 </div>
               </div>
             </div>
@@ -413,6 +476,70 @@ onBeforeUnmount(() => {
                 "
               />
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 border-l-2 border-catppuccin-surface pl-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-catppuccin-subtle text-sm">
+            ~$ git log --oneline --since="1.year.ago" | wc -l
+          </div>
+          <div
+            v-if="!contributionsLoading"
+            class="flex items-center gap-1 text-[10px] text-catppuccin-subtle"
+          >
+            <span>less</span>
+            <div class="flex gap-[1px]">
+              <div class="w-2 h-2 rounded-[2px] bg-catppuccin-surface/50"></div>
+              <div class="w-2 h-2 rounded-[2px] bg-catppuccin-green/30"></div>
+              <div class="w-2 h-2 rounded-[2px] bg-catppuccin-green/50"></div>
+              <div class="w-2 h-2 rounded-[2px] bg-catppuccin-green/70"></div>
+              <div class="w-2 h-2 rounded-[2px] bg-catppuccin-green"></div>
+            </div>
+            <span>more</span>
+          </div>
+        </div>
+        <div v-if="contributionsLoading">
+          <div
+            class="h-[60px] bg-catppuccin-surface/30 rounded cursor-blink"
+          ></div>
+        </div>
+        <div v-else>
+          <!-- Contribution grid - fixed on desktop, scrollable on mobile -->
+          <div
+            class="overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-thin"
+          >
+            <div
+              class="inline-flex md:flex gap-[3px] md:gap-1"
+              style="min-width: max-content"
+            >
+              <div
+                v-for="(week, weekIndex) in contributionWeeks"
+                :key="weekIndex"
+                class="flex flex-col gap-[3px] md:gap-1 md:flex-1"
+              >
+                <div
+                  v-for="(day, dayIndex) in week"
+                  :key="dayIndex"
+                  class="w-[10px] h-[10px] md:w-auto md:h-auto md:aspect-square rounded-sm"
+                  :class="[
+                    getContributionLevel(day.count) === 0
+                      ? 'bg-catppuccin-surface/50'
+                      : getContributionLevel(day.count) === 1
+                      ? 'bg-catppuccin-green/30'
+                      : getContributionLevel(day.count) === 2
+                      ? 'bg-catppuccin-green/50'
+                      : getContributionLevel(day.count) === 3
+                      ? 'bg-catppuccin-green/70'
+                      : 'bg-catppuccin-green',
+                  ]"
+                  :title="`${day.date}: ${day.count} contributions`"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="text-xs text-catppuccin-gray mt-2">
+            {{ totalContributions }} contributions in the last year
           </div>
         </div>
       </div>

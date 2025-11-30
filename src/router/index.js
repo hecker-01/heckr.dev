@@ -27,13 +27,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(_, __, savedPosition) {
     return savedPosition || { top: 0 };
   },
 });
 
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || "heckerdev.net";
+router.beforeEach((to, _, next) => {
+  document.title = to.meta.title || "f1sh.dev";
   next();
 });
 
