@@ -226,8 +226,9 @@ onBeforeUnmount(() => {
           </div>
           <p class="text-catppuccin-text leading-relaxed mb-4">
             Hi! I'm HeckerDev, I code things for Minecraft, Discord, random CLI
-            tools & websites<br />
-            I have experince in alot of different programming languages and
+            tools, websites, and recently I've been very invested in Android
+            development.<br />
+            I have experience in a lot of different programming languages and
             frameworks, and I love learning new ones!
           </p>
         </div>
