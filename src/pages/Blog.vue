@@ -256,7 +256,8 @@ watch(
               <span class="text-catppuccin-mauve">Blog</span>
             </h1>
             <p class="text-sm text-catppuccin-gray leading-relaxed mb-6">
-              thoughts on code, tools, and random stuff i find interesting.
+              My thoughts, tutorials, and experiences on various topics
+              including web development, programming, and technology.
             </p>
 
             <div class="flex items-center gap-4 text-sm mb-6">
