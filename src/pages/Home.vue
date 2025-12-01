@@ -183,15 +183,15 @@ onBeforeUnmount(() => {
 <template>
   <div class="w-full min-h-screen overflow-x-hidden font-mono">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
-      <div class="mb-12">
-        <div class="mb-8">
+      <div class="mb-6">
+        <div class="mb-6">
           <div class="text-catppuccin-subtle text-sm mb-2">~$ whoami</div>
           <h1 class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-2">
             <span class="text-catppuccin-mauve">jesse</span>
             <span class="text-catppuccin-subtle">@</span>
             <span class="text-catppuccin-blue">heckerdev.net</span>
           </h1>
-          <div class="text-sm text-catppuccin-gray mb-4">
+          <div class="text-sm text-catppuccin-gray 6">
             <span class="text-catppuccin-subtle">aka </span
             ><span class="text-catppuccin-green">Hecker_01</span>
           </div>
@@ -412,7 +412,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div
-          class="border-l-2 border-catppuccin-surface pl-4 min-w-0 flex flex-col"
+          class="border-l-2 border-catppuccin-surface pl-4 min-w-0 max-h-[396px] flex flex-col"
         >
           <div class="text-catppuccin-subtle text-sm mb-3">
             ~$ cat ~/showcase
@@ -427,7 +427,7 @@ onBeforeUnmount(() => {
 
           <div
             v-else
-            class="relative min-h-48 flex-1"
+            class="relative flex-1"
             @mouseenter="isHovering = true"
             @mouseleave="isHovering = false"
           >
@@ -447,7 +447,7 @@ onBeforeUnmount(() => {
                   <img
                     :src="currentShowcaseItem.screenshot"
                     :alt="currentShowcaseItem.name"
-                    class="w-full h-full min-h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    class="w-full max-h-64 min-h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
 
