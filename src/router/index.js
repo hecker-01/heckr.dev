@@ -8,19 +8,19 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { title: "Home | heckerdev.net" },
+    meta: { title: "Home | heckr.dev" },
   },
   {
     path: "/blog",
     name: "Blog",
     component: Blog,
-    meta: { title: "Blog | heckerdev.net" },
+    meta: { title: "Blog | heckr.dev" },
   },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFound,
-    meta: { title: "404 Not Found | heckerdev.net" },
+    meta: { title: "404 Not Found | heckr.dev" },
   },
 ];
 
@@ -33,7 +33,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
-  document.title = to.meta.title || "f1sh.dev";
+  document.title = to.meta.title || "heckr.dev";
   next();
 });
 

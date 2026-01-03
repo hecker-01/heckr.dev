@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
           <h1 class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-2">
             <span class="text-catppuccin-mauve">jesse</span>
             <span class="text-catppuccin-subtle">@</span>
-            <span class="text-catppuccin-blue">heckerdev.net</span>
+            <span class="text-catppuccin-blue">heckr.dev</span>
           </h1>
           <div class="text-sm text-catppuccin-gray 6">
             <span class="text-catppuccin-subtle">aka </span
@@ -210,13 +210,6 @@ onBeforeUnmount(() => {
             >
               [github]
             </a>
-            <!-- <a
-              href="https://open.spotify.com/user/jesse_flantua"
-              target="_blank"
-              class="text-catppuccin-subtle hover:text-catppuccin-green transition-colors"
-            >
-              [spotify]
-            </a> -->
           </div>
         </div>
 
