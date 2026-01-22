@@ -1,4 +1,4 @@
-# portfolio.heckerdev.net
+# heckr.dev
 
 minimalist personal website with terminal aesthetic.
 
@@ -9,8 +9,8 @@ vue 3 | tailwind | vite | catppuccin mocha
 ## setup
 
 ```bash
-git clone https://github.com/hecker-01/website
-cd website
+git clone https://github.com/hecker-01/heckr.dev
+cd heckr.dev
 npm install
 npm run dev
 ```
@@ -22,4 +22,4 @@ npm run dev
 - last.fm recent tracks
 - monospace terminal design
 
-live at [https://portfolio.heckerdev.net](https://portfolio.heckerdev.net)
+live at [https://heckr.dev](https://heckr.dev)
