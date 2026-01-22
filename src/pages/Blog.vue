@@ -89,7 +89,7 @@ const parseMarkdown = (content) => {
                     copy
                 </button>
                 <pre class="bg-catppuccin-surface/50 border border-catppuccin-overlay/30 rounded p-4 overflow-x-auto my-4"><code id="${blockId}" class="${languageClass}">${escapedCode}</code></pre>
-            </div>`
+            </div>`,
     );
     return placeholder;
   });
@@ -136,32 +136,32 @@ const parseMarkdown = (content) => {
 
   html = html.replace(
     /^### (.*$)/gim,
-    '<h3 class="text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">$1</h3>'
+    '<h3 class="text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">$1</h3>',
   );
   html = html.replace(
     /^## (.*$)/gim,
-    '<h2 class="text-xl font-semibold text-catppuccin-blue mt-8 mb-4">$1</h2>'
+    '<h2 class="text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">$1</h2>',
   );
   html = html.replace(
     /^# (.*$)/gim,
-    '<h1 class="text-2xl font-bold text-catppuccin-text mt-8 mb-4">$1</h1>'
+    '<h1 class="text-2xl font-bold text-catppuccin-mauve mt-8 mb-4">$1</h1>',
   );
 
   html = html.replace(
     /\*\*(.*?)\*\*/g,
-    '<strong class="text-catppuccin-mauve font-semibold">$1</strong>'
+    '<strong class="text-catppuccin-mauve font-semibold">$1</strong>',
   );
   html = html.replace(
     /`([^`]+)`/g,
-    '<code class="bg-catppuccin-surface/50 px-2 py-0.5 rounded text-catppuccin-pink text-sm">$1</code>'
+    '<code class="bg-catppuccin-surface/50 px-2 py-0.5 rounded text-catppuccin-pink text-sm">$1</code>',
   );
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" class="text-catppuccin-blue hover:text-catppuccin-mauve underline transition-colors">$1</a>'
+    '<a href="$2" target="_blank" class="text-catppuccin-blue hover:text-catppuccin-mauve underline transition-colors">$1</a>',
   );
   html = html.replace(
     /^\- (.*$)/gim,
-    '<li class="ml-6 list-disc text-catppuccin-text mb-1">$1</li>'
+    '<li class="ml-6 list-disc text-catppuccin-text mb-1">$1</li>',
   );
 
   html = html
@@ -237,7 +237,7 @@ watch(
     } else if (!slug && view.value === "post") {
       goBack({ skipQueryUpdate: true });
     }
-  }
+  },
 );
 </script>
 

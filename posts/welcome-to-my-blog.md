@@ -1,5 +1,5 @@
 ---
-title: welcome to my blog
+title: Welcome to my blog
 date: 22-01-2026
 tags: [meta, personal]
 excerpt: first post on this new blog.
