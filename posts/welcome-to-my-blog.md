@@ -1,0 +1,18 @@
+---
+title: welcome to my blog
+date: 22-01-2026
+tags: [meta, personal]
+excerpt: first post on this new blog.
+---
+
+# Welcome to my blog
+
+I want to share my tech-adventures, so I decided to make this
+
+## Why a blog?
+
+For documenting my learing journey and share solutions to problems I've run into
+
+## What can you expect?
+
+mainly posts about the development of projects in working on and some IRL tech projects aswell
