@@ -18,7 +18,7 @@ const goHome = () => router.push("/");
   <div
     class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
   >
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
       <div class="mb-8">
         <div class="text-catppuccin-subtle text-sm mb-4">
           ~$ cd ~/{{ pathDisplay }}
