@@ -26,6 +26,15 @@ export const showcaseItems = [
   },
   {
     id: 2,
+    name: "satisSuite",
+    description:
+      "A comprehensive plugin suite designed to streamline moderation, enhance player experience, and give you complete control over your server.",
+    link: "https://satissuite.heckr.dev",
+    screenshot: "/screenshot-satissuite.png",
+    accentColor: "mauve",
+  },
+  {
+    id: 3,
     name: "Main Website",
     description:
       "My (old) main website built with SvelteKit and Tailwind CSS, featuring project showcases.",
@@ -33,15 +42,6 @@ export const showcaseItems = [
     screenshot: "/screenshot-heckerdev.png",
     accentColor: "lavender",
   },
-  // {
-  //   id: 3,
-  //   name: "Cordium",
-  //   description:
-  //     "Cordium is an open-source Android Discord client that focuses on native performance, low resource usage, and a customizable user experience.",
-  //   link: "https://github.com/hecker-01/cordium",
-  //   screenshot: "/screenshot-soon.png",
-  //   accentColor: "sky",
-  // },
 ];
 
 export function getShowcaseItems() {
