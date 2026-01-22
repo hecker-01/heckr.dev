@@ -245,7 +245,7 @@ watch(
   <div
     class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
   >
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
       <Transition name="fade" mode="out-in">
         <div v-if="view === 'list'" key="list">
           <div class="mb-12">
