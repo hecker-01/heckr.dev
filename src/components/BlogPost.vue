@@ -1,6 +1,5 @@
 <script setup>
 import { computed, onMounted } from "vue";
-import { formatDate } from "@/services/blogService";
 
 const props = defineProps({
   post: {
@@ -163,7 +162,7 @@ onMounted(() => {
       </h1>
 
       <div class="flex items-center gap-4 text-sm text-catppuccin-subtle mb-4">
-        <span>{{ formatDate(post.date) }}</span>
+        <span>{{ post.date }}</span>
         <span class="text-catppuccin-surface">•</span>
         <span>~{{ readingTime }} min read</span>
         <span class="text-catppuccin-surface">•</span>
