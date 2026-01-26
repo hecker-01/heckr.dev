@@ -5,6 +5,7 @@ import LanguagesList from "@/components/LanguagesList.vue";
 import ProjectsList from "@/components/ProjectsList.vue";
 import ShowcaseCarousel from "@/components/ShowcaseCarousel.vue";
 import ContributionGraph from "@/components/ContributionGraph.vue";
+import Footer from "@/components/Footer.vue";
 import { getAllReposWithLanguages } from "@/services/githubService";
 
 const repos = ref([]);
@@ -31,17 +32,18 @@ onMounted(() => {
 
 <template>
   <div class="w-full min-h-screen overflow-x-hidden font-mono">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-16">
       <HeroSection />
 
       <LanguagesList :languages="languages" :loading="reposLoading" />
 
-      <div class="grid lg:grid-cols-2 gap-6 lg:items-stretch mb-8">
+      <div class="grid lg:grid-cols-2 gap-6 lg:items-stretch">
         <ProjectsList :repos="repos" :loading="reposLoading" />
         <ShowcaseCarousel />
       </div>
 
       <ContributionGraph />
+      <Footer />
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { formatDate } from "@/services/blogService";
+import { parseDutchDate } from "@/services/blogService";
 
 defineProps({
   posts: {
@@ -46,9 +46,24 @@ const openPost = (slug) => {
             >
               {{ post.title }}
             </h2>
-            <span class="text-xs text-catppuccin-subtle flex-shrink-0">
-              {{ formatDate(post.date) }}
-            </span>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <span class="text-xs text-catppuccin-subtle">
+                {{ post.readingTime }} min read
+              </span>
+              <span class="text-catppuccin-surface">•</span>
+              <span
+                class="text-xs text-catppuccin-subtle"
+                :title="
+                  parseDutchDate(post.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })
+                "
+              >
+                {{ post.date }}
+              </span>
+            </div>
           </div>
 
           <p class="text-sm text-catppuccin-gray mb-3 leading-relaxed">

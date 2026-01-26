@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import Footer from "./components/Footer.vue";
 
 const router = useRouter();
 const isInitialLoad = ref(true);

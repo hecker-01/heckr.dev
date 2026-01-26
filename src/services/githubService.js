@@ -9,7 +9,7 @@ export const getAllReposWithLanguages = async () => {
     // Fetch all repositories (handle pagination)
     while (true) {
       const response = await fetch(
-        `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=${perPage}&page=${page}`
+        `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=${perPage}&page=${page}`,
       );
 
       if (!response.ok) break;
@@ -61,7 +61,7 @@ export const getContributionData = async () => {
   try {
     // Use GitHub's contribution calendar API (used by github skyline)
     const response = await fetch(
-      `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`
+      `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`,
     );
 
     if (!response.ok) {

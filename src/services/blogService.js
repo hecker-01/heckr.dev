@@ -47,6 +47,7 @@ const loadPosts = () => {
       tags: frontmatter.tags || [],
       excerpt: frontmatter.excerpt || "",
       content: body.trim(),
+      readingTime: calculateReadingTime(body),
     });
   });
 
@@ -57,7 +58,9 @@ let cache = null;
 
 export const getAllPosts = () => {
   if (!cache) cache = loadPosts();
-  return [...cache].sort((a, b) => new Date(b.date) - new Date(a.date));
+  return [...cache].sort(
+    (a, b) => parseDutchDate(b.date) - parseDutchDate(a.date),
+  );
 };
 
 export const getPostBySlug = (slug) => {
@@ -76,6 +79,16 @@ export const getAllTags = () => {
   return Array.from(tags).sort();
 };
 
-export const formatDate = (dateString) => {
-  return dateString;
+export const parseDutchDate = (dateString) => {
+  // Parse dd-mm-yyyy format
+  const [day, month, year] = dateString.split("-");
+  return new Date(year, month - 1, day);
+};
+
+export const calculateReadingTime = (content) => {
+  // Average reading speed: 200-250 words per minute
+  const wordsPerMinute = 225;
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return minutes;
 };
