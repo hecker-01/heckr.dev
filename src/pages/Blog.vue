@@ -5,6 +5,7 @@ import { getAllPosts, getPostBySlug, getAllTags } from "@/services/blogService";
 import TagFilter from "@/components/TagFilter.vue";
 import BlogList from "@/components/BlogList.vue";
 import BlogPost from "@/components/BlogPost.vue";
+import Footer from "@/components/Footer.vue";
 
 const view = ref("list");
 const currentPost = ref(null);
@@ -147,10 +148,12 @@ watch(
             :selected-tag="selectedTag"
             @open-post="openPost"
           />
+          <Footer />
         </div>
 
         <div v-else-if="view === 'post' && currentPost" key="post">
           <BlogPost :post="currentPost" @go-back="goBack" />
+          <Footer />
         </div>
       </Transition>
     </div>

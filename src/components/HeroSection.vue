@@ -112,16 +112,12 @@ const editorStatus = computed(() => {
           <span :class="discordStatusColor">[{{ discordStatus }}]</span>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div v-if="!isLoading && spotify" class="flex items-center gap-2">
           <span class="text-catppuccin-green">spotify</span>
           <span class="text-catppuccin-subtle">:</span>
-          <span
-            v-if="!isLoading && spotify"
-            class="text-catppuccin-text truncate"
-          >
+          <span class="text-catppuccin-text truncate">
             {{ spotify.song }} - {{ spotify.artist }}
           </span>
-          <span v-else class="text-catppuccin-subtle">not playing</span>
         </div>
 
         <div

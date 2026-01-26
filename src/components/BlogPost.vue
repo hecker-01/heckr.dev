@@ -15,20 +15,8 @@ const goBack = () => {
   emit("go-back");
 };
 
-const calculateReadingTime = (text) => {
-  const wordsPerMinute = 200;
-  const words = text.trim().split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return minutes;
-};
-
 const readingTime = computed(() => {
-  const text = props.post.content
-    .replace(/```[\s\S]*?```/g, "")
-    .replace(/[^\w\s]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  return calculateReadingTime(text);
+  return props.post.readingTime || 1;
 });
 
 const parseMarkdown = (content) => {
