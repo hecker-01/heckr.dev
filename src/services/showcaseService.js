@@ -22,7 +22,7 @@ export const showcaseItems = [
       "Built with Vue.js and Tailwind CSS, showcasing my projects and skills.",
     link: "https://github.com/hecker-01/website",
     screenshot: "/screenshot.png",
-    accentColor: "mauve",
+    accentColor: "lavender",
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ export const showcaseItems = [
       "My (old) main website built with SvelteKit and Tailwind CSS, featuring project showcases.",
     link: "https://heckerdev.net",
     screenshot: "/screenshot-heckerdev.png",
-    accentColor: "lavender",
+    accentColor: "mauve",
   },
 ];
 

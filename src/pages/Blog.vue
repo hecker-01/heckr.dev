@@ -1,12 +1,10 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import {
-  getAllPosts,
-  getPostBySlug,
-  getAllTags,
-  formatDate,
-} from "@/services/blogService";
+import { getAllPosts, getPostBySlug, getAllTags } from "@/services/blogService";
+import TagFilter from "@/components/TagFilter.vue";
+import BlogList from "@/components/BlogList.vue";
+import BlogPost from "@/components/BlogPost.vue";
 
 const view = ref("list");
 const currentPost = ref(null);
@@ -45,12 +43,6 @@ const openPost = (slug) => {
   }
 };
 
-const clearPostQuery = () => {
-  if (!("post" in route.query)) return;
-  const newQuery = { ...route.query };
-  delete newQuery.post;
-  router.replace({ name: "Blog", query: newQuery });
-};
 const goBack = ({ skipQueryUpdate = false } = {}) => {
   view.value = "list";
   currentPost.value = null;
@@ -61,144 +53,16 @@ const goBack = ({ skipQueryUpdate = false } = {}) => {
     router.replace({ name: "Blog", query: newQuery });
   }
 };
+
 const toggleTag = (tag) => {
   selectedTag.value = selectedTag.value === tag ? null : tag;
 };
-const calculateReadingTime = (text) => {
-  const wordsPerMinute = 200;
-  const words = text.trim().split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return minutes;
-};
-const parseMarkdown = (content) => {
-  let html = content;
-  // Store code blocks temporarily to prevent other replacements from affecting them
-  const codeBlocks = [];
-  html = html.replace(/```(\w*)\s*\n?([\s\S]*?)```/g, (match, lang, code) => {
-    const placeholder = `__CODEBLOCK_${codeBlocks.length}__`;
-    const escapedCode = code
-      .trim()
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    const languageClass = lang ? `language-${lang.toLowerCase()}` : "";
-    const blockId = `code-block-${codeBlocks.length}`;
-    codeBlocks.push(
-      `<div class="relative group">
-                <button data-clipboard-target="#${blockId}" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-xs text-catppuccin-subtle hover:text-catppuccin-mauve px-2 py-1 bg-catppuccin-crust border border-catppuccin-surface rounded hover:bg-catppuccin-mauve/10 cursor-pointer z-10">
-                    copy
-                </button>
-                <pre class="bg-catppuccin-surface/50 border border-catppuccin-overlay/30 rounded p-4 overflow-x-auto my-4"><code id="${blockId}" class="${languageClass}">${escapedCode}</code></pre>
-            </div>`,
-    );
-    return placeholder;
-  });
-  // Parse tables
-  const tables = [];
-  html = html.replace(/((?:\|[^\n]+\|\r?\n?)+)/g, (match) => {
-    // Check if this looks like a table (has at least header and separator)
-    const lines = match.trim().split(/\r?\n/);
-    if (lines.length < 2) return match;
 
-    // Check for separator row (|---|---|)
-    const hasSeparator = /^\|[\s\-:|]+\|$/.test(lines[1]);
-    if (!hasSeparator) return match;
-
-    const placeholder = `__TABLE_${tables.length}__`;
-    const headerRow = lines[0];
-    const dataRows = lines.slice(2);
-
-    let tableHtml = '<table class="w-full my-4 text-sm border-collapse">';
-
-    const headers = headerRow.split("|").filter((c) => c.trim());
-    tableHtml += "<thead><tr>";
-    headers.forEach((h) => {
-      tableHtml += `<th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">${h.trim()}</th>`;
-    });
-    tableHtml += "</tr></thead>";
-
-    tableHtml += "<tbody>";
-    dataRows.forEach((row) => {
-      if (row.trim() && !/^\|[\s\-:|]+\|$/.test(row)) {
-        const cells = row.split("|").filter((c) => c.trim());
-        tableHtml += "<tr>";
-        cells.forEach((c) => {
-          tableHtml += `<td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">${c.trim()}</td>`;
-        });
-        tableHtml += "</tr>";
-      }
-    });
-    tableHtml += "</tbody></table>";
-
-    tables.push(tableHtml);
-    return placeholder;
-  });
-
-  html = html.replace(
-    /^### (.*$)/gim,
-    '<h3 class="text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">$1</h3>',
-  );
-  html = html.replace(
-    /^## (.*$)/gim,
-    '<h2 class="text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">$1</h2>',
-  );
-  html = html.replace(
-    /^# (.*$)/gim,
-    '<h1 class="text-2xl font-bold text-catppuccin-mauve mt-8 mb-4">$1</h1>',
-  );
-
-  html = html.replace(
-    /\*\*(.*?)\*\*/g,
-    '<strong class="text-catppuccin-mauve font-semibold">$1</strong>',
-  );
-  html = html.replace(
-    /`([^`]+)`/g,
-    '<code class="bg-catppuccin-surface/50 px-2 py-0.5 rounded text-catppuccin-pink text-sm">$1</code>',
-  );
-  html = html.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" class="text-catppuccin-blue hover:text-catppuccin-mauve underline transition-colors">$1</a>',
-  );
-  html = html.replace(
-    /^\- (.*$)/gim,
-    '<li class="ml-6 list-disc text-catppuccin-text mb-1">$1</li>',
-  );
-
-  html = html
-    .split("\n\n")
-    .map((p) => {
-      if (
-        !p.trim().startsWith("<") &&
-        !p.trim().startsWith("__CODEBLOCK_") &&
-        !p.trim().startsWith("__TABLE_")
-      ) {
-        return `<p class="text-catppuccin-text leading-relaxed mb-4">${p}</p>`;
-      }
-      return p;
-    })
-    .join("\n");
-  // Restore code blocks
-  codeBlocks.forEach((block, i) => {
-    html = html.replace(`__CODEBLOCK_${i}__`, block);
-  });
-  // Restore tables
-  tables.forEach((table, i) => {
-    html = html.replace(`__TABLE_${i}__`, table);
-  });
-  return html;
-};
-const readingTime = (content) => {
-  const text = content
-    .replace(/```[\s\S]*?```/g, "") // Remove code blocks
-    .replace(/[^\w\s]/g, " ") // Remove special chars
-    .replace(/\s+/g, " ") // Normalize spaces
-    .trim();
-  return calculateReadingTime(text);
-};
 onMounted(() => {
   loadPosts();
   document.documentElement.style.overflowY = "auto";
   document.body.style.overflowY = "auto";
+
   // Initialize Clipboard.js
   const clipboard = new ClipboardJS("[data-clipboard-target]");
   clipboard.on("success", function (e) {
@@ -212,12 +76,14 @@ onMounted(() => {
     }, 2000);
     e.clearSelection();
   });
+
   // Initialize Prism syntax highlighting
   setTimeout(() => {
     if (window.Prism) {
       Prism.highlightAll();
     }
   }, 100);
+
   const slugFromQuery = route.query.post;
   if (slugFromQuery) {
     openPost(slugFromQuery);
@@ -269,139 +135,22 @@ watch(
               </router-link>
             </div>
 
-            <div class="border-l-2 border-catppuccin-surface pl-4">
-              <div class="text-catppuccin-subtle text-sm mb-2">~$ ls tags/</div>
-              <div class="flex flex-wrap gap-2">
-                <button
-                  v-for="tag in tags"
-                  :key="tag"
-                  @click="toggleTag(tag)"
-                  :class="[
-                    'px-3 py-1 rounded text-xs transition-colors border',
-                    selectedTag === tag
-                      ? 'bg-catppuccin-mauve/20 text-catppuccin-mauve border-catppuccin-mauve'
-                      : 'bg-catppuccin-base/40 text-catppuccin-subtle border-catppuccin-surface hover:text-catppuccin-text hover:border-catppuccin-overlay',
-                  ]"
-                >
-                  {{ tag }}
-                </button>
-              </div>
-            </div>
+            <TagFilter
+              :tags="tags"
+              :selected-tag="selectedTag"
+              @toggle-tag="toggleTag"
+            />
           </div>
 
-          <div class="border-l-2 border-catppuccin-surface pl-4">
-            <div class="text-catppuccin-subtle text-sm mb-3">
-              ~$ ls -la posts/
-              <span v-if="selectedTag" class="text-catppuccin-mauve"
-                >| grep "{{ selectedTag }}"</span
-              >
-            </div>
-
-            <div
-              v-if="!filteredPosts.length"
-              class="text-sm text-catppuccin-subtle"
-            >
-              no posts found
-            </div>
-
-            <div v-else class="space-y-3">
-              <div
-                v-for="post in filteredPosts"
-                :key="post.id"
-                @click="openPost(post.slug)"
-                class="block group rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all cursor-pointer"
-              >
-                <div class="px-4 py-3">
-                  <div class="flex items-start justify-between gap-4 mb-2">
-                    <h2
-                      class="text-base font-semibold text-catppuccin-text group-hover:text-catppuccin-mauve transition-colors"
-                    >
-                      {{ post.title }}
-                    </h2>
-                    <span class="text-xs text-catppuccin-subtle flex-shrink-0">
-                      {{ formatDate(post.date) }}
-                    </span>
-                  </div>
-
-                  <p class="text-sm text-catppuccin-gray mb-3 leading-relaxed">
-                    {{ post.excerpt }}
-                  </p>
-
-                  <div class="flex items-center gap-2">
-                    <div class="flex flex-wrap gap-1.5">
-                      <span
-                        v-for="tag in post.tags"
-                        :key="tag"
-                        class="px-2 py-0.5 rounded text-xs bg-catppuccin-surface/60 text-catppuccin-subtle"
-                      >
-                        #{{ tag }}
-                      </span>
-                    </div>
-                    <span
-                      class="ml-auto text-catppuccin-subtle group-hover:text-catppuccin-mauve transition-colors text-sm"
-                    >
-                      read →
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <BlogList
+            :posts="filteredPosts"
+            :selected-tag="selectedTag"
+            @open-post="openPost"
+          />
         </div>
 
         <div v-else-if="view === 'post' && currentPost" key="post">
-          <div class="mb-8">
-            <div class="text-catppuccin-subtle text-sm mb-2">
-              ~$ cat {{ currentPost.slug }}.md
-            </div>
-
-            <button
-              @click="goBack"
-              class="text-sm text-catppuccin-subtle hover:text-catppuccin-text transition-colors mb-6 inline-flex items-center gap-1"
-            >
-              ← back to posts
-            </button>
-
-            <h1
-              class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-3"
-            >
-              {{ currentPost.title }}
-            </h1>
-
-            <div
-              class="flex items-center gap-4 text-sm text-catppuccin-subtle mb-4"
-            >
-              <span>{{ formatDate(currentPost.date) }}</span>
-              <span class="text-catppuccin-surface">•</span>
-              <span>~{{ readingTime(currentPost.content) }} min read</span>
-              <span class="text-catppuccin-surface">•</span>
-              <div class="flex gap-2">
-                <span
-                  v-for="tag in currentPost.tags"
-                  :key="tag"
-                  class="text-catppuccin-gray"
-                >
-                  #{{ tag }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <article class="border-l-2 border-catppuccin-surface pl-4 mb-8">
-            <div
-              class="prose prose-invert max-w-none text-catppuccin-text"
-              v-html="parseMarkdown(currentPost.content)"
-            ></div>
-          </article>
-
-          <div class="border-l-2 border-catppuccin-surface pl-4">
-            <button
-              @click="goBack"
-              class="text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors inline-flex items-center gap-1"
-            >
-              ← back to all posts
-            </button>
-          </div>
+          <BlogPost :post="currentPost" @go-back="goBack" />
         </div>
       </Transition>
     </div>
@@ -425,23 +174,5 @@ watch(
 .fade-leave-to {
   opacity: 0;
   transform: translateY(-20px);
-}
-
-article :deep(a) {
-  word-break: break-word;
-}
-
-article :deep(ul) {
-  margin: 1rem 0;
-}
-
-article :deep(pre) {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-article :deep(code) {
-  font-family: "JetBrains Mono", monospace;
 }
 </style>
