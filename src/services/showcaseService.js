@@ -37,7 +37,7 @@ export const showcaseItems = [
     id: 3,
     name: "Main Website",
     description:
-      "My (old) main website built with SvelteKit and Tailwind CSS, featuring project showcases.",
+      "My (old) website built with SvelteKit and Tailwind CSS, featuring project showcases.",
     link: "https://heckerdev.net",
     screenshot: "/screenshot-heckerdev.png",
     accentColor: "mauve",
