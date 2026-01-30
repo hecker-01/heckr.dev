@@ -45,7 +45,7 @@ const loadPosts = () => {
       title: frontmatter.title || slug,
       date: frontmatter.date || new Date().toISOString().split("T")[0],
       tags: frontmatter.tags || [],
-      excerpt: frontmatter.excerpt || "",
+      description: frontmatter.description || "",
       content: body.trim(),
       readingTime: calculateReadingTime(body),
     });

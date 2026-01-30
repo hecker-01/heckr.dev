@@ -1,11 +1,10 @@
 ---
 title: Welcome to my blog
+slug: welcome-to-my-blog
 date: 22-01-2026
 tags: [meta, personal]
-excerpt: first post on this new blog.
+description: First post on this new blog.
 ---
-
-# Welcome to my blog
 
 I want to share my tech-adventures, so I decided to make this
 

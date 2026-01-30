@@ -67,7 +67,7 @@ const openPost = (slug) => {
           </div>
 
           <p class="text-sm text-catppuccin-gray mb-3 leading-relaxed">
-            {{ post.excerpt }}
+            {{ post.description }}
           </p>
 
           <div class="flex items-center gap-2">

@@ -32,7 +32,7 @@ const toggleTag = (tag) => {
             : 'bg-catppuccin-base/40 text-catppuccin-subtle border-catppuccin-surface hover:text-catppuccin-text hover:border-catppuccin-overlay',
         ]"
       >
-        {{ tag }}
+        #{{ tag }}
       </button>
     </div>
   </div>
