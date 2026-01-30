@@ -21,6 +21,8 @@ const readingTime = computed(() => {
 const parseMarkdown = (content) => {
   let html = content;
   const codeBlocks = [];
+
+  // Extract code blocks first to avoid processing their content
   html = html.replace(/```(\w*)\s*\n?([\s\S]*?)```/g, (match, lang, code) => {
     const placeholder = `__CODEBLOCK_${codeBlocks.length}__`;
     const escapedCode = code
@@ -41,6 +43,7 @@ const parseMarkdown = (content) => {
     return placeholder;
   });
 
+  // Extract tables
   const tables = [];
   html = html.replace(/((?:\|[^\n]+\|\r?\n?)+)/g, (match) => {
     const lines = match.trim().split(/\r?\n/);
@@ -79,6 +82,13 @@ const parseMarkdown = (content) => {
     return placeholder;
   });
 
+  // Horizontal rules (---, ***, ___)
+  html = html.replace(
+    /^(?:---|\*\*\*|___)\s*$/gim,
+    '<hr class="border-catppuccin-surface my-6">',
+  );
+
+  // Headings (process h3 first to avoid conflicts)
   html = html.replace(
     /^### (.*$)/gim,
     '<h3 class="text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">$1</h3>',
@@ -92,41 +102,135 @@ const parseMarkdown = (content) => {
     '<h1 class="text-2xl font-bold text-catppuccin-mauve mt-8 mb-4">$1</h1>',
   );
 
+  // Blockquotes
+  html = html.replace(
+    /^> (.*$)/gim,
+    '<blockquote class="border-l-4 border-catppuccin-mauve pl-4 py-2 my-4 text-catppuccin-text italic bg-catppuccin-surface/20">$1</blockquote>',
+  );
+
+  // Images (before links to avoid conflict)
+  html = html.replace(
+    /!\[([^\]]*)\]\(([^)]+)\)/g,
+    '<img src="$2" alt="$1" class="max-w-full h-auto rounded my-4">',
+  );
+
+  // Bold and italic (process bold first)
+  html = html.replace(
+    /\*\*\*(.*?)\*\*\*/g,
+    '<strong class="text-catppuccin-mauve font-semibold"><em>$1</em></strong>',
+  );
   html = html.replace(
     /\*\*(.*?)\*\*/g,
     '<strong class="text-catppuccin-mauve font-semibold">$1</strong>',
   );
   html = html.replace(
+    /\*(.*?)\*/g,
+    '<em class="text-catppuccin-text italic">$1</em>',
+  );
+
+  // Strikethrough
+  html = html.replace(
+    /~~(.*?)~~/g,
+    '<del class="text-catppuccin-subtle line-through">$1</del>',
+  );
+
+  // Inline code
+  html = html.replace(
     /`([^`]+)`/g,
     '<code class="bg-catppuccin-surface/50 px-2 py-0.5 rounded text-catppuccin-pink text-sm">$1</code>',
   );
+
+  // Links
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
     '<a href="$2" target="_blank" class="text-catppuccin-blue hover:text-catppuccin-mauve underline transition-colors">$1</a>',
   );
+
+  // Ordered lists
   html = html.replace(
-    /^\- (.*$)/gim,
+    /^\d+\. (.*$)/gim,
+    '<li class="ml-6 list-decimal text-catppuccin-text mb-1">$1</li>',
+  );
+
+  // Unordered lists
+  html = html.replace(
+    /^[\-\*\+] (.*$)/gim,
     '<li class="ml-6 list-disc text-catppuccin-text mb-1">$1</li>',
   );
 
+  // Task lists
+  html = html.replace(
+    /^[\-\*\+] \[ \] (.*$)/gim,
+    '<li class="ml-6 list-none text-catppuccin-text mb-1"><input type="checkbox" disabled class="mr-2">$1</li>',
+  );
+  html = html.replace(
+    /^[\-\*\+] \[x\] (.*$)/gim,
+    '<li class="ml-6 list-none text-catppuccin-text mb-1"><input type="checkbox" checked disabled class="mr-2">$1</li>',
+  );
+
+  // Handle paragraphs - split by double newlines for paragraphs
+  const blockElements =
+    /^<(h[1-6]|ul|ol|li|blockquote|pre|div|hr|table|thead|tbody|tr|th|td)/i;
+
   html = html
     .split("\n\n")
-    .map((p) => {
-      if (
-        !p.trim().startsWith("<") &&
-        !p.trim().startsWith("__CODEBLOCK_") &&
-        !p.trim().startsWith("__TABLE_")
-      ) {
-        return `<p class="text-catppuccin-text leading-relaxed mb-4">${p}</p>`;
+    .map((block) => {
+      const trimmed = block.trim();
+      // Skip empty blocks
+      if (trimmed.length === 0) {
+        return block;
       }
-      return p;
-    })
-    .join("\n");
+      // Skip placeholders
+      if (
+        trimmed.startsWith("__CODEBLOCK_") ||
+        trimmed.startsWith("__TABLE_")
+      ) {
+        return block;
+      }
 
+      // Process each line within the block
+      const lines = block.split("\n");
+      const processedLines = [];
+      let paragraphLines = [];
+
+      const flushParagraph = () => {
+        if (paragraphLines.length > 0) {
+          const content = paragraphLines.join("<br>");
+          processedLines.push(
+            `<p class="text-catppuccin-text leading-relaxed mb-4">${content}</p>`,
+          );
+          paragraphLines = [];
+        }
+      };
+
+      lines.forEach((line) => {
+        const lineTrimmed = line.trim();
+        if (lineTrimmed.length === 0) {
+          flushParagraph();
+          processedLines.push(line);
+        } else if (
+          blockElements.test(lineTrimmed) ||
+          lineTrimmed.startsWith("__CODEBLOCK_") ||
+          lineTrimmed.startsWith("__TABLE_")
+        ) {
+          flushParagraph();
+          processedLines.push(line);
+        } else {
+          paragraphLines.push(line.trim());
+        }
+      });
+
+      flushParagraph();
+      return processedLines.join("\n");
+    })
+    .join("\n\n");
+
+  // Restore code blocks
   codeBlocks.forEach((block, i) => {
     html = html.replace(`__CODEBLOCK_${i}__`, block);
   });
 
+  // Restore tables
   tables.forEach((table, i) => {
     html = html.replace(`__TABLE_${i}__`, table);
   });
