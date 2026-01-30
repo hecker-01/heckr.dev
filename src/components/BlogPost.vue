@@ -88,19 +88,30 @@ const parseMarkdown = (content) => {
     '<hr class="border-catppuccin-surface my-6">',
   );
 
+  // Helper to create slug from heading text
+  const slugify = (text) => {
+    return text
+      .toLowerCase()
+      .replace(/<[^>]*>/g, "") // Remove HTML tags
+      .replace(/[^\w\s-]/g, "") // Remove special characters
+      .replace(/\s+/g, "-") // Replace spaces with hyphens
+      .replace(/-+/g, "-") // Replace multiple hyphens with single
+      .trim();
+  };
+
   // Headings (process h3 first to avoid conflicts)
-  html = html.replace(
-    /^### (.*$)/gim,
-    '<h3 class="text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">$1</h3>',
-  );
-  html = html.replace(
-    /^## (.*$)/gim,
-    '<h2 class="text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">$1</h2>',
-  );
-  html = html.replace(
-    /^# (.*$)/gim,
-    '<h1 class="text-2xl font-bold text-catppuccin-mauve mt-8 mb-4">$1</h1>',
-  );
+  html = html.replace(/^### (.*$)/gim, (match, p1) => {
+    const slug = slugify(p1);
+    return `<h3 id="${slug}" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">${p1}<a href="#${slug}" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>`;
+  });
+  html = html.replace(/^## (.*$)/gim, (match, p1) => {
+    const slug = slugify(p1);
+    return `<h2 id="${slug}" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">${p1}<a href="#${slug}" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>`;
+  });
+  html = html.replace(/^# (.*$)/gim, (match, p1) => {
+    const slug = slugify(p1);
+    return `<h1 id="${slug}" class="group text-2xl font-bold text-catppuccin-mauve mt-8 mb-4">${p1}<a href="#${slug}" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h1>`;
+  });
 
   // Blockquotes
   html = html.replace(
@@ -289,14 +300,12 @@ onMounted(() => {
       ></div>
     </article>
 
-    <div class="border-l-2 border-catppuccin-surface pl-4">
-      <button
-        @click="goBack"
-        class="text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors inline-flex items-center gap-1"
-      >
-        [← back to all posts]
-      </button>
-    </div>
+    <button
+      @click="goBack"
+      class="text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors inline-flex items-center gap-1"
+    >
+      [← back to all posts]
+    </button>
   </div>
 </template>
 
