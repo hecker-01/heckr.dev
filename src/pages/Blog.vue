@@ -147,6 +147,7 @@ watch(
             :posts="filteredPosts"
             :selected-tag="selectedTag"
             @open-post="openPost"
+            @select-tag="toggleTag"
           />
           <Footer />
         </div>

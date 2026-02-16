@@ -12,7 +12,7 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["open-post"]);
+const emit = defineEmits(["open-post", "select-tag"]);
 
 const openPost = (slug) => {
   emit("open-post", slug);
@@ -75,7 +75,8 @@ const openPost = (slug) => {
               <span
                 v-for="tag in post.tags"
                 :key="tag"
-                class="px-2 py-0.5 rounded text-xs bg-catppuccin-surface/60 text-catppuccin-subtle"
+                @click.stop="emit('select-tag', tag)"
+                class="px-2 py-0.5 rounded text-xs bg-catppuccin-surface/60 text-catppuccin-subtle hover:bg-catppuccin-mauve/20 hover:text-catppuccin-mauve cursor-pointer transition-colors"
               >
                 #{{ tag }}
               </span>
