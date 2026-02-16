@@ -154,7 +154,7 @@ const parseMarkdown = (content) => {
   // Links
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" class="text-catppuccin-blue hover:text-catppuccin-mauve underline transition-colors">$1</a>',
+    '<a href="$2" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">$1</a>',
   );
 
   // Ordered lists
@@ -253,6 +253,10 @@ onMounted(() => {
   setTimeout(() => {
     if (window.Prism) {
       Prism.highlightAll();
+      // Remove language-* classes from <pre> elements (keep them on <code>)
+      document.querySelectorAll('pre[class*="language-"]').forEach(pre => {
+        pre.className = pre.className.replace(/language-\S+/g, '').trim();
+      });
     }
   }, 100);
 });
