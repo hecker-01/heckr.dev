@@ -1,7 +1,7 @@
 ---
 title: Using git (crashcourse)
 slug: using-git-crashcourse
-date: 30-01-2026
+date: 29-01-2026
 tags: [tutorial, guide, git, version-control, cli]
 description: A simple guide on how to use the git bash properly
 ---
