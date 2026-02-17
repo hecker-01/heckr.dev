@@ -59,11 +59,10 @@ const displayedRepos = computed(() => {
         class="space-y-2"
       >
         <a
-          v-for="(repo, index) in displayedRepos"
+          v-for="(repo) in displayedRepos"
           :key="repo.id"
           :href="repo.html_url"
           target="_blank"
-          :style="{ transitionDelay: `${index * 50}ms` }"
           class="block group rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-colors"
         >
           <div
