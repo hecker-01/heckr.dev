@@ -1,6 +1,9 @@
 <script setup>
 import { computed } from "vue";
 import { lanyardData } from "@/services/lanyardService";
+import { getLinks } from "@/services/linksService";
+
+const links = getLinks();
 
 const discordStatusColor = computed(() => lanyardData.discordStatusColor);
 const spotify = computed(() => lanyardData.spotify);
@@ -72,20 +75,26 @@ const editorStatus = computed(() => {
         ><span class="text-catppuccin-green">Hecker_01</span>
       </div>
 
-      <div class="flex items-center flex-wrap gap-4 text-sm">
-        <router-link
-          to="/blog"
-          class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors"
-        >
-          [blog]
-        </router-link>
-        <a
-          href="https://github.com/Hecker-01"
-          target="_blank"
-          class="text-catppuccin-subtle hover:text-catppuccin-text transition-colors"
-        >
-          [github]
-        </a>
+      <div class="flex items-center flex-wrap gap-4 text-sm mt-4">
+        <template v-for="link in links" :key="link.id">
+          <router-link
+            v-if="!link.external"
+            :to="link.href"
+            class="text-catppuccin-subtle transition-colors flex items-center gap-1 group"
+            :style="{ '--accent': link.accentColor }"
+          >
+            [<span class="transition-colors" :style="{ color: link.accentColor }" >cd </span>~/{{ link.label }}]
+          </router-link>
+          <a
+            v-else
+            :href="link.href"
+            target="_blank"
+            class="text-catppuccin-subtle transition-colors flex items-center gap-1 group"
+            :style="{ '--accent': link.accentColor }"
+          >
+            [<span class="transition-colors" :style="{ color: link.accentColor }" >cd </span>~/{{ link.label }}]
+          </a>
+        </template>
       </div>
     </div>
 
@@ -159,3 +168,9 @@ const editorStatus = computed(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.group:hover {
+  color: var(--accent);
+}
+</style>
