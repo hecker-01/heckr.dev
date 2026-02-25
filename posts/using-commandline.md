@@ -1,9 +1,10 @@
 ---
 title: Using the Command Line (crashcourse)
-slug: using-commandline-crashcourse
+slug: using-commandline
 date: 16-12-2025
 tags: [tutorial, guide, cli, terminal, bash, powershell, windows, linux]
 description: A beginner-friendly guide to mastering the command line on Windows and Linux
+unlisted: true
 ---
 
 ## Why Learn the Command Line?
@@ -20,10 +21,12 @@ The command line (also called terminal, shell, or console) is a powerful tool th
 ### Windows
 
 **PowerShell (Recommended):**
+
 - Press `Win + X` and select "Windows Terminal" or "PowerShell"
 - Or press `Win + R`, type `powershell`, and press Enter
 
 **Command Prompt (Legacy):**
+
 - Press `Win + R`, type `cmd`, and press Enter
 
 ### Linux/Mac
@@ -37,11 +40,13 @@ The command line (also called terminal, shell, or console) is a powerful tool th
 When you open your terminal, you'll see a prompt waiting for input:
 
 **Linux/Mac (Bash):**
+
 ```bash
 username@hostname:~$
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 PS C:\Users\Username>
 ```
@@ -54,9 +59,9 @@ The prompt shows your current location. The `~` symbol represents your home dire
 
 See where you are right now:
 
-| Linux/Mac | Windows |
-|-----------|---------|
-| `pwd` | `pwd` or `cd` (without arguments) |
+| Linux/Mac | Windows                           |
+| --------- | --------------------------------- |
+| `pwd`     | `pwd` or `cd` (without arguments) |
 
 ```bash
 # Linux/Mac
@@ -72,9 +77,9 @@ pwd
 
 See what's in the current directory:
 
-| Linux/Mac | Windows |
-|-----------|---------|
-| `ls` | `ls` or `dir` |
+| Linux/Mac | Windows       |
+| --------- | ------------- |
+| `ls`      | `ls` or `dir` |
 
 ```bash
 # Linux/Mac
@@ -105,8 +110,8 @@ ls -Force
 
 Move between folders:
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac | Windows   |
+| --------- | --------- |
 | `cd path` | `cd path` |
 
 ```bash
@@ -132,6 +137,7 @@ cd \       # Windows
 ```
 
 **Windows-specific:**
+
 ```powershell
 # Change drive
 D:
@@ -151,8 +157,8 @@ PowerShell accepts both, but CMD requires backslashes.
 
 ### Create a Directory
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac.   | Windows      |
+| ------------ | ------------ |
 | `mkdir name` | `mkdir name` |
 
 ```bash
@@ -166,8 +172,8 @@ mkdir -Path projects/website/css # Windows PowerShell
 
 ### Create a File
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac        | Windows                              |
+| ---------------- | ------------------------------------ |
 | `touch filename` | `New-Item filename` or `ni filename` |
 
 ```bash
@@ -182,8 +188,8 @@ ni index.html, style.css, script.js
 
 ### Copy Files and Folders
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac        | Windows                    |
+| ---------------- | -------------------------- |
 | `cp source dest` | `cp source dest` or `copy` |
 
 ```bash
@@ -200,8 +206,8 @@ cp -Recurse folder/ folder-backup/ # Windows PowerShell
 
 ### Move/Rename Files and Folders
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac        | Windows                    |
+| ---------------- | -------------------------- |
 | `mv source dest` | `mv source dest` or `move` |
 
 ```bash
@@ -217,8 +223,8 @@ mv file.txt Documents/newname.txt
 
 ### Delete Files and Folders
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac     | Windows                |
+| ------------- | ---------------------- |
 | `rm filename` | `rm filename` or `del` |
 
 ```bash
@@ -243,8 +249,8 @@ rm -Recurse -Force foldername # Windows PowerShell
 
 ### View File Contents
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac      | Windows                           |
+| -------------- | --------------------------------- |
 | `cat filename` | `cat filename` or `type filename` |
 
 ```bash
@@ -257,8 +263,8 @@ cat -n readme.md  # Linux/Mac
 
 ### View Large Files
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac       | Windows         |
+| --------------- | --------------- |
 | `less filename` | `more filename` |
 
 ```bash
@@ -290,6 +296,7 @@ tail -n 50 filename.txt
 ### Edit Files (Terminal Editors)
 
 **Linux/Mac:**
+
 ```bash
 # Nano (beginner-friendly)
 nano filename.txt
@@ -301,6 +308,7 @@ vim filename.txt
 ```
 
 **Windows:**
+
 ```powershell
 # Open in Notepad
 notepad filename.txt
@@ -313,9 +321,9 @@ code filename.txt
 
 ### Find Files
 
-| Linux/Mac | Windows |
-|-----------|---------|
-| `find` | `Get-ChildItem -Recurse` |
+| Linux/Mac | Windows                  |
+| --------- | ------------------------ |
+| `find`    | `Get-ChildItem -Recurse` |
 
 ```bash
 # Linux/Mac
@@ -340,8 +348,8 @@ gci -r -fi "*.txt"
 
 ### Search Inside Files
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac           | Windows                      |
+| ------------------- | ---------------------------- |
 | `grep pattern file` | `Select-String pattern file` |
 
 ```bash
@@ -425,8 +433,8 @@ Get-ComputerInfo
 
 ### View Running Processes
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac     | Windows                     |
+| ------------- | --------------------------- |
 | `ps` or `top` | `Get-Process` or `tasklist` |
 
 ```bash
@@ -442,8 +450,8 @@ tasklist
 
 ### Kill a Process
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac  | Windows                |
+| ---------- | ---------------------- |
 | `kill PID` | `Stop-Process -Id PID` |
 
 ```bash
@@ -482,8 +490,8 @@ ipconfig /all
 
 ### Download Files
 
-| Linux/Mac | Windows |
-|-----------|---------|
+| Linux/Mac        | Windows                       |
+| ---------------- | ----------------------------- |
 | `curl` or `wget` | `Invoke-WebRequest` or `curl` |
 
 ```bash
@@ -549,16 +557,16 @@ $env:MY_VAR = "value"
 
 ### Keyboard Shortcuts (Works in most terminals)
 
-| Shortcut | Action |
-|----------|--------|
-| `Tab` | Auto-complete commands and paths |
-| `↑` / `↓` | Navigate command history |
-| `Ctrl + C` | Cancel current command |
-| `Ctrl + L` | Clear the screen |
-| `Ctrl + A` | Go to beginning of line |
-| `Ctrl + E` | Go to end of line |
-| `Ctrl + U` | Clear line before cursor |
-| `Ctrl + R` | Search command history |
+| Shortcut   | Action                           |
+| ---------- | -------------------------------- |
+| `Tab`      | Auto-complete commands and paths |
+| `↑` / `↓`. | Navigate command history         |
+| `Ctrl + C` | Cancel current command           |
+| `Ctrl + L` | Clear the screen                 |
+| `Ctrl + A` | Go to beginning of line          |
+| `Ctrl + E` | Go to end of line                |
+| `Ctrl + U` | Clear line before cursor         |
+| `Ctrl + R` | Search command history           |
 
 ### Command History
 
@@ -615,21 +623,21 @@ Get-Alias
 
 ## Quick Reference Cheat Sheet
 
-| Task | Linux/Mac | Windows PowerShell |
-|------|-----------|-------------------|
-| Current directory | `pwd` | `pwd` or `gl` |
-| List files | `ls` | `ls` or `dir` |
-| Change directory | `cd path` | `cd path` |
-| Create folder | `mkdir name` | `mkdir name` |
-| Create file | `touch file` | `ni file` |
-| Copy | `cp src dest` | `cp src dest` |
-| Move/Rename | `mv src dest` | `mv src dest` |
-| Delete file | `rm file` | `rm file` |
-| Delete folder | `rm -r folder` | `rm -r folder` |
-| View file | `cat file` | `cat file` |
-| Search in file | `grep pattern file` | `sls pattern file` |
-| Find files | `find . -name "*.txt"` | `gci -r -fi "*.txt"` |
-| Clear screen | `clear` | `cls` |
+| Task              | Linux/Mac              | Windows PowerShell   |
+| ----------------- | ---------------------- | -------------------- |
+| Current directory | `pwd`                  | `pwd` or `gl`        |
+| List files        | `ls`                   | `ls` or `dir`        |
+| Change directory  | `cd path`              | `cd path`            |
+| Create folder     | `mkdir name`           | `mkdir name`         |
+| Create file       | `touch file`           | `ni file`            |
+| Copy              | `cp src dest`          | `cp src dest`        |
+| Move/Rename       | `mv src dest`          | `mv src dest`        |
+| Delete file       | `rm file`              | `rm file`            |
+| Delete folder     | `rm -r folder`         | `rm -r folder`       |
+| View file         | `cat file`             | `cat file`           |
+| Search in file    | `grep pattern file`    | `sls pattern file`   |
+| Find files        | `find . -name "*.txt"` | `gci -r -fi "*.txt"` |
+| Clear screen      | `clear`                | `clear`              |
 
 ## Best Practices
 

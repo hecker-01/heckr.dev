@@ -58,7 +58,7 @@ export const initEasterEggs = () => {
     );
     console.log(
       "%cA passionate developer who loves building cool things with code!\n" +
-        "Check out my projects and blog on the site.",
+        "Check out my projects and posts on the site.",
       "font-size: 12px; color: #a6adc8;",
     );
   };

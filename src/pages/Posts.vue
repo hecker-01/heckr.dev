@@ -1,10 +1,10 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getAllPosts, getPostBySlug, getAllTags } from "@/services/blogService";
+import { getAllPosts, getPostBySlug, getAllTags } from "@/services/postService";
 import TagFilter from "@/components/TagFilter.vue";
-import BlogList from "@/components/BlogList.vue";
-import BlogPost from "@/components/BlogPost.vue";
+import PostList from "@/components/PostList.vue";
+import PostComponent from "@/components/PostComponent.vue";
 import Footer from "@/components/Footer.vue";
 
 const view = ref("list");
@@ -33,14 +33,14 @@ const openPost = (slug) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (route.query.post !== slug) {
       router.replace({
-        name: "Blog",
+        name: "Posts",
         query: { ...route.query, post: slug },
       });
     }
   } else if (route.query.post) {
     const newQuery = { ...route.query };
     delete newQuery.post;
-    router.replace({ name: "Blog", query: newQuery });
+    router.replace({ name: "Posts", query: newQuery });
   }
 };
 
@@ -51,7 +51,7 @@ const goBack = ({ skipQueryUpdate = false } = {}) => {
   if (!skipQueryUpdate && "post" in route.query) {
     const newQuery = { ...route.query };
     delete newQuery.post;
-    router.replace({ name: "Blog", query: newQuery });
+    router.replace({ name: "Posts", query: newQuery });
   }
 };
 
@@ -116,11 +116,11 @@ watch(
       <Transition name="fade" mode="out-in">
         <div v-if="view === 'list'" key="list">
           <div class="mb-12">
-            <div class="text-catppuccin-subtle text-sm mb-2">~$ cd ~/blog</div>
+            <div class="text-catppuccin-subtle text-sm mb-2">~$ cd ~/posts</div>
             <h1
               class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-4"
             >
-              <span class="text-catppuccin-mauve">Blog</span>
+              <span class="text-catppuccin-mauve">Posts</span>
             </h1>
             <p class="text-sm text-catppuccin-gray leading-relaxed mb-6">
               My thoughts, tutorials, and experiences on various topics
@@ -143,7 +143,7 @@ watch(
             />
           </div>
 
-          <BlogList
+          <PostList
             :posts="filteredPosts"
             :selected-tag="selectedTag"
             @open-post="openPost"
@@ -153,7 +153,7 @@ watch(
         </div>
 
         <div v-else-if="view === 'post' && currentPost" key="post">
-          <BlogPost :post="currentPost" @go-back="goBack" />
+          <PostComponent :post="currentPost" @go-back="goBack" />
           <Footer />
         </div>
       </Transition>

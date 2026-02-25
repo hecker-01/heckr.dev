@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 const props = defineProps({
   post: {
@@ -16,6 +16,50 @@ const goBack = () => {
 
 const readingTime = computed(() => {
   return props.post.readingTime || 1;
+});
+
+// Variable substitution
+const variables = ref({});
+
+const extractVariables = (content) => {
+  // Find all non-escaped $[variable] patterns
+  const regex = /(?<!\\)\$\[([^\]]+)\]/g;
+  const found = new Set();
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    found.add(match[1]);
+  }
+  return Array.from(found);
+};
+
+const variableNames = computed(() => {
+  return extractVariables(props.post.content);
+});
+
+const substituteVariables = (content) => {
+  // First, protect escaped variables with a placeholder
+  const escapedVars = [];
+  let processed = content.replace(/\\\$\[([^\]]+)\]/g, (match, varName) => {
+    const placeholder = `__ESCAPED_VAR_${escapedVars.length}__`;
+    escapedVars.push(`$[${varName}]`);
+    return placeholder;
+  });
+
+  // Then substitute non-escaped variables
+  processed = processed.replace(/\$\[([^\]]+)\]/g, (match, varName) => {
+    return variables.value[varName] || varName;
+  });
+
+  // Finally, restore escaped variables as literal $[var] text
+  escapedVars.forEach((escapedVar, i) => {
+    processed = processed.replace(`__ESCAPED_VAR_${i}__`, escapedVar);
+  });
+
+  return processed;
+};
+
+const processedContent = computed(() => {
+  return substituteVariables(props.post.content);
 });
 
 const parseMarkdown = (content) => {
@@ -254,8 +298,8 @@ onMounted(() => {
     if (window.Prism) {
       Prism.highlightAll();
       // Remove language-* classes from <pre> elements (keep them on <code>)
-      document.querySelectorAll('pre[class*="language-"]').forEach(pre => {
-        pre.className = pre.className.replace(/language-\S+/g, '').trim();
+      document.querySelectorAll('pre[class*="language-"]').forEach((pre) => {
+        pre.className = pre.className.replace(/language-\S+/g, "").trim();
       });
     }
   }, 100);
@@ -297,10 +341,41 @@ onMounted(() => {
       </div>
     </div>
 
+    <!-- Variable Input Section -->
+    <div
+      v-if="variableNames.length > 0"
+      class="mb-6 border border-catppuccin-surface rounded-md p-4 bg-catppuccin-surface/10"
+    >
+      <div class="text-sm text-catppuccin-subtle mb-3">
+        ~$ configure variables
+      </div>
+      <div class="space-y-3">
+        <div
+          v-for="varName in variableNames"
+          :key="varName"
+          class="flex items-center gap-3"
+        >
+          <label
+            :for="`var-${varName}`"
+            class="text-sm text-catppuccin-text min-w-[120px]"
+          >
+            {{ varName }}:
+          </label>
+          <input
+            :id="`var-${varName}`"
+            v-model="variables[varName]"
+            type="text"
+            :placeholder="varName"
+            class="flex-1 px-3 py-1.5 text-sm bg-catppuccin-base border border-catppuccin-surface/60 rounded text-catppuccin-text placeholder-catppuccin-subtle focus:outline-none focus:border-catppuccin-mauve transition-colors"
+          />
+        </div>
+      </div>
+    </div>
+
     <article class="border-l-2 border-catppuccin-surface pl-4 mb-8">
       <div
         class="prose prose-invert max-w-none text-catppuccin-text"
-        v-html="parseMarkdown(post.content)"
+        v-html="parseMarkdown(processedContent)"
       ></div>
     </article>
 

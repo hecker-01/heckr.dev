@@ -15,9 +15,9 @@ const catppuccinColors = {
 
 export const linkItems = [
   {
-    id: "blog",
-    label: "blog",
-    href: "/blog",
+    id: "posts",
+    label: "posts",
+    href: "/posts",
     external: false,
     accentColor: "mauve",
   },

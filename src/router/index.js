@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/pages/Home.vue";
-import Blog from "@/pages/Blog.vue";
+import Posts from "@/pages/Posts.vue";
 import NotFound from "@/pages/NotFound.vue";
 
 const routes = [
@@ -11,10 +11,10 @@ const routes = [
     meta: { title: "Home | heckr.dev" },
   },
   {
-    path: "/blog",
-    name: "Blog",
-    component: Blog,
-    meta: { title: "Blog | heckr.dev" },
+    path: "/posts",
+    name: "Posts",
+    component: Posts,
+    meta: { title: "Posts | heckr.dev" },
   },
   {
     path: "/:pathMatch(.*)*",
