@@ -1,10 +1,11 @@
 ---
-title: Setting up a local database
-slug: setting-up-local-database
+title: Setting up a local database with PHPMyAdmin
+slug: local-database
 date: 30-01-2026
 tags:
   [tutorial, guide, database, docker, mariadb, phpmyadmin, cli, user-interface]
 description: Setting up a local mariaDB database with PHPMyAdmin in docker
+unlisted: false
 ---
 
 ## Prerequisites

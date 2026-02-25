@@ -1,5 +1,5 @@
 <script setup>
-import { parseDutchDate } from "@/services/blogService";
+import { parseDutchDate } from "@/services/postService";
 
 defineProps({
   posts: {
