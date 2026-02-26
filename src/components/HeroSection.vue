@@ -83,7 +83,11 @@ const editorStatus = computed(() => {
             class="text-catppuccin-subtle transition-colors flex items-center gap-1 group"
             :style="{ '--accent': link.accentColor }"
           >
-            [<span class="transition-colors" :style="{ color: link.accentColor }" >cd </span>~/{{ link.label }}]
+            [<span
+              class="transition-colors"
+              :style="{ color: link.accentColor }"
+              >cd </span
+            >~/{{ link.label }}]
           </router-link>
           <a
             v-else
@@ -92,7 +96,11 @@ const editorStatus = computed(() => {
             class="text-catppuccin-subtle transition-colors flex items-center gap-1 group"
             :style="{ '--accent': link.accentColor }"
           >
-            [<span class="transition-colors" :style="{ color: link.accentColor }" >cd </span>~/{{ link.label }}]
+            [<span
+              class="transition-colors"
+              :style="{ color: link.accentColor }"
+              >cd </span
+            >~/{{ link.label }}]
           </a>
         </template>
       </div>
@@ -101,9 +109,10 @@ const editorStatus = computed(() => {
     <div class="border-l-2 border-catppuccin-surface pl-4 mb-4">
       <div class="text-catppuccin-subtle text-sm mb-2">~$ cat about.txt</div>
       <p class="text-catppuccin-text leading-relaxed mb-4">
-        Hi! I'm HeckerDev, I code things for Minecraft, Discord, random CLI
-        tools, websites, and recently I've been very invested in Android
-        development.<br />
+        Hi! I'm Jesse Flantua, I code things for Minecraft, Discord, random CLI
+        tools, websites, apps and more. <br />
+        My passion is backend development, but I also enjoy working on frontend
+        and mobile projects. <br />
         I have experience in a lot of different programming languages and
         frameworks, and I love learning new ones!
       </p>
@@ -111,7 +120,7 @@ const editorStatus = computed(() => {
 
     <div class="border-l-2 border-catppuccin-surface pl-4 mb-4">
       <div class="text-catppuccin-subtle text-sm mb-2">
-        ~$ ps aux | grep hecker
+        ~$ ps aux | grep heckr.dev
       </div>
       <div class="space-y-1 text-sm">
         <div v-if="!isLoading && discordUser" class="flex items-center gap-2">
