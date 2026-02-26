@@ -17,6 +17,15 @@ const catppuccinColors = {
 export const showcaseItems = [
   {
     id: 1,
+    name: "Yume Ramen",
+    description:
+      "A full application with an app, dashboard, and API, built with Vue.js, Tailwind CSS, and Node.js. It features a sleek design and robust functionality.",
+    link: "https://yume.bram-jesse.sd-lab.nl/",
+    screenshot: "/screenshot-yume-front.png",
+    accentColor: "red",
+  },
+  {
+    id: 2,
     name: "This Portfolio Website",
     description:
       "Built with Vue.js and Tailwind CSS, showcasing my projects and skills.",
@@ -25,7 +34,7 @@ export const showcaseItems = [
     accentColor: "lavender",
   },
   {
-    id: 2,
+    id: 3,
     name: "satisSuite",
     description:
       "A comprehensive plugin suite designed to streamline moderation, enhance player experience, and give you complete control over your server.",
@@ -33,15 +42,15 @@ export const showcaseItems = [
     screenshot: "/screenshot-satissuite.png",
     accentColor: "mauve",
   },
-  {
-    id: 3,
-    name: "Main Website",
-    description:
-      "My (old) website built with SvelteKit and Tailwind CSS, featuring project showcases.",
-    link: "https://heckerdev.net",
-    screenshot: "/screenshot-heckerdev.png",
-    accentColor: "mauve",
-  },
+  // {
+  //   id: 4,
+  //   name: "Main Website",
+  //   description:
+  //     "My (old) website built with SvelteKit and Tailwind CSS, featuring project showcases.",
+  //   link: "https://heckerdev.net",
+  //   screenshot: "/screenshot-heckerdev.png",
+  //   accentColor: "mauve",
+  // },
 ];
 
 export function getShowcaseItems() {
