@@ -109,7 +109,7 @@ const editorStatus = computed(() => {
     <div class="border-l-2 border-catppuccin-surface pl-4 mb-4">
       <div class="text-catppuccin-subtle text-sm mb-2">~$ cat about.txt</div>
       <p class="text-catppuccin-text leading-relaxed mb-4">
-        Hi! I'm Jesse Flantua, I code things for Minecraft, Discord, random CLI
+        Hi! I'm Jesse, I code things for Minecraft, Discord, random CLI
         tools, websites, apps and more. <br />
         My passion is backend development, but I also enjoy working on frontend
         and mobile projects. <br />
