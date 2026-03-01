@@ -62,6 +62,81 @@ const processedContent = computed(() => {
   return substituteVariables(props.post.content);
 });
 
+// Apply inline markdown transformations (links, bold, italic, inline code, images, strikethrough).
+// Used to process content inside hint/details blocks which are extracted before the main pipeline.
+const processInline = (text) => {
+  let result = text;
+
+  // Protect internal __PLACEHOLDER__ tokens from being mangled by inline regexes
+  const protected_ = [];
+  result = result.replace(/__([A-Z_0-9]+)__/g, (match) => {
+    const ph = `\x00PROT${protected_.length}\x00`;
+    protected_.push(match);
+    return ph;
+  });
+
+  // Inline code
+  const inlineCodes = [];
+  result = result.replace(/`([^`]+)`/g, (match, code) => {
+    const ph = `__IC_${inlineCodes.length}__`;
+    inlineCodes.push(
+      `<code class="bg-catppuccin-surface/50 px-2 py-0.5 rounded text-catppuccin-pink text-sm">${code
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")}</code>`,
+    );
+    return ph;
+  });
+
+  // Bold italic, bold, italic
+  result = result.replace(
+    /\*\*\*(.*?)\*\*\*/g,
+    '<strong class="text-catppuccin-mauve font-semibold"><em>$1</em></strong>',
+  );
+  result = result.replace(
+    /\*\*(.*?)\*\*/g,
+    '<strong class="text-catppuccin-mauve font-semibold">$1</strong>',
+  );
+  result = result.replace(
+    /_(.*?)_/g,
+    '<em class="text-catppuccin-text italic">$1</em>',
+  );
+  result = result.replace(
+    /\*(.*?)\*/g,
+    '<em class="text-catppuccin-text italic">$1</em>',
+  );
+
+  // Strikethrough
+  result = result.replace(
+    /~~(.*?)~~/g,
+    '<del class="text-catppuccin-subtle line-through">$1</del>',
+  );
+
+  // Images (before links)
+  result = result.replace(
+    /!\[([^\]]*)\]\(([^)]+)\)/g,
+    '<img src="$2" alt="$1" class="max-w-full h-auto rounded my-4">',
+  );
+
+  // Links
+  result = result.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">$1</a>',
+  );
+
+  // Restore inline codes
+  inlineCodes.forEach((code, j) => {
+    result = result.replaceAll(`__IC_${j}__`, code);
+  });
+
+  // Restore protected placeholders
+  protected_.forEach((original, j) => {
+    result = result.replaceAll(`\x00PROT${j}\x00`, original);
+  });
+
+  return result;
+};
+
 const parseMarkdown = (content) => {
   let html = content;
   const codeBlocks = [];
@@ -104,19 +179,7 @@ const parseMarkdown = (content) => {
     },
   );
 
-  // Extract details/dropdown blocks
-  // Syntax: :::details Title\nContent\n:::
-  const detailsBlocks = [];
-  html = html.replace(
-    /:::details\s+([^\n\r]+)\r?\n([\s\S]*?):::/g,
-    (match, title, content) => {
-      const placeholder = `__DETAILS_${detailsBlocks.length}__`;
-      detailsBlocks.push({ title: title.trim(), content: content.trim() });
-      return placeholder;
-    },
-  );
-
-  // Extract hint/callout blocks
+  // Extract hint/callout blocks FIRST so their ::: closing doesn't interfere with details parsing
   // Syntax: :::hint type\nContent\n:::
   // Types: info, warning, tip, danger
   const hintBlocks = [];
@@ -131,6 +194,24 @@ const parseMarkdown = (content) => {
       return placeholder;
     },
   );
+
+  // Extract details/dropdown blocks in a loop so innermost blocks are replaced first,
+  // enabling arbitrary nesting. Hints inside are already placeholders.
+  // Syntax: :::details Title\nContent\n:::
+  const detailsBlocks = [];
+  let detailsChanged = true;
+  while (detailsChanged) {
+    const before = html;
+    html = html.replace(
+      /:::details\s+([^\n\r]+)\r?\n([\s\S]*?):::/g,
+      (match, title, content) => {
+        const placeholder = `__DETAILS_${detailsBlocks.length}__`;
+        detailsBlocks.push({ title: title.trim(), content: content.trim() });
+        return placeholder;
+      },
+    );
+    detailsChanged = html !== before;
+  }
 
   // Handle escaped backticks before processing inline code
   const escapedBackticks = [];
@@ -358,16 +439,18 @@ const parseMarkdown = (content) => {
     })
     .join("\n\n");
 
-  // Restore details/dropdown blocks FIRST (so code blocks inside them can be restored)
-  detailsBlocks.forEach((block, i) => {
+  // Restore details/dropdown blocks in REVERSE order so outer blocks (higher indices, extracted last)
+  // are inserted into the HTML first, leaving inner __DETAILS_N__ placeholders for subsequent passes.
+  for (let i = detailsBlocks.length - 1; i >= 0; i--) {
+    const block = detailsBlocks[i];
     const detailsHtml = `<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
       <summary class="bg-catppuccin-crust px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors">
-        ${block.title}
+        ${processInline(block.title)}
       </summary>
-      <div class="p-4 bg-catppuccin-base/30">${block.content}</div>
+      <div class="p-4 bg-catppuccin-base/30">${processInline(block.content)}</div>
     </details>`;
     html = html.replaceAll(`__DETAILS_${i}__`, detailsHtml);
-  });
+  }
 
   // Restore hint/callout blocks (before code blocks so their content gets processed)
   const hintStyles = {
@@ -409,7 +492,7 @@ const parseMarkdown = (content) => {
         <span class="font-mono text-sm">[${style.icon}]</span>
         <span>${style.title}</span>
       </div>
-      <div class="text-catppuccin-text text-sm">${block.content}</div>
+      <div class="text-catppuccin-text text-sm">${processInline(block.content)}</div>
     </div>`;
     html = html.replaceAll(`__HINT_${i}__`, hintHtml);
   });
