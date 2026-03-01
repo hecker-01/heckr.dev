@@ -26,7 +26,7 @@ export class InlineParser {
     // Inline code (extract early to prevent processing inside backticks)
     const inlineCodes = [];
     result = result.replace(/`([^`]+)`/g, (match, code) => {
-      const ph = `__IC_${inlineCodes.length}__`;
+      const ph = `\x01IC${inlineCodes.length}\x01`;
       inlineCodes.push(this._renderInlineCode(code));
       return ph;
     });
@@ -69,7 +69,7 @@ export class InlineParser {
 
     // Restore inline codes
     inlineCodes.forEach((code, j) => {
-      result = result.replaceAll(`__IC_${j}__`, code);
+      result = result.replaceAll(`\x01IC${j}\x01`, code);
     });
 
     // Restore protected placeholders

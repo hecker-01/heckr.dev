@@ -27,7 +27,7 @@ export class MarkdownParser {
       codeBlocks: [],
       hintBlocks: [],
       detailsBlocks: [],
-      escapedBackticks: [],
+      escapedTokens: [],
       inlineCodeBlocks: [],
       tables: [],
     };
@@ -36,7 +36,7 @@ export class MarkdownParser {
     html = this._extractCodeBlocks(html, ctx);
     html = this._extractHintBlocks(html, ctx);
     html = this._extractDetailsBlocks(html, ctx);
-    html = this._extractEscapedBackticks(html, ctx);
+    html = this._extractEscapeSequences(html, ctx);
     html = this._extractInlineCode(html, ctx);
     html = this._extractTables(html, ctx);
 
@@ -57,7 +57,7 @@ export class MarkdownParser {
     html = this._restoreCodeBlocks(html, ctx);
     html = this._restoreTables(html, ctx);
     html = this._restoreInlineCode(html, ctx);
-    html = this._restoreEscapedBackticks(html, ctx);
+    html = this._restoreEscapeSequences(html, ctx);
 
     return html;
   }
@@ -111,10 +111,11 @@ export class MarkdownParser {
     return html;
   }
 
-  _extractEscapedBackticks(html, ctx) {
-    return html.replace(/\\`/g, () => {
-      const placeholder = `__ESCAPED_BACKTICK_${ctx.escapedBackticks.length}__`;
-      ctx.escapedBackticks.push("`");
+  _extractEscapeSequences(html, ctx) {
+    // Handle \\ → \ and \` → ` in a single pass (longer match first)
+    return html.replace(/\\\\|\\`/g, (match) => {
+      const placeholder = `__ESCAPED_TOKEN_${ctx.escapedTokens.length}__`;
+      ctx.escapedTokens.push(match === "\\\\" ? "\\" : "`");
       return placeholder;
     });
   }
@@ -155,6 +156,18 @@ export class MarkdownParser {
   }
 
   _transformHeadings(html) {
+    html = html.replace(/^###### (.*$)/gim, (match, p1) => {
+      const slug = this._slugify(p1);
+      return `<h6 id="${slug}" class="group text-xs font-semibold text-catppuccin-mauve mt-4 mb-2">${p1}<a href="#${slug}" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h6>`;
+    });
+    html = html.replace(/^##### (.*$)/gim, (match, p1) => {
+      const slug = this._slugify(p1);
+      return `<h5 id="${slug}" class="group text-sm font-semibold text-catppuccin-mauve mt-4 mb-2">${p1}<a href="#${slug}" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h5>`;
+    });
+    html = html.replace(/^#### (.*$)/gim, (match, p1) => {
+      const slug = this._slugify(p1);
+      return `<h4 id="${slug}" class="group text-base font-semibold text-catppuccin-mauve mt-5 mb-2">${p1}<a href="#${slug}" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h4>`;
+    });
     html = html.replace(/^### (.*$)/gim, (match, p1) => {
       const slug = this._slugify(p1);
       return `<h3 id="${slug}" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">${p1}<a href="#${slug}" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>`;
@@ -395,9 +408,9 @@ export class MarkdownParser {
     return html;
   }
 
-  _restoreEscapedBackticks(html, ctx) {
-    ctx.escapedBackticks.forEach((backtick, i) => {
-      html = html.replaceAll(`__ESCAPED_BACKTICK_${i}__`, backtick);
+  _restoreEscapeSequences(html, ctx) {
+    ctx.escapedTokens.forEach((token, i) => {
+      html = html.replaceAll(`__ESCAPED_TOKEN_${i}__`, token);
     });
     return html;
   }
