@@ -20,7 +20,7 @@ const openPost = (slug) => {
 </script>
 
 <template>
-  <div class="border-l-2 border-catppuccin-surface pl-4">
+  <div class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2">
     <div class="text-catppuccin-subtle text-sm mb-3">
       ~$ ls -la posts/
       <span v-if="selectedTag" class="text-catppuccin-mauve"
@@ -39,8 +39,10 @@ const openPost = (slug) => {
         @click="openPost(post.slug)"
         class="block group rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all cursor-pointer"
       >
-        <div class="px-4 py-3">
-          <div class="flex items-start justify-between gap-4 mb-2">
+        <div class="px-3 sm:px-4 py-3">
+          <div
+            class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-4 mb-2"
+          >
             <h2
               class="text-base font-semibold text-catppuccin-text group-hover:text-catppuccin-mauve transition-colors"
             >
@@ -76,13 +78,13 @@ const openPost = (slug) => {
                 v-for="tag in post.tags"
                 :key="tag"
                 @click.stop="emit('select-tag', tag)"
-                class="px-2 py-0.5 rounded text-xs bg-catppuccin-surface/60 text-catppuccin-subtle hover:bg-catppuccin-mauve/20 hover:text-catppuccin-mauve cursor-pointer transition-colors"
+                class="px-2 py-1 sm:py-0.5 rounded text-xs bg-catppuccin-surface/60 text-catppuccin-subtle hover:bg-catppuccin-mauve/20 hover:text-catppuccin-mauve cursor-pointer transition-colors"
               >
                 #{{ tag }}
               </span>
             </div>
             <span
-              class="ml-auto text-catppuccin-subtle group-hover:text-catppuccin-mauve transition-colors text-sm"
+              class="ml-auto text-catppuccin-subtle group-hover:text-catppuccin-mauve transition-colors text-sm shrink-0"
             >
               read →
             </span>

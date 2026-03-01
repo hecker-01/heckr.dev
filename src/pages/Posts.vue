@@ -117,6 +117,14 @@ watch(
         <div v-if="view === 'list'" key="list">
           <div class="mb-12">
             <div class="text-catppuccin-subtle text-sm mb-2">~$ cd ~/posts</div>
+            <div class="flex items-center gap-4 text-sm mb-6">
+              <router-link
+                to="/"
+                class="text-catppuccin-subtle hover:text-catppuccin-text transition-colors"
+              >
+                [← home]
+              </router-link>
+            </div>
             <h1
               class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-4"
             >
@@ -126,15 +134,6 @@ watch(
               My thoughts, tutorials, and experiences on various topics
               including web development, programming, and technology.
             </p>
-
-            <div class="flex items-center gap-4 text-sm mb-6">
-              <router-link
-                to="/"
-                class="text-catppuccin-subtle hover:text-catppuccin-text transition-colors"
-              >
-                [← home]
-              </router-link>
-            </div>
 
             <TagFilter
               :tags="tags"
