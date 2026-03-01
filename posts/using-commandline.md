@@ -599,7 +599,7 @@ mkdir newproject && cd newproject
 
 ## Aliases (Shortcuts for Commands)
 
-### Linux/Mac
+### Linux/ Mac
 
 ```bash
 # Create temporary alias
