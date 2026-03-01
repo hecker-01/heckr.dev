@@ -245,7 +245,7 @@ Open:
 
 [http://$[server-ip]:8080](http://$[server-ip]:8080)
 
-Username: admin\
+Username: admin
 Password: shown in logs
 
 Set download path to:
@@ -284,9 +284,9 @@ Root folder:
 
 Add qBittorrent:
 
-Host: qbittorrent\
-Port: 8080\
-Username: admin\
+Host: qbittorrent
+Port: 8080
+Username: admin
 Password: generated password
 
 Choose Anime as Series Type.
@@ -307,9 +307,9 @@ Root folder:
 
 Add qBittorrent:
 
-Host: qbittorrent\
-Port: 8080\
-Username: admin\
+Host: qbittorrent
+Port: 8080
+Username: admin
 Password: generated password
 
 ---
@@ -354,11 +354,11 @@ Open:
 
 [http://$[server-ip]:5055](http://$[server-ip]:5055)
 
-Connect to Jellyfin.\
-Connect to Sonarr.\
+Connect to Jellyfin.
+Connect to Sonarr.
 Connect to Radarr.
 
-Add Discord webhook under **Settings** → **Notifications** → **Discord**:\
+Add Discord webhook under **Settings** → **Notifications** → **Discord**:
 Paste your Discord webhook URL and configure notification types.
 
 Root folder:
@@ -371,8 +371,8 @@ Root folder:
 
 ## Result
 
-Request anime in Seerr.\
-Sonarr/Radarr searches via Prowlarr.\
-qBittorrent downloads.\
-Sonarr/Radarr imports and renames.\
+Request anime in Seerr.
+Sonarr/Radarr searches via Prowlarr.
+qBittorrent downloads.
+Sonarr/Radarr imports and renames.
 Jellyfin displays episodes and movies.

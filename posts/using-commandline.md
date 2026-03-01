@@ -149,7 +149,7 @@ cd D:\Projects
 ### Path Separators
 
 - **Linux/Mac:** Forward slash `/` → `/home/user/Documents`
-- **Windows:** Backslash `\` → `C:\Users\User\Documents`
+- **Windows:** Backslash `\\` → `C:\Users\User\Documents`
 
 PowerShell accepts both, but CMD requires backslashes.
 
