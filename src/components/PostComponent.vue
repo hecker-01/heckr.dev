@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 
 const props = defineProps({
   post: {
@@ -67,22 +67,89 @@ const parseMarkdown = (content) => {
   const codeBlocks = [];
 
   // Extract code blocks first to avoid processing their content
-  html = html.replace(/```(\w*)\s*\n?([\s\S]*?)```/g, (match, lang, code) => {
-    const placeholder = `__CODEBLOCK_${codeBlocks.length}__`;
+  // Supports ```lang or ```lang:filename syntax
+  html = html.replace(
+    /```(\w*)(?::([^\s\n]+))?\s*\n?([\s\S]*?)```/g,
+    (match, lang, filename, code) => {
+      const placeholder = `__CODEBLOCK_${codeBlocks.length}__`;
+      const escapedCode = code
+        .trim()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\\`/g, "`");
+      const languageClass = lang ? `language-${lang.toLowerCase()}` : "";
+      const blockId = `code-block-${codeBlocks.length}`;
+      const displayLang = lang ? lang.toLowerCase() : "text";
+      const displayFilename = filename || "";
+
+      const headerBar = `<div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1">
+        ${
+          displayFilename
+            ? `<span class="text-catppuccin-text">${displayFilename}</span><span class="text-catppuccin-subtle">(${displayLang})</span>`
+            : `<span class="text-catppuccin-mauve font-medium">${displayLang}</span>`
+        }
+      </div>
+      <button data-clipboard-target="#${blockId}" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer">copy</button>
+    </div>`;
+
+      codeBlocks.push(
+        `<div class="my-4">
+        ${headerBar}
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-4 overflow-x-auto mt-0"><code id="${blockId}" class="${languageClass}">${escapedCode}</code></pre>
+      </div>`,
+      );
+      return placeholder;
+    },
+  );
+
+  // Extract details/dropdown blocks
+  // Syntax: :::details Title\nContent\n:::
+  const detailsBlocks = [];
+  html = html.replace(
+    /:::details\s+([^\n\r]+)\r?\n([\s\S]*?):::/g,
+    (match, title, content) => {
+      const placeholder = `__DETAILS_${detailsBlocks.length}__`;
+      detailsBlocks.push({ title: title.trim(), content: content.trim() });
+      return placeholder;
+    },
+  );
+
+  // Extract hint/callout blocks
+  // Syntax: :::hint type\nContent\n:::
+  // Types: info, warning, tip, danger
+  const hintBlocks = [];
+  html = html.replace(
+    /:::hint\s+(\w+)\r?\n([\s\S]*?):::/g,
+    (match, type, content) => {
+      const placeholder = `__HINT_${hintBlocks.length}__`;
+      hintBlocks.push({
+        type: type.trim().toLowerCase(),
+        content: content.trim(),
+      });
+      return placeholder;
+    },
+  );
+
+  // Handle escaped backticks before processing inline code
+  const escapedBackticks = [];
+  html = html.replace(/\\`/g, () => {
+    const placeholder = `__ESCAPED_BACKTICK_${escapedBackticks.length}__`;
+    escapedBackticks.push("`");
+    return placeholder;
+  });
+
+  // Extract inline code early to prevent processing inside backticks
+  const inlineCodeBlocks = [];
+  html = html.replace(/`([^`]+)`/g, (match, code) => {
+    const placeholder = `__INLINECODE_${inlineCodeBlocks.length}__`;
     const escapedCode = code
-      .trim()
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-    const languageClass = lang ? `language-${lang.toLowerCase()}` : "";
-    const blockId = `code-block-${codeBlocks.length}`;
-    codeBlocks.push(
-      `<div class="relative group">
-                <button data-clipboard-target="#${blockId}" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-xs text-catppuccin-subtle hover:text-catppuccin-mauve px-2 py-1 bg-catppuccin-crust border border-catppuccin-surface rounded hover:bg-catppuccin-mauve/10 cursor-pointer z-10">
-                    copy
-                </button>
-                <pre class="bg-catppuccin-base/50 border border-catppuccin-base/30 rounded p-4 overflow-x-auto my-4"><code id="${blockId}" class="${languageClass}">${escapedCode}</code></pre>
-            </div>`,
+    inlineCodeBlocks.push(
+      `<code class="bg-catppuccin-surface/50 px-2 py-0.5 rounded text-catppuccin-pink text-sm">${escapedCode}</code>`,
     );
     return placeholder;
   });
@@ -189,39 +256,46 @@ const parseMarkdown = (content) => {
     '<del class="text-catppuccin-subtle line-through">$1</del>',
   );
 
-  // Inline code
-  html = html.replace(
-    /`([^`]+)`/g,
-    '<code class="bg-catppuccin-surface/50 px-2 py-0.5 rounded text-catppuccin-pink text-sm">$1</code>',
-  );
-
   // Links
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
     '<a href="$2" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">$1</a>',
   );
 
-  // Ordered lists
-  html = html.replace(
-    /^\d+\. (.*$)/gim,
-    '<li class="ml-6 list-decimal text-catppuccin-text mb-1">$1</li>',
-  );
-
-  // Unordered lists
-  html = html.replace(
-    /^[\-\*\+] (.*$)/gim,
-    '<li class="ml-6 list-disc text-catppuccin-text mb-1">$1</li>',
-  );
-
-  // Task lists
-  html = html.replace(
-    /^[\-\*\+] \[ \] (.*$)/gim,
-    '<li class="ml-6 list-none text-catppuccin-text mb-1"><input type="checkbox" disabled class="mr-2">$1</li>',
-  );
+  // Task lists (process before other lists)
   html = html.replace(
     /^[\-\*\+] \[x\] (.*$)/gim,
     '<li class="ml-6 list-none text-catppuccin-text mb-1"><input type="checkbox" checked disabled class="mr-2">$1</li>',
   );
+  html = html.replace(
+    /^[\-\*\+] \[ \] (.*$)/gim,
+    '<li class="ml-6 list-none text-catppuccin-text mb-1"><input type="checkbox" disabled class="mr-2">$1</li>',
+  );
+
+  // Ordered lists - mark with data attribute for wrapping
+  html = html.replace(
+    /^\d+\. (.*$)/gim,
+    '<li data-list-type="ol" class="ml-6 text-catppuccin-text mb-1">$1</li>',
+  );
+
+  // Unordered lists - mark with data attribute for wrapping
+  html = html.replace(
+    /^[\-\*\+] (.*$)/gim,
+    '<li data-list-type="ul" class="ml-6 text-catppuccin-text mb-1">$1</li>',
+  );
+
+  // Wrap consecutive list items in <ol> or <ul>
+  html = html.replace(
+    /(<li data-list-type="ol"[^>]*>.*?<\/li>)(\s*(<li data-list-type="ol"[^>]*>.*?<\/li>))*/g,
+    (match) => `<ol class="list-decimal my-4 pl-2">${match}</ol>`,
+  );
+  html = html.replace(
+    /(<li data-list-type="ul"[^>]*>.*?<\/li>)(\s*(<li data-list-type="ul"[^>]*>.*?<\/li>))*/g,
+    (match) => `<ul class="list-disc my-4">${match}</ul>`,
+  );
+
+  // Clean up data attributes
+  html = html.replace(/ data-list-type="[^"]+"/g, "");
 
   // Handle paragraphs - split by double newlines for paragraphs
   const blockElements =
@@ -238,7 +312,9 @@ const parseMarkdown = (content) => {
       // Skip placeholders
       if (
         trimmed.startsWith("__CODEBLOCK_") ||
-        trimmed.startsWith("__TABLE_")
+        trimmed.startsWith("__TABLE_") ||
+        trimmed.startsWith("__DETAILS_") ||
+        trimmed.startsWith("__HINT_")
       ) {
         return block;
       }
@@ -266,7 +342,9 @@ const parseMarkdown = (content) => {
         } else if (
           blockElements.test(lineTrimmed) ||
           lineTrimmed.startsWith("__CODEBLOCK_") ||
-          lineTrimmed.startsWith("__TABLE_")
+          lineTrimmed.startsWith("__TABLE_") ||
+          lineTrimmed.startsWith("__DETAILS_") ||
+          lineTrimmed.startsWith("__HINT_")
         ) {
           flushParagraph();
           processedLines.push(line);
@@ -280,30 +358,109 @@ const parseMarkdown = (content) => {
     })
     .join("\n\n");
 
-  // Restore code blocks
+  // Restore details/dropdown blocks FIRST (so code blocks inside them can be restored)
+  detailsBlocks.forEach((block, i) => {
+    const detailsHtml = `<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
+      <summary class="bg-catppuccin-crust px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors">
+        ${block.title}
+      </summary>
+      <div class="p-4 bg-catppuccin-base/30">${block.content}</div>
+    </details>`;
+    html = html.replaceAll(`__DETAILS_${i}__`, detailsHtml);
+  });
+
+  // Restore hint/callout blocks (before code blocks so their content gets processed)
+  const hintStyles = {
+    info: {
+      bg: "bg-catppuccin-blue/10",
+      border: "border-catppuccin-blue/50",
+      icon: "i",
+      title: "Info",
+    },
+    warning: {
+      bg: "bg-catppuccin-yellow/10",
+      border: "border-catppuccin-yellow/50",
+      icon: "!",
+      title: "Warning",
+    },
+    tip: {
+      bg: "bg-catppuccin-green/10",
+      border: "border-catppuccin-green/50",
+      icon: "*",
+      title: "Tip",
+    },
+    danger: {
+      bg: "bg-catppuccin-red/10",
+      border: "border-catppuccin-red/50",
+      icon: "x",
+      title: "Danger",
+    },
+    note: {
+      bg: "bg-catppuccin-mauve/10",
+      border: "border-catppuccin-mauve/50",
+      icon: "#",
+      title: "Note",
+    },
+  };
+  hintBlocks.forEach((block, i) => {
+    const style = hintStyles[block.type] || hintStyles.info;
+    const hintHtml = `<div class="my-4 ${style.bg} ${style.border} border-l-4 rounded-r px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1">
+        <span class="font-mono text-sm">[${style.icon}]</span>
+        <span>${style.title}</span>
+      </div>
+      <div class="text-catppuccin-text text-sm">${block.content}</div>
+    </div>`;
+    html = html.replaceAll(`__HINT_${i}__`, hintHtml);
+  });
+
+  // Restore code blocks (now includes those inside details/hints)
   codeBlocks.forEach((block, i) => {
-    html = html.replace(`__CODEBLOCK_${i}__`, block);
+    html = html.replaceAll(`__CODEBLOCK_${i}__`, block);
   });
 
   // Restore tables
   tables.forEach((table, i) => {
-    html = html.replace(`__TABLE_${i}__`, table);
+    html = html.replaceAll(`__TABLE_${i}__`, table);
+  });
+
+  // Restore inline code blocks
+  inlineCodeBlocks.forEach((block, i) => {
+    html = html.replaceAll(`__INLINECODE_${i}__`, block);
+  });
+
+  // Restore escaped backticks as literal backticks
+  escapedBackticks.forEach((backtick, i) => {
+    html = html.replaceAll(`__ESCAPED_BACKTICK_${i}__`, backtick);
   });
 
   return html;
 };
 
+const runPrismHighlight = () => {
+  if (window.Prism) {
+    Prism.highlightAll();
+    // Remove language-* classes from <pre> elements (keep them on <code>)
+    document.querySelectorAll('pre[class*="language-"]').forEach((pre) => {
+      pre.className = pre.className.replace(/language-\S+/g, "").trim();
+    });
+  }
+};
+
 onMounted(() => {
-  setTimeout(() => {
-    if (window.Prism) {
-      Prism.highlightAll();
-      // Remove language-* classes from <pre> elements (keep them on <code>)
-      document.querySelectorAll('pre[class*="language-"]').forEach((pre) => {
-        pre.className = pre.className.replace(/language-\S+/g, "").trim();
-      });
-    }
-  }, 100);
+  setTimeout(runPrismHighlight, 100);
 });
+
+// Re-run syntax highlighting when variables change
+watch(
+  variables,
+  () => {
+    nextTick(() => {
+      runPrismHighlight();
+    });
+  },
+  { deep: true },
+);
 </script>
 
 <template>
@@ -405,5 +562,25 @@ article :deep(pre) {
 
 article :deep(code) {
   font-family: "JetBrains Mono", monospace;
+}
+
+/* Override browser autofill styles */
+/* Chrome, Safari, Edge (Chromium) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--catppuccin-base, #1e1e2e) inset !important;
+  -webkit-text-fill-color: var(--catppuccin-text, #cdd6f4) !important;
+  caret-color: var(--catppuccin-text, #cdd6f4) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Firefox */
+input:autofill {
+  background-color: var(--catppuccin-base, #1e1e2e) !important;
+  color: var(--catppuccin-text, #cdd6f4) !important;
+  border-color: var(--catppuccin-surface, #313244) !important;
+  filter: none !important;
 }
 </style>
