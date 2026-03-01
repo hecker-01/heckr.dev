@@ -19,7 +19,7 @@ The easiest way to set up the stack is with Docker Compose - define everything i
 
 Create a `docker-compose.yml` file:
 
-```yaml
+```yaml:docker-compose.yml
 services:
   db:
     image: mariadb:10.5
@@ -58,6 +58,10 @@ Stop the stack:
 ```bash
 docker compose down
 ```
+
+:::hint danger
+`docker compose down -v` permanently deletes the database volume and all its data.
+:::
 
 Stop and remove all data (including the database volume):
 
@@ -182,14 +186,17 @@ The `-f` flag forces removal even if containers are running.
 
 ## Troubleshooting
 
-**Port already in use:** If you get an error about ports 3306 or 8080 being in use, either:
+:::hint warning
+**Port already in use:** If you get an error about ports 3306 or 8080 being in use, stop the conflicting application or change the host port: `-p 3307:3306` or `-p 8081:80`.
+:::
 
-- Stop the conflicting application
-- Use different ports: `-p 3307:3306` or `-p 8081:80`
+:::hint warning
+**Can't connect to database:** Make sure both containers are on the same network and the database container has fully started - wait 10-15 seconds after starting.
+:::
 
-**Can't connect to database:** Make sure both containers are on the same network and the database container is fully started (wait 10-15 seconds after starting).
-
+:::hint tip
 **Containers not showing in Docker Desktop:** Refresh the application or restart Docker Desktop.
+:::
 
 ## Conclusion
 

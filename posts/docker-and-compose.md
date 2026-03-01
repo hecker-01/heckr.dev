@@ -36,7 +36,7 @@ Think of a container like a shipping container: no matter what's inside, it fits
 
 ## Installing Docker
 
-### Linux (Ubuntu/Debian)
+:::details Linux (Ubuntu/Debian)
 
 Remove any old Docker packages:
 
@@ -79,11 +79,17 @@ sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
 ```
 
+:::hint warning
 Log out and back in for the group change to take effect.
+:::
 
-### Windows / Mac
+:::
+
+:::details Windows / Mac
 
 Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop/) - it includes Docker Engine, Docker CLI, and Docker Compose out of the box.
+
+:::
 
 ### Verify Installation
 
@@ -98,7 +104,9 @@ Test with a hello-world container:
 docker run hello-world
 ```
 
-If you see a success message, you're ready to go!
+:::hint tip
+If you see a success message, Docker is installed and working correctly.
+:::
 
 ---
 
@@ -294,7 +302,9 @@ Remove all unused images:
 docker image prune
 ```
 
-Nuclear option - remove all unused containers, networks, images, and volumes:
+:::hint danger
+The following command removes **all** unused containers, networks, images, and volumes. This is irreversible.
+:::
 
 ```bash
 docker system prune -a --volumes
@@ -374,7 +384,7 @@ docker run -d -p 3000:3000 --name my-app my-app:1.0
 
 Create a `.dockerignore` file to exclude files from the build context (similar to `.gitignore`):
 
-```txt
+```txt:.dockerignore
 node_modules
 .git
 .env
@@ -382,7 +392,9 @@ node_modules
 README.md
 ```
 
+:::hint tip
 This keeps your image smaller and speeds up builds.
+:::
 
 ---
 
@@ -408,7 +420,7 @@ With Compose, you define it all in one file and run `docker compose up`. Done.
 
 ### docker-compose.yml Structure
 
-```yaml
+```yaml:docker-compose.yml
 services:
   service-name:
     image: image-name # Use a pre-built image
@@ -438,7 +450,7 @@ networks:
 
 Let's deploy a Node.js app with a PostgreSQL database and Redis cache:
 
-```yaml
+```yaml:docker-compose.yml
 services:
   app:
     build: .
@@ -547,7 +559,7 @@ docker compose pull
 
 Instead of hardcoding secrets in your compose file, use a `.env` file:
 
-```env
+```env:.env
 POSTGRES_USER=myuser
 POSTGRES_PASSWORD=supersecretpassword
 POSTGRES_DB=mydb
@@ -555,7 +567,7 @@ POSTGRES_DB=mydb
 
 Reference them in your `docker-compose.yml`:
 
-```yaml
+```yaml:docker-compose.yml
 services:
   db:
     image: postgres:16-alpine
@@ -582,7 +594,9 @@ Control what happens when a container crashes:
 | `on-failure`     | Restart only if the container exits with error |
 | `unless-stopped` | Restart unless explicitly stopped              |
 
-For most services, `unless-stopped` is the best option as it will auto-start containers on reboot.
+:::hint tip
+`unless-stopped` is the best restart policy for most services - containers will auto-start on reboot but won't restart if you manually stop them.
+:::
 
 ### Viewing Resource Usage
 
