@@ -7,8 +7,9 @@ description: Setting up a Jellyfin media server with Docker Compose, for an auto
 unlisted: true
 ---
 
-Requirements:
-Ubuntu Server 24.04 Clean Install Docker CE + Compose V2
+:::hint info
+Requirements: Ubuntu Server 24.04 clean install + Docker CE + Compose V2
+:::
 
 ---
 
@@ -77,7 +78,9 @@ sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
 ```
 
-Log out and back in.
+:::hint warning
+Log out and back in for the group change to take effect.
+:::
 
 Verify:
 
@@ -118,7 +121,7 @@ nano docker-compose.yml
 
 Paste:
 
-```yaml
+```yaml:docker-compose.yml
 version: "3.9"
 
 services:
@@ -228,11 +231,15 @@ docker compose up -d
 
 ## qBittorrent First Login
 
-Get generated admin password:
+Get the generated admin password:
 
 ```bash
 docker logs qbittorrent | grep password
 ```
+
+:::hint tip
+The generated password is only shown once in the logs. Copy it and change it in the qBittorrent settings immediately.
+:::
 
 Open:
 

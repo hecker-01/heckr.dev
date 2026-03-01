@@ -227,6 +227,10 @@ mv file.txt Documents/newname.txt
 | ------------- | ---------------------- |
 | `rm filename` | `rm filename` or `del` |
 
+:::hint danger
+Files deleted via terminal bypass the Recycle Bin/Trash. They are gone immediately and cannot be recovered.
+:::
+
 ```bash
 # Delete a file
 rm unwanted.txt
@@ -239,11 +243,9 @@ rm -r foldername       # Linux/Mac
 rm -Recurse foldername # Windows PowerShell
 
 # Force delete without confirmation
-rm -rf foldername      # Linux/Mac - BE CAREFUL!
+rm -rf foldername      # Linux/Mac
 rm -Recurse -Force foldername # Windows PowerShell
 ```
-
-**Warning:** Deleted files via command line don't go to the Recycle Bin/Trash!
 
 ## Viewing and Editing Files
 
@@ -641,17 +643,21 @@ Get-Alias
 
 ## Best Practices
 
+:::hint tip
 **Use Tab completion:** Press Tab to auto-complete file names and commands - saves time and prevents typos.
+:::
 
+:::hint warning
 **Be careful with rm/delete:** Always double-check before deleting, especially with recursive operations.
+:::
 
-**Use relative paths when possible:** It's shorter and more portable.
+:::hint tip
+**Use man pages:** Type `man command` (Linux/Mac) or `Get-Help command` (PowerShell) for built-in documentation.
+:::
 
+:::hint tip
 **Learn one thing at a time:** Don't try to memorize everything - learn commands as you need them.
-
-**Use man pages:** Type `man command` (Linux/Mac) or `Get-Help command` (PowerShell) for documentation.
-
-**Back up before experimenting:** If you're trying something new, make sure you have backups.
+:::
 
 ## Troubleshooting
 

@@ -310,7 +310,7 @@ Prevent Git from tracking certain files (like build outputs, secrets, or depende
 
 Create a `.gitignore` file in your project root:
 
-```gitignore
+```gitignore:.gitignore
 # Dependencies
 node_modules/
 vendor/
@@ -349,11 +349,13 @@ Your changes stay staged and ready to recommit.
 
 Want to throw away all your uncommitted changes?
 
+:::hint danger
+This permanently discards all uncommitted changes with no way to recover them.
+:::
+
 ```bash
 git reset --hard HEAD
 ```
-
-**Warning:** This permanently deletes your changes!
 
 ### Scenario 3: View a Specific File's History
 
@@ -383,17 +385,27 @@ git diff main..feature-branch
 
 **Review before committing:** Use `git diff` to check what you're about to commit.
 
-**Don't commit sensitive data:** Use `.gitignore` for secrets, API keys, and credentials.
+:::hint warning
+**Don't commit sensitive data.** Use `.gitignore` for secrets, API keys, and credentials.
+:::
 
 ## Troubleshooting
 
-**Merge conflicts:** If Git can't automatically merge changes, it will mark the conflicts in your files. Open them, resolve the conflicts manually, then stage and commit the resolved files.
+:::hint warning
+**Merge conflicts:** Git will mark conflicts inside affected files. Open them, resolve the conflicts manually, then stage and commit the resolved files.
+:::
 
-**Wrong branch:** If you started working on the wrong branch, use `git stash`, switch branches with `git checkout`, then `git stash pop`.
+:::hint tip
+**Wrong branch:** Use `git stash`, switch branches with `git checkout`, then `git stash pop` to move your uncommitted work.
+:::
 
+:::hint warning
 **Forgot to pull:** If your push is rejected, run `git pull` first to get remote changes, resolve any conflicts, then push again.
+:::
 
-**Committed to wrong branch:** If you haven't pushed yet, you can undo with `git reset --soft HEAD~1`, switch branches, and recommit.
+:::hint tip
+**Committed to wrong branch:** If you haven't pushed yet, undo with `git reset --soft HEAD~1`, switch branches, and recommit.
+:::
 
 ## Conclusion
 
