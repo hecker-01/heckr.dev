@@ -2,8 +2,7 @@
 title: Setting up a local database with PHPMyAdmin
 slug: local-database
 date: 30-01-2026
-tags:
-  [tutorial, guide, database, docker, mariadb, phpmyadmin, cli, user-interface]
+tags: [database, mariadb, phpmyadmin, tutorial, guide, docker, docker-compose]
 description: Setting up a local mariaDB database with PHPMyAdmin in docker
 unlisted: false
 ---
@@ -12,11 +11,85 @@ unlisted: false
 
 Before starting, make sure you have Docker Desktop installed on your machine. Download it from [Docker's official website](https://www.docker.com/products/docker-desktop/) and ensure it's running (you should see the Docker icon in your system tray).
 
-## Installation Steps
+New to Docker? Check out the [Using Docker and Docker Compose](/posts?post=docker-and-compose) guide first for an introduction to containers, images, and essential commands.
+
+## Installation with Docker Compose
+
+The easiest way to set up the stack is with Docker Compose - define everything in a single file and manage it with one command. See the [Docker Compose guide](/posts?post=docker-and-compose#docker-compose) for a full overview.
+
+Create a `docker-compose.yml` file:
+
+```yaml
+services:
+  db:
+    image: mariadb:10.5
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypass
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=db
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  db-data:
+```
+
+Start the stack:
+
+```bash
+docker compose up -d
+```
+
+Stop the stack:
+
+```bash
+docker compose down
+```
+
+Stop and remove all data (including the database volume):
+
+```bash
+docker compose down -v
+```
+
+Why Compose over manual commands:
+
+- **No manual network creation** - Compose creates a shared network automatically
+- **Persistent data** - the named volume `db-data` keeps your database data between restarts
+- **One command** - start or stop everything with a single `docker compose up -d` or `docker compose down`
+- **Reproducible** - share the file with teammates and they get an identical setup
+
+## Accessing PHPMyAdmin
+
+Navigate to `http://localhost:8080` in your web browser.
+
+**Login credentials:**
+
+- Username: `root`
+- Password: `mypass` (or whatever password you set earlier)
+
+---
+
+## Alternative: Using Standalone Docker Commands {#standalone}
+
+If you prefer running containers individually without a Compose file, you can use `docker run` directly.
 
 ### 1. Create a Docker Network
 
-First, we'll create a network so our containers can communicate with each other. Open your terminal (PowerShell on Windows, Terminal on Mac/Linux) and run:
+First, create a network so the containers can communicate. Open your terminal (PowerShell on Windows, Terminal on Mac/Linux) and run:
 
 ```bash
 docker network create db-network
@@ -27,7 +100,7 @@ This creates a bridge network that allows the database and PHPMyAdmin containers
 
 ### 2. Set up MariaDB
 
-Now let's pull and run the MariaDB container:
+Pull and run the MariaDB container:
 
 ```bash
 docker pull mariadb:10.5
@@ -44,7 +117,7 @@ docker run --name db -e MYSQL_ROOT_PASSWORD=mypass -p 3306:3306 --network db-net
 
 ### 3. Set up PHPMyAdmin
 
-Next, set up the PHPMyAdmin web interface:
+Set up the PHPMyAdmin web interface:
 
 ```bash
 docker pull phpmyadmin
@@ -58,11 +131,11 @@ docker run --name phpmyadmin -e PMA_HOST=db -p 8080:80 --network db-network -d p
 - `-p 8080:80` - Maps port 8080 on your machine to port 80 in the container (PHPMyAdmin's web interface)
 - `--network db-network` - Connects to the same network as the database
 
-## Verification
+### Verification
 
 Open Docker Desktop and you should see both containers running in the Containers tab. They should have green status indicators.
 
-Alternatively, you can verify in the terminal with:
+Alternatively, verify in the terminal with:
 
 ```bash
 docker ps
@@ -70,24 +143,13 @@ docker ps
 
 You should see both `db` and `phpmyadmin` containers listed.
 
-## Accessing PHPMyAdmin
+### Daily Usage
 
-Navigate to `http://localhost:8080` in your web browser.
-
-**Login credentials:**
-
-- Username: `root`
-- Password: `mypass` (or whatever password you set earlier)
-
-## Daily Usage
-
-### Using Docker Desktop (Recommended)
+#### Using Docker Desktop
 
 Open Docker Desktop, go to the Containers tab, and use the play/pause buttons to start or stop your containers.
 
-### Using Command Line
-
-You can also manage containers from the terminal:
+#### Using Command Line
 
 **Stop containers:**
 
@@ -101,15 +163,13 @@ docker stop db phpmyadmin
 docker start db phpmyadmin
 ```
 
-## Cleanup
+### Cleanup
 
-If you want to remove the containers completely:
-
-### Using Docker Desktop
+#### Using Docker Desktop
 
 Go to Containers tab, click the trash icon next to each container.
 
-### Using Command Line
+#### Using Command Line
 
 ```bash
 docker rm -f db phpmyadmin
@@ -117,6 +177,8 @@ docker network rm db-network
 ```
 
 The `-f` flag forces removal even if containers are running.
+
+---
 
 ## Troubleshooting
 
