@@ -49,7 +49,7 @@ watch(
 </script>
 
 <template>
-  <div>
+  <div :style="{ '--accent-color': project.accentColorHex }">
     <div class="mb-8">
       <div class="text-catppuccin-subtle text-sm mb-2">
         ~$ cat {{ project.slug }}.md
@@ -198,7 +198,6 @@ watch(
 
     <article
       class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden"
-      :style="{ '--accent-color': project.accentColorHex }"
     >
       <div
         class="prose prose-invert max-w-none text-catppuccin-text"
@@ -216,6 +215,17 @@ watch(
 </template>
 
 <style scoped>
+/* Text selection color */
+::selection {
+  background: var(--accent-color);
+  color: #1e1e2e;
+}
+
+:deep(::selection) {
+  background: var(--accent-color);
+  color: #1e1e2e;
+}
+
 article :deep(a) {
   word-break: break-word;
 }
@@ -248,6 +258,45 @@ article :deep(code) {
 article :deep(h2),
 article :deep(h3) {
   color: var(--accent-color);
+}
+
+/* Accent color for links */
+article :deep(a) {
+  color: var(--accent-color);
+}
+
+article :deep(a:hover) {
+  opacity: 0.8;
+}
+
+/* Accent color for strong/bold text */
+article :deep(strong) {
+  color: var(--accent-color);
+}
+
+/* Accent color for blockquote border */
+article :deep(blockquote) {
+  border-left-color: var(--accent-color);
+}
+
+/* Accent color for list markers */
+article :deep(ul > li)::marker {
+  color: var(--accent-color);
+}
+
+article :deep(ol > li)::marker {
+  color: var(--accent-color);
+}
+
+/* Accent color for inline code */
+article :deep(:not(pre) > code) {
+  color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+}
+
+/* Accent color for horizontal rules */
+article :deep(hr) {
+  border-color: color-mix(in srgb, var(--accent-color) 40%, transparent);
 }
 
 /* Mobile-specific overrides for rendered markdown */
