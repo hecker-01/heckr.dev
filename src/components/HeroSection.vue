@@ -75,32 +75,53 @@ const editorStatus = computed(() => {
         ><span class="text-catppuccin-green">Hecker_01</span>
       </div>
 
-      <div class="flex items-center flex-wrap gap-4 text-sm mt-4">
+      <div class="flex items-center flex-wrap gap-3 text-sm mt-4">
         <template v-for="link in links" :key="link.id">
           <router-link
             v-if="!link.external"
             :to="link.href"
-            class="text-catppuccin-subtle transition-colors flex items-center gap-1 group"
-            :style="{ '--accent': link.accentColor }"
+            class="px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 transition-all flex items-center gap-1.5 group"
+            :style="{ 
+              '--accent-color': link.accentColor,
+            }"
           >
-            [<span
-              class="transition-colors"
+            <span
+              class="text-xs text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
+            >cd</span>
+            <span
+              class="font-medium transition-colors"
               :style="{ color: link.accentColor }"
-              >cd </span
-            >~/{{ link.label }}]
+            >~/{{ link.label }}</span>
           </router-link>
           <a
             v-else
             :href="link.href"
             target="_blank"
-            class="text-catppuccin-subtle transition-colors flex items-center gap-1 group"
-            :style="{ '--accent': link.accentColor }"
+            class="px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 transition-all flex items-center gap-1.5 group"
+            :style="{ 
+              '--accent-color': link.accentColor,
+            }"
           >
-            [<span
-              class="transition-colors"
+            <span
+              class="text-xs text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
+            >cd</span>
+            <span
+              class="font-medium transition-colors"
               :style="{ color: link.accentColor }"
-              >cd </span
-            >~/{{ link.label }}]
+            >~/{{ link.label }}</span>
+            <svg
+              class="w-3 h-3 text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
           </a>
         </template>
       </div>
@@ -180,6 +201,6 @@ const editorStatus = computed(() => {
 
 <style scoped>
 .group:hover {
-  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent-color) 40%, transparent) !important;
 }
 </style>
