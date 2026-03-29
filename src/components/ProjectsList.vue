@@ -25,7 +25,7 @@ const displayedRepos = computed(() => {
   <div
     class="border-l-2 border-catppuccin-surface pl-4 min-w-0 flex flex-col lg:h-full"
   >
-    <div class="text-catppuccin-subtle text-sm mb-3">~$ ls ~/projects</div>
+    <div class="text-catppuccin-subtle text-sm mb-3">~$ ls ~/repositories</div>
 
     <div class="lg:flex-1 flex flex-col">
       <div v-if="loading" class="space-y-2">
