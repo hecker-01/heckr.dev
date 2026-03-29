@@ -2,11 +2,11 @@
 import { ref, onMounted } from "vue";
 import HeroSection from "@/components/HeroSection.vue";
 import LanguagesList from "@/components/LanguagesList.vue";
-import ProjectsList from "@/components/ProjectsList.vue";
 import ShowcaseCarousel from "@/components/ShowcaseCarousel.vue";
 import ContributionGraph from "@/components/ContributionGraph.vue";
 import Footer from "@/components/Footer.vue";
 import { getAllReposWithLanguages } from "@/services/githubService";
+import ReposList from "@/components/ReposList.vue";
 
 const repos = ref([]);
 const reposLoading = ref(true);
@@ -40,7 +40,7 @@ onMounted(() => {
       <LanguagesList :languages="languages" :loading="reposLoading" />
 
       <div class="grid lg:grid-cols-2 gap-6 lg:items-stretch">
-        <ProjectsList :repos="repos" :loading="reposLoading" />
+        <ReposList :repos="repos" :loading="reposLoading" />
         <ShowcaseCarousel />
       </div>
 
