@@ -1,7 +1,9 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 import { getShowcaseItems } from "@/services/showcaseService";
 
+const router = useRouter();
 const showcaseItems = ref([]);
 const currentShowcaseIndex = ref(0);
 const isHovering = ref(false);
@@ -11,6 +13,10 @@ const currentShowcaseItem = computed(() => {
   if (!showcaseItems.value.length) return null;
   return showcaseItems.value[currentShowcaseIndex.value];
 });
+
+const navigateToProject = (slug) => {
+  router.push({ path: "/projects", query: { project: slug } });
+};
 
 onMounted(() => {
   showcaseItems.value = getShowcaseItems();
@@ -51,12 +57,11 @@ onBeforeUnmount(() => {
     >
       <div class="lg:flex-1 lg:relative">
         <Transition name="showcase" mode="out-in">
-          <a
+          <div
             v-if="currentShowcaseItem"
             :key="currentShowcaseItem.id"
-            :href="currentShowcaseItem.link"
-            target="_blank"
-            class="group rounded-md border bg-catppuccin-base/20 hover:bg-catppuccin-base/30 transition-all overflow-hidden border-catppuccin-surface/60 lg:absolute lg:inset-0 flex flex-col"
+            @click="navigateToProject(currentShowcaseItem.slug)"
+            class="group rounded-md border bg-catppuccin-base/20 hover:bg-catppuccin-base/30 transition-all overflow-hidden border-catppuccin-surface/60 lg:absolute lg:inset-0 flex flex-col cursor-pointer"
             :style="{ borderColor: `${currentShowcaseItem.accentColor}40` }"
           >
             <div
@@ -92,7 +97,7 @@ onBeforeUnmount(() => {
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </Transition>
       </div>
 
@@ -118,6 +123,15 @@ onBeforeUnmount(() => {
           "
         />
       </div>
+
+      <!-- More Projects Button -->
+      <button
+        @click="router.push('/projects')"
+        class="mt-3 w-full py-2 px-3 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-all flex items-center justify-center gap-2"
+      >
+        <span>more projects</span>
+        <span>→</span>
+      </button>
     </div>
   </div>
 </template>

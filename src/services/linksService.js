@@ -22,6 +22,13 @@ export const linkItems = [
     accentColor: "mauve",
   },
   {
+    id: "projects",
+    label: "projects",
+    href: "/projects",
+    external: false,
+    accentColor: "lavender",
+  },
+  {
     id: "github",
     label: "github",
     href: "https://github.com/Hecker-01",

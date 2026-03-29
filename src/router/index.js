@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/pages/Home.vue";
 import Posts from "@/pages/Posts.vue";
+import Projects from "@/pages/Projects.vue";
 import NotFound from "@/pages/NotFound.vue";
 
 const routes = [
@@ -15,6 +16,12 @@ const routes = [
     name: "Posts",
     component: Posts,
     meta: { title: "Posts | heckr.dev" },
+  },
+  {
+    path: "/projects",
+    name: "Projects",
+    component: Projects,
+    meta: { title: "Projects | heckr.dev" },
   },
   {
     path: "/:pathMatch(.*)*",

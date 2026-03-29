@@ -1,61 +1,16 @@
-const catppuccinColors = {
-  mauve: "#cba6f7",
-  blue: "#89b4fa",
-  green: "#a6e3a1",
-  red: "#f38ba8",
-  pink: "#f5c2e7",
-  yellow: "#f9e2af",
-  teal: "#94e2d5",
-  sapphire: "#74c7ec",
-  sky: "#89dceb",
-  lavender: "#b4befe",
-  peach: "#fab387",
-  maroon: "#eba0ac",
-  flamingo: "#f2cdcd",
-};
+// This service is now powered by projectService.js
+// Projects are stored as markdown files in /projects/ directory
 
-export const showcaseItems = [
-  {
-    id: 1,
-    name: "Yume Ramen",
-    description:
-      "A full application with an app, dashboard, and API, built with Vue.js, Tailwind CSS, and Node.js. It features a sleek design and robust functionality.",
-    link: "https://yume.bram-jesse.sd-lab.nl/",
-    screenshot: "/screenshot-yume-front.png",
-    accentColor: "red",
-  },
-  {
-    id: 2,
-    name: "This Portfolio Website",
-    description:
-      "Built with Vue.js and Tailwind CSS, showcasing my projects and skills.",
-    link: "https://github.com/hecker-01/website",
-    screenshot: "/screenshot.png",
-    accentColor: "lavender",
-  },
-  {
-    id: 3,
-    name: "satisSuite",
-    description:
-      "A comprehensive plugin suite designed to streamline moderation, enhance player experience, and give you complete control over your server.",
-    link: "https://satissuite.heckr.dev",
-    screenshot: "/screenshot-satissuite.png",
-    accentColor: "mauve",
-  },
-  // {
-  //   id: 4,
-  //   name: "Main Website",
-  //   description:
-  //     "My (old) website built with SvelteKit and Tailwind CSS, featuring project showcases.",
-  //   link: "https://heckerdev.net",
-  //   screenshot: "/screenshot-heckerdev.png",
-  //   accentColor: "mauve",
-  // },
-];
+import { getAllProjects } from "./projectService.js";
 
 export function getShowcaseItems() {
-  return showcaseItems.map((item) => ({
-    ...item,
-    accentColor: catppuccinColors[item.accentColor] || catppuccinColors.mauve,
+  return getAllProjects().map((project) => ({
+    id: project.id,
+    slug: project.slug,
+    name: project.title,
+    description: project.description,
+    link: project.url || project.github || "#",
+    screenshot: project.coverImage,
+    accentColor: project.accentColorHex,
   }));
 }
