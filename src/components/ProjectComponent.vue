@@ -57,9 +57,13 @@ watch(
 
       <button
         @click="goBack"
-        class="text-sm text-catppuccin-subtle hover:text-catppuccin-text transition-colors mb-6 inline-flex items-center gap-1"
+        class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all mb-6 inline-flex items-center gap-1.5 group"
       >
-        [← back to projects]
+        <span
+          class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
+          >cd</span
+        >
+        <span class="text-catppuccin-mauve font-medium">~/projects</span>
       </button>
 
       <!-- Cover Image -->
@@ -207,9 +211,13 @@ watch(
 
     <button
       @click="goBack"
-      class="text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors inline-flex items-center gap-1"
+      class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group"
     >
-      [← back to all projects]
+      <span
+        class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
+        >cd</span
+      >
+      <span class="text-catppuccin-mauve font-medium">~/projects</span>
     </button>
   </div>
 </template>
