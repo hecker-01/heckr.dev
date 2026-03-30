@@ -34,7 +34,7 @@ const openProject = (slug) => {
   currentProject.value = getProjectBySlug(slug);
   if (currentProject.value) {
     view.value = "project";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "instant" });
     if (route.query.project !== slug) {
       router.replace({
         name: "Projects",

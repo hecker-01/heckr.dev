@@ -260,13 +260,18 @@ article :deep(h3) {
   color: var(--accent-color);
 }
 
-/* Accent color for links */
-article :deep(a) {
+/* Accent color for links (exclude heading anchors) */
+article :deep(a:not([aria-label="Link to this section"])) {
   color: var(--accent-color);
 }
 
-article :deep(a:hover) {
+article :deep(a:not([aria-label="Link to this section"]):hover) {
   opacity: 0.8;
+}
+
+/* Heading anchor links: use accent color on hover instead of mauve */
+article :deep(a[aria-label="Link to this section"]:hover) {
+  color: var(--accent-color) !important;
 }
 
 /* Accent color for strong/bold text */

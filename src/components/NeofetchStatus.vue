@@ -132,10 +132,24 @@ const editorLabel = computed(() => {
       class="flex gap-4 sm:gap-6 text-sm bg-catppuccin-surface/10 rounded-lg p-4 items-center"
     >
       <!-- ASCII Art (hidden on very small screens) -->
-      <pre
-        class="hidden sm:block text-catppuccin-mauve text-xs select-none flex-shrink-0 ascii-art"
-      ><template v-for="(line, i) in asciiArt" :key="i">{{ line }}
+      <div class="hidden sm:block flex-shrink-0 ascii-tooltip-wrapper">
+        <pre
+          class="text-catppuccin-mauve text-xs select-none ascii-art"
+          aria-label="Art credit: @vilthuril.rah on Instagram"
+        ><template v-for="(line, i) in asciiArt" :key="i">{{ line }}
 </template></pre>
+        <span class="ascii-tooltip"
+          >Art by
+          <a
+            href="https://www.instagram.com/vilthuril.rah/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ascii-tooltip-link"
+            >@vilthuril.rah</a
+          >
+          on Instagram</span
+        >
+      </div>
 
       <!-- System Info -->
       <div class="space-y-0.5 min-w-0 flex-1">
@@ -234,5 +248,43 @@ const editorLabel = computed(() => {
   font-size: 0.6rem;
   letter-spacing: -0.1em;
   line-height: 1.1;
+}
+
+.ascii-tooltip-wrapper {
+  position: relative;
+  cursor: default;
+  padding-bottom: 1.75rem;
+  margin-bottom: -1.75rem;
+}
+
+.ascii-tooltip {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--catppuccin-surface, #313244);
+  color: var(--catppuccin-subtle, #a6adc8);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.ascii-tooltip-wrapper:hover .ascii-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ascii-tooltip-link {
+  color: var(--catppuccin-mauve, #cba6f7);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ascii-tooltip-link:hover {
+  color: var(--catppuccin-pink, #f5c2e7);
 }
 </style>
