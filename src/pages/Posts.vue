@@ -120,9 +120,14 @@ watch(
             <div class="flex items-center gap-4 text-sm mb-6">
               <router-link
                 to="/"
-                class="text-catppuccin-subtle hover:text-catppuccin-text transition-colors"
+                class="px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group"
               >
-                [← home]
+                <span
+                  class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
+                  >cd</span
+                >
+                <span class="text-catppuccin-mauve font-medium">~/</span>
+                <span class="text-catppuccin-subtle font-medium">(home)</span>
               </router-link>
             </div>
             <h1
