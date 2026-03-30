@@ -30,7 +30,7 @@ const openPost = (slug) => {
   currentPost.value = getPostBySlug(slug);
   if (currentPost.value) {
     view.value = "post";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "instant" });
     if (route.query.post !== slug) {
       router.replace({
         name: "Posts",
