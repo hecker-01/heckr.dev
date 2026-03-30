@@ -98,8 +98,10 @@ sudo mkdir -p /srv/media/downloads
 sudo mkdir -p /srv/media/anime
 sudo mkdir -p /srv/media/anime-movies
 sudo mkdir -p /srv/docker
+sudo mkdir -p /srv/docker/seerr
 sudo chown -R $USER:$USER /srv/media
 sudo chown -R $USER:$USER /srv/docker
+sudo chown -R $USER:$USER /srv/docker/seerr
 ```
 
 Structure:
@@ -122,8 +124,6 @@ nano docker-compose.yml
 Paste:
 
 ```yaml:docker-compose.yml
-version: "3.9"
-
 services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
