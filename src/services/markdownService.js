@@ -328,11 +328,12 @@ export class MarkdownParser {
   _restoreDetailsBlocks(html, ctx) {
     for (let i = ctx.detailsBlocks.length - 1; i >= 0; i--) {
       const block = ctx.detailsBlocks[i];
+      const parsedContent = this.parse(block.content);
       const detailsHtml = `<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
       <summary class="bg-catppuccin-crust px-3 sm:px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors text-sm sm:text-base">
         ${this.inlineParser.process(block.title)}
       </summary>
-      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm">${this.inlineParser.process(block.content)}</div>
+      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm">${parsedContent}</div>
     </details>`;
       html = html.replaceAll(`__DETAILS_${i}__`, detailsHtml);
     }
