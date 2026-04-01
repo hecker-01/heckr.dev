@@ -7,7 +7,7 @@ accentColor: red
 tags: [vue, discord, april-fools]
 url: https://pingr.heckr.dev
 github: https://github.com/hecker-01/pingr
-status: active
+status: stale
 unlisted: false
 ---
 
