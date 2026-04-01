@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024">
+    <defs>
+        <pattern id="grid" width="256" height="256" patternUnits="userSpaceOnUse" patternTransform="translate(128,128)">
+            <path d="M 256 0 L 0 0 0 256" fill="none" stroke="#45475a" stroke-width="10"/>
+        </pattern>
+        <clipPath id="rounded">
+            <rect x="0" y="0" width="1024" height="1024" rx="230" ry="230"/>
+        </clipPath>
+    </defs>
+
+    <g clip-path="url(#rounded)">
+        <rect width="100%" height="100%" fill="#1e1e2e"/>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+    </g>
+
+    <g transform="matrix(0.5,0,0,0.5,10.35563,44.255043)">
+        <text x="246.411px" y="1391.984px" style="font-family:'JetBrainsMono-Regular', 'JetBrains Mono', monospace;font-size:1296px;fill:rgb(180,190,254);">h</text>
+        <g transform="matrix(1296,0,0,1296,1776.9871,1391.9844)">
+        </g>
+        <text x="999.387px" y="1391.984px" style="font-family:'JetBrainsMono-Regular', 'JetBrains Mono', monospace;font-size:1296px;fill:rgb(207,214,237);">D</text>
+    </g>
+</svg>
