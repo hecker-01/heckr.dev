@@ -101,6 +101,8 @@ watch(
               project.status === 'archived',
             'bg-catppuccin-blue/20 text-catppuccin-blue':
               project.status === 'beta',
+            'bg-catppuccin-peach/20 text-catppuccin-peach':
+              project.status === 'stale',
           }"
         >
           {{ project.status }}
