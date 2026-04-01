@@ -6,7 +6,7 @@ coverImage: /screenshot-mcbe-decryptor.png
 accentColor: green
 tags: [Python, Minecraft, Cryptography, CLI]
 github: https://github.com/hecker-01/MCBE_Pack_Decryptor
-status: active
+status: stale
 unlisted: false
 ---
 

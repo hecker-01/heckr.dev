@@ -1,37 +1,31 @@
 ---
 title: Yume Ramen
 slug: yume-ramen
-description: A full application with an app, dashboard, and API, built with Vue.js, Tailwind CSS, and Node.js. It features a sleek design and robust functionality.
+description: Full-stack ramen restaurant app with a customer frontend, admin dashboard, and shared Node.js API.
 coverImage: /screenshot-yume-front.png
 accentColor: red
 tags: [vue, tailwind, nodejs, api, fullstack]
 url: https://yume.bram-jesse.sd-lab.nl/
 github: https://github.com/hecker-01/yume-front
-status: active
+status: archived
 unlisted: false
 ---
 
-## About Yume Ramen
+## About
 
-Yume Ramen is a comprehensive full-stack application that demonstrates modern web development practices. The project consists of three main components:
+Yume Ramen is a full-stack restaurant application split into three projects: a customer-facing Vue.js frontend, a separate Vue.js admin dashboard, and a Node.js/Express API that both frontends use.
 
-- **Frontend App**: A Vue.js customer-facing application with an elegant UI
-- **Admin Dashboard**: A separate Vue.js application for managing the restaurant operations
-- **Backend API**: A Node.js/Express API that powers both frontend applications
+## Features
 
-## Key Features
-
-- Modern, responsive design using Tailwind CSS
-- Real-time order management system
+- Customer-facing menu and ordering interface
+- Admin dashboard for managing restaurant operations
 - User authentication and authorization
-- RESTful API architecture
-- Clean and maintainable codebase
+- RESTful API shared between both Vue frontends
+- Responsive UI built with Tailwind CSS
 
 ## Tech Stack
 
-The application leverages modern technologies to deliver a seamless experience:
-
-- **Vue.js 3** with Composition API for reactive UI
-- **Tailwind CSS** for utility-first styling
+- **Vue.js 3** with Composition API
+- **Tailwind CSS** for styling
 - **Node.js & Express** for the backend server
-- **MongoDB** for data persistence
+- **MongoDB** for data storage
