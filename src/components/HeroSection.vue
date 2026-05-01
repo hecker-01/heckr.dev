@@ -78,12 +78,20 @@ const links = getLinks();
     <div class="border-l-2 border-catppuccin-surface pl-4 mb-4">
       <div class="text-catppuccin-subtle text-sm mb-2">~$ cat about.txt</div>
       <p class="text-catppuccin-text leading-relaxed mb-4">
-        Hi! I'm Jesse, I code things for Minecraft, Discord, random CLI tools,
-        websites, apps and more. <br />
-        My passion is backend development, but I also enjoy working on frontend
+        Hi! I'm Jesse, a Dutch Software Development Student at Grafisch Lyceum
+        Rotterdam. <br />
+        I code all sorts of tools and applications mainly for my own use, but
+        also plugins for Minecraft and Discord bots, but my main goal is to have
+        fun while doing so! <br />
+        My passion is Frontend development, but I also enjoy working on backend
         and mobile projects. <br />
-        I have experience in a lot of different programming languages and
-        frameworks, and I love learning new ones!
+        I've got experience in a lot of different
+        <a
+          href="#languages"
+          class="text-catppuccin-mauve underline hover:no-underline"
+          >programming languages</a
+        >
+        and frameworks, and I love learning new ones!
       </p>
     </div>
 

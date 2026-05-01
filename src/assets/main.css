@@ -10,15 +10,13 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-html {
   scroll-behavior: smooth;
 }
 
 body {
   background-color: #1e1e2e;
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       1200px circle at 10% 15%,
       rgba(203, 166, 247, 0.08),
       transparent 40%
