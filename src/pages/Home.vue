@@ -34,10 +34,10 @@ onMounted(() => {
   <div
     class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
   >
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-16 md:pb-2">
       <HeroSection />
 
-      <LanguagesList :languages="languages" :loading="reposLoading" />
+      <LanguagesList :languages="languages" :loading="reposLoading" id="languages" />
 
       <div class="grid lg:grid-cols-2 gap-6 lg:items-stretch">
         <ReposList :repos="repos" :loading="reposLoading" />

@@ -4,7 +4,7 @@ slug: recodr
 description: Desktop video re-encoder with hardware-accelerated GPU encoding via ffmpeg.
 coverImage: /screenshot-recodr.png
 accentColor: mauve
-tags: [electron, ffmpeg, video encoding, desktop app, hardware acceleration]
+tags: [electron, ffmpeg, video-encoding, desktop-app, hardware-acceleration]
 github: https://github.com/hecker-01/reCodr
 status: active
 unlisted: false
