@@ -28,7 +28,7 @@ slug: mcbe-pack-decryptor
 description: Python CLI that decrypts encrypted Minecraft Bedrock Edition marketplace packs using AES-CFB.
 coverImage: /screenshot-mcbe-decryptor.png
 accentColor: green
-tags: [Python, Minecraft, Cryptography, CLI]
+tags: [python, minecraft, cryptography, cli]
 github: https://github.com/hecker-01/MCBE_Pack_Decryptor
 status: stale
 unlisted: false
@@ -174,7 +174,7 @@ slug: portfolio
 description: Built with Vue.js and Tailwind CSS, showcasing my projects and skills.
 coverImage: /screenshot.png
 accentColor: lavender
-tags: [Vue, Tailwind, Vite, Markdown, Frontend]
+tags: [vue, tailwind, markdown, portfolio]
 url: https://heckr.dev
 github: https://github.com/hecker-01/website
 status: active
@@ -260,7 +260,7 @@ Post and project detail views are not separate routes - they render inline when 
 - **Build**: Vite
 - **Styling**: Tailwind CSS + Catppuccin Mocha
 - **Syntax highlighting**: Prism.js (loaded externally)
-- **HTTP**: Axios (GitHub API, contribution API)
+- **HTTP**: Fetch (GitHub API, contribution API)
 - **Presence**: Lanyard WebSocket API
 - **Hosting**: Static deployment
 `,Md=`---
@@ -269,7 +269,7 @@ slug: recodr
 description: Desktop video re-encoder with hardware-accelerated GPU encoding via ffmpeg.
 coverImage: /screenshot-recodr.png
 accentColor: mauve
-tags: [Electron, ffmpeg, Video Encoding, Desktop App, Hardware Acceleration]
+tags: [electron, ffmpeg, video encoding, desktop app, hardware acceleration]
 github: https://github.com/hecker-01/reCodr
 status: active
 unlisted: false
@@ -386,7 +386,7 @@ slug: wordr
 description: Client-side Markdown to DOCX converter
 coverImage: /screenshot-wordr.png
 accentColor: pink
-tags: [vue, markdown, docx, vite, open-source]
+tags: [vue, markdown, docx]
 url: https://wordr.heckr.dev/
 github: https://github.com/hecker-01/wordr
 status: active
