@@ -4,7 +4,7 @@ slug: wordr
 description: Client-side Markdown to DOCX converter
 coverImage: /screenshot-wordr.png
 accentColor: pink
-tags: [vue, markdown, docx, vite, open-source]
+tags: [vue, markdown, docx]
 url: https://wordr.heckr.dev/
 github: https://github.com/hecker-01/wordr
 status: active
