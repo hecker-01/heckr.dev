@@ -7,7 +7,7 @@ accentColor: mauve
 tags: [java, minecraft, plugin, spigot]
 url: https://satissuite.heckr.dev
 status: in-progress
-unlisted: false
+unlisted: true
 ---
 
 ## About satisSuite
