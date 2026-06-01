@@ -7,6 +7,10 @@ export default {
       mono: ['"JetBrains Mono"', "monospace"],
     },
     colors: {
+      transparent: "transparent",
+      current: "currentColor",
+      black: "#000000",
+      white: "#ffffff",
       "catppuccin-crust": "#11111b",
       "catppuccin-base": "#1e1e2e",
       "catppuccin-surface": "#313244",
