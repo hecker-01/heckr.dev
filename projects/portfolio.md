@@ -4,7 +4,7 @@ slug: portfolio
 description: Built with Vue.js and Tailwind CSS, showcasing my projects and skills.
 coverImage: /screenshot.png
 accentColor: lavender
-tags: [Vue, Tailwind, Vite, Markdown, Frontend]
+tags: [vue, tailwind, markdown, portfolio]
 url: https://heckr.dev
 github: https://github.com/hecker-01/website
 status: active
@@ -90,6 +90,6 @@ Post and project detail views are not separate routes - they render inline when 
 - **Build**: Vite
 - **Styling**: Tailwind CSS + Catppuccin Mocha
 - **Syntax highlighting**: Prism.js (loaded externally)
-- **HTTP**: Axios (GitHub API, contribution API)
+- **HTTP**: Fetch (GitHub API, contribution API)
 - **Presence**: Lanyard WebSocket API
 - **Hosting**: Static deployment
