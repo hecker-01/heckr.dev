@@ -338,11 +338,7 @@ Create Movies library using:
 2. Click the **Available** tab at the top
 3. Find **AniDB** and click it
 4. Click **Install**
-5. Restart Jellyfin:
-
-```bash
-docker restart jellyfin
-```
+5. Restart Jellyfin
 
 After restart, AniDB will be available as a metadata provider for your anime library.
 
