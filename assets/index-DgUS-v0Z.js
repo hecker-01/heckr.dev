@@ -28,7 +28,7 @@ slug: kitsudo
 description: A local task planner for Android with subtasks, deadline reminders, and a Wear OS companion.
 coverImage: /screenshot-kitsudo.png
 accentColor: mauve
-tags: [Android, Wear OS, Kotlin]
+tags: [android, wear-os, kotlin]
 url: https://kitsudo.app
 github: https://github.com/hecker-01/Kitsudo
 status: active
