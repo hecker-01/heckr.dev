@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/pages/Home.vue";
 import Posts from "@/pages/Posts.vue";
 import Projects from "@/pages/Projects.vue";
+import Kitsudo from "@/pages/Kitsudo.vue";
 import NotFound from "@/pages/NotFound.vue";
 
 const routes = [
@@ -22,6 +23,12 @@ const routes = [
     name: "Projects",
     component: Projects,
     meta: { title: "Projects | heckr.dev" },
+  },
+  {
+    path: "/kitsudo",
+    name: "Kitsudo",
+    component: Kitsudo,
+    meta: { title: "Kitsudo | heckr.dev" },
   },
   {
     path: "/:pathMatch(.*)*",

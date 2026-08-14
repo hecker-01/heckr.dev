@@ -15,6 +15,11 @@ const currentShowcaseItem = computed(() => {
 });
 
 const navigateToProject = (slug) => {
+  if (slug === "kitsudo") {
+    router.push("/kitsudo");
+    return;
+  }
+
   router.push({ path: "/projects", query: { project: slug } });
 };
 
