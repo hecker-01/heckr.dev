@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 html,
 body {
   min-height: 100vh;

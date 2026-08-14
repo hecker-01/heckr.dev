@@ -1,8 +1,9 @@
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import variableProcessor from "../services/variableService.js";
 import markdownParser from "../services/markdownService.js";
 import highlightService from "../services/highlightService.js";
+import ImageLightbox from "./ImageLightbox.vue";
 
 const props = defineProps({
     post: {
@@ -40,85 +41,9 @@ const parseMarkdown = (content) => {
 const lightboxSrc = ref(null);
 const lightboxAlt = ref("");
 
-// Pinch-to-zoom / pan state
-const scale = ref(1);
-const tx = ref(0);
-const ty = ref(0);
-const MIN_SCALE = 1;
-const MAX_SCALE = 4;
-
-const imageStyle = computed(() => ({
-    transform: `translate(${tx.value}px, ${ty.value}px) scale(${scale.value})`,
-    transition: isGesturing ? "none" : "transform 0.2s ease",
-}));
-
-let isGesturing = false;
-let startDist = 0;
-let startScale = 1;
-let startTx = 0;
-let startTy = 0;
-let startX = 0;
-let startY = 0;
-let lastTap = 0;
-
-const resetZoom = () => {
-    scale.value = 1;
-    tx.value = 0;
-    ty.value = 0;
-};
-
-const touchDistance = (touches) => {
-    const dx = touches[0].clientX - touches[1].clientX;
-    const dy = touches[0].clientY - touches[1].clientY;
-    return Math.hypot(dx, dy);
-};
-
-const onTouchStart = (event) => {
-    if (event.touches.length === 2) {
-        isGesturing = true;
-        startDist = touchDistance(event.touches);
-        startScale = scale.value;
-    } else if (event.touches.length === 1) {
-        // Double-tap to toggle zoom
-        const now = Date.now();
-        if (now - lastTap < 300) {
-            scale.value > 1 ? resetZoom() : (scale.value = 2);
-            lastTap = 0;
-            return;
-        }
-        lastTap = now;
-        // Begin pan (only meaningful when zoomed in)
-        startX = event.touches[0].clientX;
-        startY = event.touches[0].clientY;
-        startTx = tx.value;
-        startTy = ty.value;
-    }
-};
-
-const onTouchMove = (event) => {
-    if (event.touches.length === 2) {
-        event.preventDefault();
-        const dist = touchDistance(event.touches);
-        const next = (startScale * dist) / startDist;
-        scale.value = Math.min(MAX_SCALE, Math.max(MIN_SCALE, next));
-    } else if (event.touches.length === 1 && scale.value > 1) {
-        event.preventDefault();
-        tx.value = startTx + (event.touches[0].clientX - startX);
-        ty.value = startTy + (event.touches[0].clientY - startY);
-    }
-};
-
-const onTouchEnd = (event) => {
-    if (event.touches.length === 0) {
-        isGesturing = false;
-        if (scale.value <= MIN_SCALE) resetZoom();
-    }
-};
-
 const handleArticleClick = (event) => {
     const img = event.target.closest("img");
     if (!img) return;
-    resetZoom();
     lightboxSrc.value = img.currentSrc || img.src;
     lightboxAlt.value = img.alt || "";
 };
@@ -126,22 +51,10 @@ const handleArticleClick = (event) => {
 const closeLightbox = () => {
     lightboxSrc.value = null;
     lightboxAlt.value = "";
-    resetZoom();
-};
-
-const handleKeydown = (event) => {
-    if (event.key === "Escape" && lightboxSrc.value) {
-        closeLightbox();
-    }
 };
 
 onMounted(() => {
     highlightService.highlightAfterDelay(100);
-    window.addEventListener("keydown", handleKeydown);
-});
-
-onUnmounted(() => {
-    window.removeEventListener("keydown", handleKeydown);
 });
 
 // Re-run syntax highlighting when variables change
@@ -251,35 +164,11 @@ watch(
             <span class="text-catppuccin-mauve font-medium">~/posts</span>
         </button>
 
-        <!-- Image lightbox -->
-        <Teleport to="body">
-            <Transition name="lightbox-fade">
-                <div
-                    v-if="lightboxSrc"
-                    class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-[#000000] p-0 sm:bg-[#11111b]/80 sm:backdrop-blur-sm sm:p-4 cursor-zoom-out"
-                    @click="closeLightbox"
-                >
-                    <button
-                        type="button"
-                        class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full border border-catppuccin-surface/60 bg-catppuccin-base/40 text-catppuccin-subtle hover:text-catppuccin-text hover:border-catppuccin-mauve/40 transition-colors"
-                        aria-label="Close image"
-                        @click="closeLightbox"
-                    >
-                        ✕
-                    </button>
-                    <img
-                        :src="lightboxSrc"
-                        :alt="lightboxAlt"
-                        :style="imageStyle"
-                        class="max-w-full max-h-screen sm:max-h-[90vh] object-contain rounded-none sm:rounded-md shadow-2xl cursor-default touch-none select-none"
-                        @click.stop
-                        @touchstart="onTouchStart"
-                        @touchmove="onTouchMove"
-                        @touchend="onTouchEnd"
-                    />
-                </div>
-            </Transition>
-        </Teleport>
+        <ImageLightbox
+            :src="lightboxSrc"
+            :alt="lightboxAlt"
+            @close="closeLightbox"
+        />
     </div>
 </template>
 
@@ -290,16 +179,6 @@ article :deep(a) {
 
 article :deep(img) {
     cursor: zoom-in;
-}
-
-.lightbox-fade-enter-active,
-.lightbox-fade-leave-active {
-    transition: opacity 0.2s ease;
-}
-
-.lightbox-fade-enter-from,
-.lightbox-fade-leave-to {
-    opacity: 0;
 }
 
 /* Remove top margin from the first child element in the article */

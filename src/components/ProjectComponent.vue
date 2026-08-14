@@ -9,6 +9,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  sectioned: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(["go-back"]);
@@ -29,7 +33,15 @@ const processedContent = computed(() => {
 });
 
 const parseMarkdown = (content) => {
-  return markdownParser.parse(content);
+  const html = markdownParser.parse(content);
+
+  if (!props.sectioned) return html;
+
+  return html
+    .split(/(?=<h2\b)/i)
+    .filter((section) => section.trim())
+    .map((section) => `<section class="project-markdown-section">${section}</section>`)
+    .join("");
 };
 
 onMounted(() => {
@@ -203,13 +215,20 @@ watch(
     </div>
 
     <article
-      class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden"
+      :class="[
+        'mb-8 overflow-hidden',
+        props.sectioned
+          ? 'sectioned-article'
+          : 'sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2',
+      ]"
     >
       <div
         class="prose prose-invert max-w-none text-catppuccin-text"
         v-html="parseMarkdown(processedContent)"
       ></div>
     </article>
+
+    <slot />
 
     <button
       @click="goBack"
@@ -248,6 +267,22 @@ article :deep(> div > :first-child) {
 /* Remove bottom margin from the last child element in the article */
 article :deep(> div > :last-child) {
   margin-bottom: 0 !important;
+}
+
+.sectioned-article :deep(.project-markdown-section) {
+  margin-bottom: 2rem;
+  padding-left: 0.5rem;
+}
+
+.sectioned-article :deep(.project-markdown-section > h2:first-child) {
+  margin-top: 0;
+}
+
+@media (min-width: 640px) {
+  .sectioned-article :deep(.project-markdown-section) {
+    padding-left: 1rem;
+    border-left: 2px solid #313244;
+  }
 }
 
 article :deep(ul) {

@@ -1,10 +1,10 @@
 ---
 title: Kitsudo
 slug: kitsudo
-description: A local task planner for Android with subtasks, deadline reminders, and a Wear OS companion.
+description: A local-first task planner for Android with subtasks, reminders, custom themes, and a Wear OS companion.
 coverImage: /screenshot-kitsudo.png
 accentColor: mauve
-tags: [android, wear-os, kotlin]
+tags: [android, wear-os, kotlin, privacy, play-store]
 url: https://kitsudo.app
 github: https://github.com/hecker-01/Kitsudo
 status: active
@@ -13,48 +13,36 @@ unlisted: false
 
 ## About
 
-Kitsudo is a to-do and task planner for Android. It runs entirely on the
-device. No account, no cloud, no tracking. You write tasks, break them into
-subtasks, set deadlines, and the app reminds you before things are due.
+Kitsudo is a local-first task planner I built for Android. It keeps the everyday flow simple: write something down, split it into smaller steps, set a deadline, and check it off when it is done.
 
-There is a Wear OS companion so you can check and tick off tasks from your
-watch without pulling out your phone.
-
-The look is built around the Catppuccin Mocha palette with a fox mascot, five
-palettes total, and 14 accent swatches, plus Material You dynamic theming for
-people who want the app to match their system colors.
+The app works without an account or internet connection. Tasks and preferences stay on the device, reminders are scheduled locally, and the paired Wear OS app puts the same essentials on your wrist.
 
 ## Features
 
-- **Subtasks with cascade completion.** Nest subtasks under a task. Tick the
-  parent and the children check off too, so a whole checklist closes in one tap.
-- **Deadlines and reminders.** Due dates with early reminders, snooze, and
-  quiet hours so nothing buzzes at night.
-- **Swipe to complete or delete.** Swipe one way to complete, the other to
-  delete. Both have undo.
-- **Sorting and filters.** Sort by deadline, priority, or date added, and
-  filter down to what you need to see.
-- **Theming.** Five palettes, 14 accent colors, and Material You support.
-- **Local and private.** Everything stays on the device.
+- **Plan in smaller steps.** Add subtasks and complete a whole checklist by finishing its parent task.
+- **Stay ahead of deadlines.** Schedule early reminders, snooze them when needed, and set quiet hours for the night.
+- **Keep the task list quick.** Swipe to complete or delete with undo, then sort and filter by deadline, priority, or date added.
+- **Make it feel personal.** Use Material You or choose from five Catppuccin palettes and 14 accent colors.
+- **Take it to your wrist.** View and complete tasks from the Wear OS companion without reaching for your phone.
+
+## Local by design
+
+Kitsudo has no account system, backend, analytics, or advertising. The Room database lives on the phone, reminders are handled by Android, and phone-to-watch sync happens directly between paired devices.
+
+That keeps the app useful offline and keeps a personal task list personal.
 
 ## Technical Highlights
 
-- Local persistence with **Room** (the boot sequence loads "Room database v2").
-- **Wear OS** companion that pairs with the phone app to mirror and update tasks.
-- Reminder scheduling that respects per-user quiet hours and supports snooze.
-- Theming engine covering Catppuccin palettes and Android Material You at once.
+- Native Android app written in **Kotlin**.
+- Local persistence backed by **Room**.
+- A paired **Wear OS** app that can read and update tasks.
+- Local reminder scheduling with early alerts, snooze, and quiet hours.
+- A theme system covering Catppuccin palettes and Material You dynamic colors.
 
-Build it from source:
+The project is open source and can be built with Gradle:
 
 ```bash
 git clone https://github.com/hecker-01/Kitsudo.git
 cd Kitsudo
 ./gradlew assembleGithubRelease
 ```
-
-:::details Why fully local
-There is no backend and no analytics. Tasks live in the on-device Room
-database, reminders are scheduled locally, and the Wear OS sync happens
-directly between the paired devices. That keeps the data private and the app
-usable with no network at all.
-:::
