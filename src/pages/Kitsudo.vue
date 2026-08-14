@@ -43,7 +43,7 @@ const closeLightbox = () => {
         class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
     >
         <div
-            class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-16 md:pb-2"
+            class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2"
         >
             <ProjectComponent
                 :project="project"
@@ -159,7 +159,11 @@ const closeLightbox = () => {
                                 <figcaption
                                     class="mt-2 text-xs text-catppuccin-subtle"
                                 >
-                                    ./{{ screen.label.toLowerCase().replace(" ", "-") }}
+                                    ./{{
+                                        screen.label
+                                            .toLowerCase()
+                                            .replace(" ", "-")
+                                    }}
                                 </figcaption>
                             </figure>
                         </div>

@@ -10,153 +10,168 @@ const isHovering = ref(false);
 let showcaseInterval = null;
 
 const currentShowcaseItem = computed(() => {
-  if (!showcaseItems.value.length) return null;
-  return showcaseItems.value[currentShowcaseIndex.value];
+    if (!showcaseItems.value.length) return null;
+    return showcaseItems.value[currentShowcaseIndex.value];
 });
 
 const navigateToProject = (slug) => {
-  if (slug === "kitsudo") {
-    router.push("/kitsudo");
-    return;
-  }
+    if (slug === "kitsudo") {
+        router.push("/kitsudo");
+        return;
+    }
 
-  router.push({ path: "/projects", query: { project: slug } });
+    router.push({ path: "/projects", query: { project: slug } });
 };
 
 onMounted(() => {
-  showcaseItems.value = getShowcaseItems();
+    showcaseItems.value = getShowcaseItems();
 
-  // Start cycling through showcase items every 10 seconds (pause on hover)
-  if (showcaseItems.value.length > 1) {
-    showcaseInterval = setInterval(() => {
-      if (!isHovering.value) {
-        currentShowcaseIndex.value =
-          (currentShowcaseIndex.value + 1) % showcaseItems.value.length;
-      }
-    }, 10000);
-  }
+    // Start cycling through showcase items every 10 seconds (pause on hover)
+    if (showcaseItems.value.length > 1) {
+        showcaseInterval = setInterval(() => {
+            if (!isHovering.value) {
+                currentShowcaseIndex.value =
+                    (currentShowcaseIndex.value + 1) %
+                    showcaseItems.value.length;
+            }
+        }, 10000);
+    }
 });
 
 onBeforeUnmount(() => {
-  if (showcaseInterval) {
-    clearInterval(showcaseInterval);
-  }
+    if (showcaseInterval) {
+        clearInterval(showcaseInterval);
+    }
 });
 </script>
 
 <template>
-  <div
-    class="border-l-2 border-catppuccin-surface pl-4 min-w-0 flex flex-col lg:h-full"
-  >
-    <div class="text-catppuccin-subtle text-sm mb-3">~$ cat ~/showcase</div>
-
-    <div v-if="!showcaseItems.length" class="text-sm text-catppuccin-subtle">
-      no items to showcase
-    </div>
-
     <div
-      v-else
-      class="relative lg:flex-1 flex flex-col"
-      @mouseenter="isHovering = true"
-      @mouseleave="isHovering = false"
+        class="border-l-2 border-catppuccin-surface pl-4 min-w-0 flex flex-col lg:h-full"
     >
-      <div class="lg:flex-1 lg:relative">
-        <Transition name="showcase" mode="out-in">
-          <div
-            v-if="currentShowcaseItem"
-            :key="currentShowcaseItem.id"
-            @click="navigateToProject(currentShowcaseItem.slug)"
-            class="group rounded-md border bg-catppuccin-base/20 hover:bg-catppuccin-base/30 transition-all overflow-hidden border-catppuccin-surface/60 lg:absolute lg:inset-0 flex flex-col cursor-pointer"
-            :style="{ borderColor: `${currentShowcaseItem.accentColor}40` }"
-          >
+        <div class="text-catppuccin-subtle text-sm mb-3">~$ cat ~/showcase</div>
+
+        <div
+            v-if="!showcaseItems.length"
+            class="text-sm text-catppuccin-subtle"
+        >
+            no items to showcase
+        </div>
+
+        <div
+            v-else
+            class="relative lg:flex-1 flex flex-col"
+            @mouseenter="isHovering = true"
+            @mouseleave="isHovering = false"
+        >
+            <div class="lg:flex-1 lg:relative">
+                <Transition name="showcase" mode="out-in">
+                    <div
+                        v-if="currentShowcaseItem"
+                        :key="currentShowcaseItem.id"
+                        @click="navigateToProject(currentShowcaseItem.slug)"
+                        class="group rounded-md border bg-catppuccin-base/20 hover:bg-catppuccin-base/30 transition-all overflow-hidden border-catppuccin-surface/60 lg:absolute lg:inset-0 flex flex-col cursor-pointer"
+                        :style="{
+                            borderColor: `${currentShowcaseItem.accentColor}40`,
+                        }"
+                    >
+                        <div
+                            v-if="currentShowcaseItem.screenshot"
+                            class="w-full flex-1 overflow-hidden bg-catppuccin-surface/30"
+                        >
+                            <img
+                                :src="currentShowcaseItem.screenshot"
+                                :alt="currentShowcaseItem.name"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                        </div>
+
+                        <div class="px-3 py-3 flex-shrink-0">
+                            <div class="flex items-start gap-3">
+                                <span
+                                    class="transition-colors"
+                                    :style="{
+                                        color: currentShowcaseItem.accentColor,
+                                    }"
+                                    >></span
+                                >
+
+                                <div class="flex-1 min-w-0">
+                                    <h3
+                                        class="text-sm font-medium text-catppuccin-text transition-colors mb-1"
+                                        :style="{
+                                            color: currentShowcaseItem.accentColor,
+                                        }"
+                                    >
+                                        {{ currentShowcaseItem.name }}
+                                    </h3>
+
+                                    <p
+                                        class="text-xs text-catppuccin-gray leading-relaxed"
+                                    >
+                                        {{ currentShowcaseItem.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Transition>
+            </div>
+
+            <!-- Indicator dots -->
             <div
-              v-if="currentShowcaseItem.screenshot"
-              class="w-full flex-1 overflow-hidden bg-catppuccin-surface/30"
+                v-if="showcaseItems.length > 1"
+                class="flex justify-center gap-1.5 mt-3 flex-shrink-0"
             >
-              <img
-                :src="currentShowcaseItem.screenshot"
-                :alt="currentShowcaseItem.name"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
+                <button
+                    v-for="(item, index) in showcaseItems"
+                    :key="`dot-${item.id}`"
+                    @click="currentShowcaseIndex = index"
+                    class="w-2 h-2.5 rounded-full transition-all"
+                    :class="
+                        index === currentShowcaseIndex
+                            ? 'bg-catppuccin-mauve w-4'
+                            : 'bg-catppuccin-surface/60 hover:bg-catppuccin-surface'
+                    "
+                    :style="
+                        index === currentShowcaseIndex
+                            ? {
+                                  backgroundColor:
+                                      currentShowcaseItem.accentColor,
+                              }
+                            : {}
+                    "
+                />
             </div>
 
-            <div class="px-3 py-3 flex-shrink-0">
-              <div class="flex items-start gap-3">
-                <span
-                  class="transition-colors"
-                  :style="{ color: currentShowcaseItem.accentColor }"
-                  >></span
-                >
-
-                <div class="flex-1 min-w-0">
-                  <h3
-                    class="text-sm font-medium text-catppuccin-text transition-colors mb-1"
-                    :style="{ color: currentShowcaseItem.accentColor }"
-                  >
-                    {{ currentShowcaseItem.name }}
-                  </h3>
-
-                  <p class="text-xs text-catppuccin-gray leading-relaxed">
-                    {{ currentShowcaseItem.description }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Transition>
-      </div>
-
-      <!-- Indicator dots -->
-      <div
-        v-if="showcaseItems.length > 1"
-        class="flex justify-center gap-1.5 mt-3 flex-shrink-0"
-      >
-        <button
-          v-for="(item, index) in showcaseItems"
-          :key="`dot-${item.id}`"
-          @click="currentShowcaseIndex = index"
-          class="w-2 h-2.5 rounded-full transition-all"
-          :class="
-            index === currentShowcaseIndex
-              ? 'bg-catppuccin-mauve w-4'
-              : 'bg-catppuccin-surface/60 hover:bg-catppuccin-surface'
-          "
-          :style="
-            index === currentShowcaseIndex
-              ? { backgroundColor: currentShowcaseItem.accentColor }
-              : {}
-          "
-        />
-      </div>
-
-      <!-- More Projects Button -->
-      <button
-        @click="router.push('/projects')"
-        class="mt-3 w-full py-2 px-3 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-all flex items-center justify-center gap-2"
-      >
-        <span>more projects</span>
-        <span>→</span>
-      </button>
+            <!-- More Projects Button -->
+            <button
+                @click="router.push('/projects')"
+                class="mt-3 w-full py-2 px-3 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-all flex items-center justify-center gap-2"
+            >
+                <span>more projects</span>
+                <span>→</span>
+            </button>
+        </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
 .showcase-enter-active {
-  transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
 }
 
 .showcase-leave-active {
-  transition: all 0.4s ease-in;
+    transition: all 0.4s ease-in;
 }
 
 .showcase-enter-from {
-  opacity: 0;
-  transform: translateX(20px);
+    opacity: 0;
+    transform: translateX(20px);
 }
 
 .showcase-leave-to {
-  opacity: 0;
-  transform: translateX(-20px);
+    opacity: 0;
+    transform: translateX(-20px);
 }
 </style>

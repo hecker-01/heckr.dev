@@ -17,170 +17,181 @@ const route = useRoute();
 const router = useRouter();
 
 const filteredPosts = computed(() => {
-  if (!selectedTag.value) return posts.value;
-  return posts.value.filter((p) => p.tags.includes(selectedTag.value));
+    if (!selectedTag.value) return posts.value;
+    return posts.value.filter((p) => p.tags.includes(selectedTag.value));
 });
 
 const loadPosts = () => {
-  posts.value = getAllPosts();
-  tags.value = getAllTags();
+    posts.value = getAllPosts();
+    tags.value = getAllTags();
 };
 
 const openPost = (slug) => {
-  currentPost.value = getPostBySlug(slug);
-  if (currentPost.value) {
-    view.value = "post";
-    window.scrollTo({ top: 0, behavior: "instant" });
-    if (route.query.post !== slug) {
-      router.replace({
-        name: "Posts",
-        query: { ...route.query, post: slug },
-      });
+    currentPost.value = getPostBySlug(slug);
+    if (currentPost.value) {
+        view.value = "post";
+        window.scrollTo({ top: 0, behavior: "instant" });
+        if (route.query.post !== slug) {
+            router.replace({
+                name: "Posts",
+                query: { ...route.query, post: slug },
+            });
+        }
+    } else if (route.query.post) {
+        const newQuery = { ...route.query };
+        delete newQuery.post;
+        router.replace({ name: "Posts", query: newQuery });
     }
-  } else if (route.query.post) {
-    const newQuery = { ...route.query };
-    delete newQuery.post;
-    router.replace({ name: "Posts", query: newQuery });
-  }
 };
 
 const goBack = ({ skipQueryUpdate = false } = {}) => {
-  view.value = "list";
-  currentPost.value = null;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  if (!skipQueryUpdate && "post" in route.query) {
-    const newQuery = { ...route.query };
-    delete newQuery.post;
-    router.replace({ name: "Posts", query: newQuery });
-  }
+    view.value = "list";
+    currentPost.value = null;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!skipQueryUpdate && "post" in route.query) {
+        const newQuery = { ...route.query };
+        delete newQuery.post;
+        router.replace({ name: "Posts", query: newQuery });
+    }
 };
 
 const toggleTag = (tag) => {
-  selectedTag.value = selectedTag.value === tag ? null : tag;
+    selectedTag.value = selectedTag.value === tag ? null : tag;
 };
 
 onMounted(() => {
-  loadPosts();
-  document.documentElement.style.overflowY = "auto";
-  document.body.style.overflowY = "auto";
+    loadPosts();
+    document.documentElement.style.overflowY = "auto";
+    document.body.style.overflowY = "auto";
 
-  // Initialize Clipboard.js
-  const clipboard = new ClipboardJS("[data-clipboard-target]");
-  clipboard.on("success", function (e) {
-    const button = e.trigger;
-    const originalText = button.textContent;
-    button.textContent = "copied!";
-    button.classList.add("text-catppuccin-green");
+    // Initialize Clipboard.js
+    const clipboard = new ClipboardJS("[data-clipboard-target]");
+    clipboard.on("success", function (e) {
+        const button = e.trigger;
+        const originalText = button.textContent;
+        button.textContent = "copied!";
+        button.classList.add("text-catppuccin-green");
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove("text-catppuccin-green");
+        }, 2000);
+        e.clearSelection();
+    });
+
+    // Initialize Prism syntax highlighting
     setTimeout(() => {
-      button.textContent = originalText;
-      button.classList.remove("text-catppuccin-green");
-    }, 2000);
-    e.clearSelection();
-  });
+        if (window.Prism) {
+            Prism.highlightAll();
+        }
+    }, 100);
 
-  // Initialize Prism syntax highlighting
-  setTimeout(() => {
-    if (window.Prism) {
-      Prism.highlightAll();
+    const slugFromQuery = route.query.post;
+    if (slugFromQuery) {
+        openPost(slugFromQuery);
     }
-  }, 100);
-
-  const slugFromQuery = route.query.post;
-  if (slugFromQuery) {
-    openPost(slugFromQuery);
-  }
 });
 
 onBeforeUnmount(() => {
-  document.documentElement.style.overflowY = "";
-  document.body.style.overflowY = "";
+    document.documentElement.style.overflowY = "";
+    document.body.style.overflowY = "";
 });
 
 watch(
-  () => route.query.post,
-  (slug, prevSlug) => {
-    if (slug && slug !== prevSlug) {
-      openPost(slug);
-    } else if (!slug && view.value === "post") {
-      goBack({ skipQueryUpdate: true });
-    }
-  },
+    () => route.query.post,
+    (slug, prevSlug) => {
+        if (slug && slug !== prevSlug) {
+            openPost(slug);
+        } else if (!slug && view.value === "post") {
+            goBack({ skipQueryUpdate: true });
+        }
+    },
 );
 </script>
 
 <template>
-  <div
-    class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
-  >
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-16 md:pb-2">
-      <Transition name="fade" mode="out-in">
-        <div v-if="view === 'list'" key="list">
-          <div class="mb-12">
-            <div class="text-catppuccin-subtle text-sm mb-2">~$ cd ~/posts</div>
-            <div class="flex items-center gap-4 text-sm mb-6">
-              <router-link
-                to="/"
-                class="px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group"
-              >
-                <span
-                  class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
-                  >cd</span
-                >
-                <span class="text-catppuccin-mauve font-medium">~/</span>
-                <span class="text-catppuccin-subtle font-medium">(home)</span>
-              </router-link>
-            </div>
-            <h1
-              class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-4"
-            >
-              <span class="text-catppuccin-mauve">Posts</span>
-            </h1>
-            <p class="text-sm text-catppuccin-gray leading-relaxed mb-6">
-              My thoughts, tutorials, and experiences on various topics
-              including web development, programming, and technology.
-            </p>
+    <div
+        class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
+    >
+        <div
+            class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2"
+        >
+            <Transition name="fade" mode="out-in">
+                <div v-if="view === 'list'" key="list">
+                    <div class="mb-12">
+                        <div class="text-catppuccin-subtle text-sm mb-2">
+                            ~$ cd ~/posts
+                        </div>
+                        <div class="flex items-center gap-4 text-sm mb-6">
+                            <router-link
+                                to="/"
+                                class="px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group"
+                            >
+                                <span
+                                    class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors"
+                                    >cd</span
+                                >
+                                <span class="text-catppuccin-mauve font-medium"
+                                    >~/</span
+                                >
+                                <span class="text-catppuccin-subtle font-medium"
+                                    >(home)</span
+                                >
+                            </router-link>
+                        </div>
+                        <h1
+                            class="text-3xl md:text-4xl font-bold text-catppuccin-text mb-4"
+                        >
+                            <span class="text-catppuccin-mauve">Posts</span>
+                        </h1>
+                        <p
+                            class="text-sm text-catppuccin-gray leading-relaxed mb-6"
+                        >
+                            My thoughts, tutorials, and experiences on various
+                            topics including web development, programming, and
+                            technology.
+                        </p>
 
-            <TagFilter
-              :tags="tags"
-              :selected-tag="selectedTag"
-              @toggle-tag="toggleTag"
-            />
-          </div>
+                        <TagFilter
+                            :tags="tags"
+                            :selected-tag="selectedTag"
+                            @toggle-tag="toggleTag"
+                        />
+                    </div>
 
-          <PostList
-            :posts="filteredPosts"
-            :selected-tag="selectedTag"
-            @open-post="openPost"
-            @select-tag="toggleTag"
-          />
-          <Footer />
+                    <PostList
+                        :posts="filteredPosts"
+                        :selected-tag="selectedTag"
+                        @open-post="openPost"
+                        @select-tag="toggleTag"
+                    />
+                    <Footer />
+                </div>
+
+                <div v-else-if="view === 'post' && currentPost" key="post">
+                    <PostComponent :post="currentPost" @go-back="goBack" />
+                    <Footer />
+                </div>
+            </Transition>
         </div>
-
-        <div v-else-if="view === 'post' && currentPost" key="post">
-          <PostComponent :post="currentPost" @go-back="goBack" />
-          <Footer />
-        </div>
-      </Transition>
     </div>
-  </div>
 </template>
 
 <style scoped>
 .fade-enter-active {
-  transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
 }
 
 .fade-leave-active {
-  transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
 .fade-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .fade-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
+    opacity: 0;
+    transform: translateY(-20px);
 }
 </style>
