@@ -8,7 +8,7 @@ tags: [vue, tailwind, nodejs, api, fullstack]
 url: https://yume.bram-jesse.sd-lab.nl/
 github: https://github.com/hecker-01/yume-front
 status: archived
-unlisted: false
+unlisted: true
 ---
 
 ## About

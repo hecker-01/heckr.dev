@@ -73,7 +73,8 @@ const loadPosts = () => {
       date: frontmatter.date || new Date().toISOString().split("T")[0],
       tags: frontmatter.tags || [],
       description: frontmatter.description || "",
-      unlisted: frontmatter.unlisted === true || frontmatter.unlisted === "true",
+      unlisted:
+        frontmatter.unlisted === true || frontmatter.unlisted === "true",
       content: body.trim(),
       readingTime: calculateReadingTime(body),
     });
@@ -86,12 +87,10 @@ let cache = null;
 
 export const getAllPosts = (includeUnlisted = false) => {
   if (!cache) cache = loadPosts();
-  const posts = includeUnlisted 
-    ? [...cache] 
-    : cache.filter(post => !post.unlisted);
-  return posts.sort(
-    (a, b) => parseDutchDate(b.date) - parseDutchDate(a.date),
-  );
+  const posts = includeUnlisted
+    ? [...cache]
+    : cache.filter((post) => !post.unlisted);
+  return posts.sort((a, b) => parseDutchDate(b.date) - parseDutchDate(a.date));
 };
 
 export const getPostBySlug = (slug) => {

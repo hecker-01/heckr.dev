@@ -2,95 +2,99 @@
 import { parseDutchDate } from "@/services/postService";
 
 defineProps({
-  posts: {
-    type: Array,
-    default: () => [],
-  },
-  selectedTag: {
-    type: String,
-    default: null,
-  },
+    posts: {
+        type: Array,
+        default: () => [],
+    },
+    selectedTag: {
+        type: String,
+        default: null,
+    },
 });
 
 const emit = defineEmits(["open-post", "select-tag"]);
 
 const openPost = (slug) => {
-  emit("open-post", slug);
+    emit("open-post", slug);
 };
 </script>
 
 <template>
-  <div class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2">
-    <div class="text-catppuccin-subtle text-sm mb-3">
-      ~$ ls -la posts/
-      <span v-if="selectedTag" class="text-catppuccin-mauve"
-        >| grep "{{ selectedTag }}"</span
-      >
-    </div>
-
-    <div v-if="!posts.length" class="text-sm text-catppuccin-subtle">
-      no posts found
-    </div>
-
-    <div v-else class="space-y-3">
-      <div
-        v-for="post in posts"
-        :key="post.id"
-        @click="openPost(post.slug)"
-        class="block group rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all cursor-pointer"
-      >
-        <div class="px-3 sm:px-4 py-3">
-          <div
-            class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-4 mb-2"
-          >
-            <h2
-              class="text-base font-semibold text-catppuccin-text group-hover:text-catppuccin-mauve transition-colors"
+    <div class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2">
+        <div class="text-catppuccin-subtle text-sm mb-3">
+            ~$ ls -la posts/
+            <span v-if="selectedTag" class="text-catppuccin-mauve"
+                >| grep "{{ selectedTag }}"</span
             >
-              {{ post.title }}
-            </h2>
-            <div class="flex items-center gap-2 flex-shrink-0">
-              <span class="text-xs text-catppuccin-subtle">
-                {{ post.readingTime }} min read
-              </span>
-              <span class="text-catppuccin-surface">•</span>
-              <span
-                class="text-xs text-catppuccin-subtle"
-                :title="
-                  parseDutchDate(post.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })
-                "
-              >
-                {{ post.date }}
-              </span>
-            </div>
-          </div>
-
-          <p class="text-sm text-catppuccin-gray mb-3 leading-relaxed">
-            {{ post.description }}
-          </p>
-
-          <div class="flex items-center gap-2">
-            <div class="flex flex-wrap gap-1.5">
-              <span
-                v-for="tag in post.tags"
-                :key="tag"
-                @click.stop="emit('select-tag', tag)"
-                class="px-2 py-1 sm:py-0.5 rounded text-xs bg-catppuccin-surface/60 text-catppuccin-subtle hover:bg-catppuccin-mauve/20 hover:text-catppuccin-mauve cursor-pointer transition-colors"
-              >
-                #{{ tag }}
-              </span>
-            </div>
-            <span
-              class="ml-auto text-catppuccin-subtle group-hover:text-catppuccin-mauve transition-colors text-sm shrink-0"
-            >
-              read →
-            </span>
-          </div>
         </div>
-      </div>
+
+        <div v-if="!posts.length" class="text-sm text-catppuccin-subtle">
+            no posts found
+        </div>
+
+        <div v-else class="space-y-3">
+            <div
+                v-for="post in posts"
+                :key="post.id"
+                @click="openPost(post.slug)"
+                class="block group rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all cursor-pointer"
+            >
+                <div class="px-3 sm:px-4 py-3">
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-4 mb-2"
+                    >
+                        <h2
+                            class="text-base font-semibold text-catppuccin-text group-hover:text-catppuccin-mauve transition-colors"
+                        >
+                            {{ post.title }}
+                        </h2>
+                        <div class="flex items-center gap-2 flex-shrink-0">
+                            <span class="text-xs text-catppuccin-subtle">
+                                {{ post.readingTime }} min read
+                            </span>
+                            <span class="text-catppuccin-surface">•</span>
+                            <span
+                                class="text-xs text-catppuccin-subtle"
+                                :title="
+                                    parseDutchDate(
+                                        post.date,
+                                    ).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                    })
+                                "
+                            >
+                                {{ post.date }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <p
+                        class="text-sm text-catppuccin-gray mb-3 leading-relaxed"
+                    >
+                        {{ post.description }}
+                    </p>
+
+                    <div class="flex items-center gap-2">
+                        <div class="flex flex-wrap gap-1.5">
+                            <span
+                                v-for="tag in post.tags"
+                                :key="tag"
+                                @click.stop="emit('select-tag', tag)"
+                                class="px-2 py-1 sm:py-0.5 rounded text-xs bg-catppuccin-surface/60 text-catppuccin-subtle hover:bg-catppuccin-mauve/20 hover:text-catppuccin-mauve cursor-pointer transition-colors"
+                            >
+                                #{{ tag }}
+                            </span>
+                        </div>
+                        <span
+                            class="ml-auto text-catppuccin-subtle group-hover:text-catppuccin-mauve transition-colors text-sm shrink-0"
+                        >
+                            read →
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>

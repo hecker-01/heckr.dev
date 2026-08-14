@@ -88,7 +88,8 @@ const loadProjects = () => {
       description: frontmatter.description || "",
       coverImage: frontmatter.coverImage || null,
       accentColor: frontmatter.accentColor || "mauve",
-      accentColorHex: catppuccinColors[frontmatter.accentColor] || catppuccinColors.mauve,
+      accentColorHex:
+        catppuccinColors[frontmatter.accentColor] || catppuccinColors.mauve,
       tags: frontmatter.tags || [],
       url: frontmatter.url || null,
       github: frontmatter.github || null,
