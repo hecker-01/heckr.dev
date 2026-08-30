@@ -13,8 +13,6 @@ const pathDisplay = computed(() => {
 });
 
 const goHome = () => router.push("/");
-
-console.log("❤️ ffuffix, my #1 bunny");
 </script>
 
 <template>
@@ -53,7 +51,7 @@ console.log("❤️ ffuffix, my #1 bunny");
                         >{{ pathDisplay }}</span
                     >
                 </div>
-                <div class="mt-3 text-xs text-catppuccin-subtle">
+                <!-- <div class="mt-3 text-xs text-catppuccin-subtle">
                     <span class="text-catppuccin-mauve" aria-hidden="true"
                         >U*꓃*U</span
                     >
@@ -61,7 +59,7 @@ console.log("❤️ ffuffix, my #1 bunny");
                         >the bunny scoured its burrow but couldnt find
                         anything</span
                     >
-                </div>
+                </div> -->
             </div>
         </div>
         <Footer />
