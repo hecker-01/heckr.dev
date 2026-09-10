@@ -9,14 +9,95 @@
                 role="img"
                 aria-label="Kitsudo app icon"
             >
-                <span
-                    class="absolute inset-0 rounded-[36%] bg-[#24284b]"
-                ></span>
-                <img
-                    src="/kitsudo/logo.svg"
-                    alt=""
-                    class="absolute inset-[8%] h-auto w-auto object-contain"
-                />
+                <div
+                    class="relative w-10 h-10 sm:w-12 sm:h-12 shrink-0 drop-shadow-[0_4px_2px_rgba(0,0,0,0.35)]"
+                    role="img"
+                    aria-label="Kitsudo app icon"
+                >
+                    <svg
+                        viewBox="0 0 100 100"
+                        class="absolute inset-0 w-full h-full"
+                        aria-hidden="true"
+                    >
+                        <defs>
+                            <filter
+                                id="kitsudoIconBevel"
+                                x="-20%"
+                                y="-20%"
+                                width="140%"
+                                height="140%"
+                            >
+                                <feOffset
+                                    in="SourceAlpha"
+                                    dx="0"
+                                    dy="1.5"
+                                    result="downA"
+                                />
+                                <feGaussianBlur
+                                    in="downA"
+                                    stdDeviation="0.8"
+                                    result="downB"
+                                />
+                                <feComposite
+                                    in="SourceAlpha"
+                                    in2="downB"
+                                    operator="out"
+                                    result="topEdge"
+                                />
+                                <feFlood
+                                    flood-color="#ffffff"
+                                    flood-opacity="0.2"
+                                />
+                                <feComposite
+                                    in2="topEdge"
+                                    operator="in"
+                                    result="topShine"
+                                />
+                                <feOffset
+                                    in="SourceAlpha"
+                                    dx="0"
+                                    dy="-1.5"
+                                    result="upA"
+                                />
+                                <feGaussianBlur
+                                    in="upA"
+                                    stdDeviation="1.2"
+                                    result="upB"
+                                />
+                                <feComposite
+                                    in="SourceAlpha"
+                                    in2="upB"
+                                    operator="out"
+                                    result="bottomEdge"
+                                />
+                                <feFlood
+                                    flood-color="#000000"
+                                    flood-opacity="0.35"
+                                />
+                                <feComposite
+                                    in2="bottomEdge"
+                                    operator="in"
+                                    result="bottomShade"
+                                />
+                                <feMerge>
+                                    <feMergeNode in="SourceGraphic" />
+                                    <feMergeNode in="topShine" />
+                                    <feMergeNode in="bottomShade" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <path
+                            d="M50,0 C13,0 0,13 0,50 C0,87 13,100 50,100 C87,100 100,87 100,50 C100,13 87,0 50,0 Z"
+                            fill="#24284b"
+                            filter="url(#kitsudoIconBevel)"
+                        />
+                    </svg>
+                    <img
+                        src="/kitsudo/logo.svg"
+                        alt=""
+                        class="absolute inset-[8%] w-auto h-auto object-contain"
+                    />
+                </div>
             </div>
 
             <div class="min-w-[180px] flex-1">
@@ -32,12 +113,15 @@
             </div>
 
             <div class="flex w-full gap-2 sm:w-auto">
-                <router-link
-                    to="/kitsudo"
+                <a
+                    href="https://kitsudo.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Kitsudo on the web (opens in a new tab)"
                     class="announcement-button announcement-secondary flex-1 sm:flex-none"
                 >
                     [ More info ]
-                </router-link>
+                </a>
                 <a
                     href="https://play.google.com/store/apps/details?id=dev.heckr.kitsudo"
                     target="_blank"

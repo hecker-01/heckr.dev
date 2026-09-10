@@ -51,15 +51,13 @@ const goHome = () => router.push("/");
                         >{{ pathDisplay }}</span
                     >
                 </div>
-                <!-- <div class="mt-3 text-xs text-catppuccin-subtle">
+                 <div class="mt-3 text-xs text-catppuccin-subtle">
                     <span class="text-catppuccin-mauve" aria-hidden="true"
-                        >U*꓃*U</span
-                    >
+                        >V*꓃*V</span>
                     <span class="ml-2"
-                        >the bunny scoured its burrow but couldnt find
-                        anything</span
+                        >The fox searched its den but couldnt find anything</span
                     >
-                </div> -->
+                </div>
             </div>
         </div>
         <Footer />

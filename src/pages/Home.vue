@@ -35,7 +35,7 @@ onMounted(() => {
     <div
         class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
     >
-        <KitsudoBanner />
+        <!-- <KitsudoBanner /> -->
 
         <div
             class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-10 md:pb-2"
