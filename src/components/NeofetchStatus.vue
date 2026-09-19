@@ -158,7 +158,7 @@ const editorLabel = computed(() => {
             <div class="space-y-0.5 min-w-0 flex-1">
                 <!-- User@Host header -->
                 <div class="mb-1">
-                    <span class="text-catppuccin-mauve font-bold">heck</span
+                    <span class="text-catppuccin-mauve font-bold">Bitz</span
                     ><span class="text-catppuccin-blue font-bold">OS</span
                     ><span class="text-catppuccin-subtle"> (v0.1.4)</span>
                 </div>
