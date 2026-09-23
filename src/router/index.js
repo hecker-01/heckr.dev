@@ -22,7 +22,7 @@ const routes = [
     path: "/posts/:slug",
     name: "PostDetail",
     component: Posts,
-    meta: { title: "Post | heckr.dev" },
+    meta: { title: "Post | heckr.dev", pageKey: "/posts" },
   },
   {
     path: "/projects",
@@ -34,7 +34,7 @@ const routes = [
     path: "/projects/:slug",
     name: "ProjectDetail",
     component: Projects,
-    meta: { title: "Project | heckr.dev" },
+    meta: { title: "Project | heckr.dev", pageKey: "/projects" },
   },
   {
     path: "/kitsudo",

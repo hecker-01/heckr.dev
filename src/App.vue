@@ -15,7 +15,7 @@ router.isReady().then(() => {
 <template>
     <router-view v-slot="{ Component, route }">
         <Transition :name="isInitialLoad ? '' : 'page'" mode="out-in">
-            <component :is="Component" :key="route.path" />
+            <component :is="Component" :key="route.meta.pageKey ?? route.path" />
         </Transition>
     </router-view>
 </template>
