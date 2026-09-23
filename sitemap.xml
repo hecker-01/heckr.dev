@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://heckr.dev/</loc></url>
+  <url><loc>https://heckr.dev/posts/</loc></url>
+  <url><loc>https://heckr.dev/projects/</loc></url>
+  <url><loc>https://heckr.dev/posts/docker-and-compose/</loc></url>
+  <url><loc>https://heckr.dev/posts/local-database/</loc></url>
+  <url><loc>https://heckr.dev/posts/using-git/</loc></url>
+  <url><loc>https://heckr.dev/kitsudo/</loc></url>
+  <url><loc>https://heckr.dev/projects/mcbe-pack-decryptor/</loc></url>
+  <url><loc>https://heckr.dev/projects/pingr/</loc></url>
+  <url><loc>https://heckr.dev/projects/portfolio/</loc></url>
+  <url><loc>https://heckr.dev/projects/recodr/</loc></url>
+  <url><loc>https://heckr.dev/projects/wordr/</loc></url>
+</urlset>
