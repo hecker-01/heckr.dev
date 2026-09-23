@@ -1,127 +1,157 @@
 const GITHUB_USERNAME = "hecker-01";
+const CACHE_TTL_MS = 15 * 60 * 1000;
+const REQUEST_TIMEOUT_MS = 10000;
 
-export const getAllReposWithLanguages = async () => {
+let reposCache = null;
+let reposCachedAt = 0;
+let reposRequest = null;
+let contributionsCache = null;
+let contributionsCachedAt = 0;
+let contributionsRequest = null;
+
+const fetchJson = async (url, { rateLimitMessage } = {}) => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
   try {
-    const repos = [];
-    let page = 1;
-    const perPage = 100;
-
-    // Fetch all repositories (handle pagination)
-    while (true) {
-      const response = await fetch(
-        `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=${perPage}&page=${page}`,
-      );
-
-      if (!response.ok) break;
-
-      const data = await response.json();
-      if (!data.length) break;
-
-      repos.push(...data);
-
-      if (data.length < perPage) break;
-      page++;
-    }
-
-    // Count languages across all repos
-    const languageCounts = {};
-
-    repos.forEach((repo) => {
-      if (repo.language) {
-        languageCounts[repo.language] =
-          (languageCounts[repo.language] || 0) + 1;
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) {
+      if (response.status === 403 && rateLimitMessage) {
+        throw new Error(rateLimitMessage);
       }
-    });
-
-    // Sort by count (descending) and format
-    const sortedLanguages = Object.entries(languageCounts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([language, count]) => ({ language, count }));
-
-    return {
-      repos,
-      languages: sortedLanguages,
-      totalRepos: repos.length,
-    };
+      throw new Error(`Request failed (${response.status}).`);
+    }
+    return await response.json();
   } catch (error) {
-    console.error("Error fetching GitHub data:", error);
-    return {
-      repos: [],
-      languages: [],
-      totalRepos: 0,
-    };
+    if (error.name === "AbortError") {
+      throw new Error("The request timed out.");
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
   }
 };
 
-export const getContributionData = async () => {
-  const weeks = 53;
-  const today = new Date();
-  const year = today.getFullYear();
+const errorMessage = (error) =>
+  error instanceof Error ? error.message : "The data service is unavailable.";
 
-  try {
-    // Use GitHub's contribution calendar API (used by github skyline)
-    const response = await fetch(
-      `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`,
-    );
+export const getAllReposWithLanguages = () => {
+  if (reposCache && Date.now() - reposCachedAt < CACHE_TTL_MS) {
+    return Promise.resolve(reposCache);
+  }
+  if (reposRequest) return reposRequest;
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch contribution data");
-    }
+  reposRequest = (async () => {
+    try {
+      const repos = [];
+      const perPage = 100;
+      let page = 1;
 
-    const data = await response.json();
+      while (true) {
+        const data = await fetchJson(
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=${perPage}&page=${page}`,
+          { rateLimitMessage: "GitHub API rate limit reached." },
+        );
+        if (!Array.isArray(data)) {
+          throw new Error("GitHub returned an unexpected response.");
+        }
+        if (!data.length) break;
 
-    // Extract contributions from the response
-    const contributions = [];
-
-    if (data.contributions) {
-      data.contributions.forEach((contribution) => {
-        contributions.push({
-          date: contribution.date,
-          count: contribution.count,
-        });
-      });
-    }
-
-    // If we got contributions, return them
-    if (contributions.length > 0) {
-      // Ensure we have exactly 53 weeks (371 days) of data
-      const targetDays = weeks * 7;
-      const startDate = new Date(today);
-      startDate.setDate(startDate.getDate() - targetDays + 1);
-
-      const fullContributions = [];
-      for (let i = 0; i < targetDays; i++) {
-        const date = new Date(startDate);
-        date.setDate(date.getDate() + i);
-        const dateStr = date.toISOString().split("T")[0];
-
-        const existing = contributions.find((c) => c.date === dateStr);
-        fullContributions.push({
-          date: dateStr,
-          count: existing ? existing.count : 0,
-        });
+        repos.push(...data);
+        if (data.length < perPage) break;
+        page++;
       }
 
-      return fullContributions;
+      const languageCounts = {};
+      repos.forEach((repo) => {
+        if (repo.language) {
+          languageCounts[repo.language] =
+            (languageCounts[repo.language] || 0) + 1;
+        }
+      });
+
+      const result = {
+        repos,
+        languages: Object.entries(languageCounts)
+          .sort((a, b) => b[1] - a[1])
+          .map(([language, count]) => ({ language, count })),
+        totalRepos: repos.length,
+      };
+      reposCache = result;
+      reposCachedAt = Date.now();
+      return result;
+    } catch (error) {
+      const message = `Could not refresh GitHub data: ${errorMessage(error)}`;
+      if (reposCache) {
+        return {
+          ...reposCache,
+          error: `Showing cached GitHub data. ${message}`,
+        };
+      }
+      return { repos: [], languages: [], totalRepos: 0, error: message };
+    } finally {
+      reposRequest = null;
     }
+  })();
 
-    throw new Error("No contributions data available");
-  } catch (error) {
-    console.error("Error fetching contribution data:", error);
+  return reposRequest;
+};
 
-    // Fallback: Return empty year of data
-    const contributionMap = new Map();
-    for (let i = weeks * 7 - 1; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
-      const dateStr = date.toISOString().split("T")[0];
-      contributionMap.set(dateStr, 0);
-    }
-
-    return Array.from(contributionMap.entries())
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([date, count]) => ({ date, count }));
+const loadContributionData = async () => {
+  const weeks = 53;
+  const targetDays = weeks * 7;
+  const today = new Date();
+  const data = await fetchJson(
+    `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`,
+  );
+  if (!Array.isArray(data.contributions)) {
+    throw new Error("The contribution service returned unexpected data.");
   }
+
+  const contributionsByDate = new Map(
+    data.contributions.map(({ date, count }) => [date, count]),
+  );
+  const startDate = new Date(today);
+  startDate.setDate(startDate.getDate() - targetDays + 1);
+
+  return Array.from({ length: targetDays }, (_, index) => {
+    const date = new Date(startDate);
+    date.setDate(date.getDate() + index);
+    const dateString = date.toISOString().split("T")[0];
+    return {
+      date: dateString,
+      count: contributionsByDate.get(dateString) || 0,
+    };
+  });
+};
+
+export const getContributionData = () => {
+  if (
+    contributionsCache &&
+    Date.now() - contributionsCachedAt < CACHE_TTL_MS
+  ) {
+    return Promise.resolve({ contributions: contributionsCache, error: null });
+  }
+  if (contributionsRequest) return contributionsRequest;
+
+  contributionsRequest = (async () => {
+    try {
+      const contributions = await loadContributionData();
+      contributionsCache = contributions;
+      contributionsCachedAt = Date.now();
+      return { contributions, error: null };
+    } catch (error) {
+      const message = `Could not refresh contribution data: ${errorMessage(error)}`;
+      return {
+        contributions: contributionsCache || [],
+        error: message,
+      };
+    } finally {
+      contributionsRequest = null;
+    }
+  })();
+
+  return contributionsRequest;
 };
 
 export const getContributionLevel = (count) => {
@@ -133,6 +163,5 @@ export const getContributionLevel = (count) => {
 };
 
 export const getGitHubContributionUrl = (date) => {
-  // Format: https://github.com/USERNAME?tab=overview&from=YYYY-MM-DD&to=YYYY-MM-DD
   return `https://github.com/${GITHUB_USERNAME}?tab=overview&from=${date}&to=${date}`;
 };

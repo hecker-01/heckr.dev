@@ -11,16 +11,26 @@ import ReposList from "@/components/ReposList.vue";
 
 const repos = ref([]);
 const reposLoading = ref(true);
+const reposError = ref(null);
 const languages = ref([]);
 
 const fetchProjects = async () => {
     try {
         reposLoading.value = true;
-        const { repos: repoData, languages: langData } =
-            await getAllReposWithLanguages("hecker-01");
+        reposError.value = null;
+        const {
+            repos: repoData,
+            languages: langData,
+            error,
+        } = await getAllReposWithLanguages();
         repos.value = repoData;
         languages.value = langData;
-    } catch {
+        reposError.value = error;
+    } catch (error) {
+        reposError.value =
+            error instanceof Error
+                ? error.message
+                : "GitHub data is temporarily unavailable.";
     } finally {
         reposLoading.value = false;
     }
@@ -47,6 +57,21 @@ onMounted(() => {
                 :loading="reposLoading"
                 id="languages"
             />
+
+            <div
+                v-if="reposError"
+                role="status"
+                class="mb-4 flex flex-wrap items-center gap-3 text-sm text-catppuccin-yellow"
+            >
+                <span>{{ reposError }}</span>
+                <button
+                    type="button"
+                    class="underline hover:text-catppuccin-text"
+                    @click="fetchProjects"
+                >
+                    retry
+                </button>
+            </div>
 
             <div class="grid lg:grid-cols-2 gap-6 lg:items-stretch">
                 <ReposList :repos="repos" :loading="reposLoading" />

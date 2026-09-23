@@ -8,6 +8,7 @@ import {
 
 const contributions = ref([]);
 const contributionsLoading = ref(true);
+const contributionsError = ref(null);
 
 const contributionWeeks = computed(() => {
     const weeks = [];
@@ -57,10 +58,14 @@ const monthLabels = computed(() => {
 });
 
 const fetchContributions = async () => {
+    contributionsLoading.value = true;
+    contributionsError.value = null;
     try {
-        contributionsLoading.value = true;
-        contributions.value = await getContributionData();
+        const result = await getContributionData();
+        contributions.value = result.contributions;
+        contributionsError.value = result.error;
     } catch {
+        contributionsError.value = "Contribution data is temporarily unavailable.";
     } finally {
         contributionsLoading.value = false;
     }
@@ -78,7 +83,7 @@ onMounted(() => {
                 ~$ git log --oneline --since="1.year.ago" | wc -l
             </div>
             <div
-                v-if="!contributionsLoading"
+                v-if="!contributionsLoading && !contributionsError"
                 class="flex items-center gap-1 text-[10px] text-catppuccin-subtle"
             >
                 <span>less</span>
@@ -106,6 +111,19 @@ onMounted(() => {
             <div
                 class="h-[60px] bg-catppuccin-surface/30 rounded cursor-blink"
             ></div>
+        </div>
+        <div v-else-if="contributionsError" role="status" class="text-sm text-catppuccin-yellow">
+            <span>{{ contributionsError }}</span>
+            <button
+                type="button"
+                class="ml-3 underline hover:text-catppuccin-text"
+                @click="fetchContributions"
+            >
+                retry
+            </button>
+            <span v-if="contributions.length" class="block mt-1 text-catppuccin-subtle">
+                showing the last saved data
+            </span>
         </div>
         <div v-else>
             <!-- Contribution grid - fixed on desktop, scrollable on mobile -->
