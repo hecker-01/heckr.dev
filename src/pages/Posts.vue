@@ -6,6 +6,7 @@ import TagFilter from "@/components/TagFilter.vue";
 import PostList from "@/components/PostList.vue";
 import PostComponent from "@/components/PostComponent.vue";
 import Footer from "@/components/Footer.vue";
+import { setPageMetadata } from "@/services/seoService";
 
 const view = ref("list");
 const currentPost = ref(null);
@@ -31,13 +32,20 @@ const openPost = (slug) => {
     if (currentPost.value) {
         view.value = "post";
         window.scrollTo({ top: 0, behavior: "instant" });
-        if (route.query.post !== slug) {
+        setPageMetadata({
+            title: currentPost.value.title,
+            description: currentPost.value.description,
+            path: `/posts/${currentPost.value.slug}`,
+        });
+        if (route.params.slug !== slug) {
+            const { post: _post, ...query } = route.query;
             router.replace({
-                name: "Posts",
-                query: { ...route.query, post: slug },
+                name: "PostDetail",
+                params: { slug },
+                query,
             });
         }
-    } else if (route.query.post) {
+    } else if (route.params.slug || route.query.post) {
         const newQuery = { ...route.query };
         delete newQuery.post;
         router.replace({ name: "Posts", query: newQuery });
@@ -48,7 +56,13 @@ const goBack = ({ skipQueryUpdate = false } = {}) => {
     view.value = "list";
     currentPost.value = null;
     window.scrollTo({ top: 0, behavior: "smooth" });
-    if (!skipQueryUpdate && "post" in route.query) {
+    setPageMetadata({
+        title: "Posts",
+        description:
+            "Thoughts, tutorials, and experiences on web development, programming, and technology.",
+        path: "/posts",
+    });
+    if (!skipQueryUpdate && (route.params.slug || "post" in route.query)) {
         const newQuery = { ...route.query };
         delete newQuery.post;
         router.replace({ name: "Posts", query: newQuery });
@@ -61,6 +75,12 @@ const toggleTag = (tag) => {
 
 onMounted(() => {
     loadPosts();
+    setPageMetadata({
+        title: "Posts",
+        description:
+            "Thoughts, tutorials, and experiences on web development, programming, and technology.",
+        path: "/posts",
+    });
     document.documentElement.style.overflowY = "auto";
     document.body.style.overflowY = "auto";
 
@@ -85,9 +105,9 @@ onMounted(() => {
         }
     }, 100);
 
-    const slugFromQuery = route.query.post;
-    if (slugFromQuery) {
-        openPost(slugFromQuery);
+    const slug = route.params.slug || route.query.post;
+    if (slug) {
+        openPost(slug);
     }
 });
 
@@ -97,7 +117,7 @@ onBeforeUnmount(() => {
 });
 
 watch(
-    () => route.query.post,
+    () => route.params.slug || route.query.post,
     (slug, prevSlug) => {
         if (slug && slug !== prevSlug) {
             openPost(slug);

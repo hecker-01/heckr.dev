@@ -19,10 +19,22 @@ const routes = [
     meta: { title: "Posts | heckr.dev" },
   },
   {
+    path: "/posts/:slug",
+    name: "PostDetail",
+    component: Posts,
+    meta: { title: "Post | heckr.dev" },
+  },
+  {
     path: "/projects",
     name: "Projects",
     component: Projects,
     meta: { title: "Projects | heckr.dev" },
+  },
+  {
+    path: "/projects/:slug",
+    name: "ProjectDetail",
+    component: Projects,
+    meta: { title: "Project | heckr.dev" },
   },
   {
     path: "/kitsudo",

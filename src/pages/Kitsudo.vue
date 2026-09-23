@@ -1,14 +1,26 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import ProjectComponent from "@/components/ProjectComponent.vue";
 import Footer from "@/components/Footer.vue";
 import ImageLightbox from "@/components/ImageLightbox.vue";
 import { getProjectBySlug } from "@/services/projectService";
 import KitsudoBanner from "@/components/KitsudoBanner.vue";
+import { setPageMetadata } from "@/services/seoService";
 
 const router = useRouter();
 const project = getProjectBySlug("kitsudo");
+
+onMounted(() => {
+    if (project) {
+        setPageMetadata({
+            title: project.title,
+            description: project.description,
+            path: "/kitsudo/",
+            image: project.coverImage,
+        });
+    }
+});
 
 const phoneScreens = [
     { src: "/kitsudo/screenshots/home.jpg", label: "Today" },

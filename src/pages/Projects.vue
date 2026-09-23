@@ -10,6 +10,7 @@ import TagFilter from "@/components/TagFilter.vue";
 import ProjectList from "@/components/ProjectList.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
 import Footer from "@/components/Footer.vue";
+import { setPageMetadata } from "@/services/seoService";
 
 const view = ref("list");
 const currentProject = ref(null);
@@ -40,13 +41,21 @@ const openProject = (slug) => {
     if (currentProject.value) {
         view.value = "project";
         window.scrollTo({ top: 0, behavior: "instant" });
-        if (route.query.project !== slug) {
+        setPageMetadata({
+            title: currentProject.value.title,
+            description: currentProject.value.description,
+            path: `/projects/${currentProject.value.slug}`,
+            image: currentProject.value.coverImage,
+        });
+        if (route.params.slug !== slug) {
+            const { project: _project, ...query } = route.query;
             router.replace({
-                name: "Projects",
-                query: { ...route.query, project: slug },
+                name: "ProjectDetail",
+                params: { slug },
+                query,
             });
         }
-    } else if (route.query.project) {
+    } else if (route.params.slug || route.query.project) {
         const newQuery = { ...route.query };
         delete newQuery.project;
         router.replace({ name: "Projects", query: newQuery });
@@ -57,7 +66,12 @@ const goBack = ({ skipQueryUpdate = false } = {}) => {
     view.value = "list";
     currentProject.value = null;
     window.scrollTo({ top: 0, behavior: "smooth" });
-    if (!skipQueryUpdate && "project" in route.query) {
+    setPageMetadata({
+        title: "Projects",
+        description: "A collection of projects, tools, and applications by Jesse.",
+        path: "/projects",
+    });
+    if (!skipQueryUpdate && (route.params.slug || "project" in route.query)) {
         const newQuery = { ...route.query };
         delete newQuery.project;
         router.replace({ name: "Projects", query: newQuery });
@@ -70,6 +84,11 @@ const toggleTag = (tag) => {
 
 onMounted(() => {
     loadProjects();
+    setPageMetadata({
+        title: "Projects",
+        description: "A collection of projects, tools, and applications by Jesse.",
+        path: "/projects",
+    });
     document.documentElement.style.overflowY = "auto";
     document.body.style.overflowY = "auto";
 
@@ -94,9 +113,9 @@ onMounted(() => {
         }
     }, 100);
 
-    const slugFromQuery = route.query.project;
-    if (slugFromQuery) {
-        openProject(slugFromQuery);
+    const slug = route.params.slug || route.query.project;
+    if (slug) {
+        openProject(slug);
     }
 });
 
@@ -106,7 +125,7 @@ onBeforeUnmount(() => {
 });
 
 watch(
-    () => route.query.project,
+    () => route.params.slug || route.query.project,
     (slug, prevSlug) => {
         if (slug && slug !== prevSlug) {
             openProject(slug);
