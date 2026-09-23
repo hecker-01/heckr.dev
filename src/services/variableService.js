@@ -2,6 +2,15 @@
  * Handles extraction and substitution of $[variable] patterns in post content.
  */
 export class VariableProcessor {
+  escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   /**
    * Extract all non-escaped $[variable] names from content.
    * @param {string} content - Raw markdown content.
@@ -34,7 +43,7 @@ export class VariableProcessor {
 
     // Substitute non-escaped variables
     processed = processed.replace(/\$\[([^\]]+)\]/g, (match, varName) => {
-      return variables[varName] || varName;
+      return this.escapeHtml(variables[varName] || varName);
     });
 
     // Restore escaped variables as literal $[var] text

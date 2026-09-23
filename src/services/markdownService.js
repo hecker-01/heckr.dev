@@ -1,4 +1,5 @@
 import { InlineParser } from "./inlineParserService.js";
+import DOMPurify from "dompurify";
 
 /**
  * Full markdown-to-HTML parser.
@@ -59,7 +60,7 @@ export class MarkdownParser {
     html = this._restoreInlineCode(html, ctx);
     html = this._restoreEscapeSequences(html, ctx);
 
-    return html;
+    return DOMPurify.sanitize(html);
   }
 
   // --- extraction helpers --------------------------------------
