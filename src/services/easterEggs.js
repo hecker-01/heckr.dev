@@ -1,7 +1,11 @@
 // Easter eggs and fun terminal interactions
+import confetti from "canvas-confetti";
 import { getAllReposWithLanguages } from "./githubService.js";
 
 let konamiIndex = 0;
+let konamiTimeout;
+let activeKonamiElements = [];
+let activeConfetti;
 const konamiCode = [
   "ArrowUp",
   "ArrowUp",
@@ -136,35 +140,86 @@ export const initEasterEggs = () => {
 };
 
 const activateKonamiCode = () => {
-  // Create celebration effect
   console.log(
     "%cKONAMI CODE ACTIVATED!",
     "font-size: 24px; font-weight: bold; color: #f9e2af; text-shadow: 2px 2px 4px #000;",
   );
 
-  // Create rainbow border effect
-  document.body.style.animation = "rainbow-border 2s linear infinite";
+  clearTimeout(konamiTimeout);
+  activeConfetti?.reset();
+  activeConfetti = undefined;
+  activeKonamiElements.forEach((element) => element.remove());
+  activeKonamiElements = [];
 
-  // Add rainbow animation if not exists
-  if (!document.getElementById("konami-style")) {
-    const style = document.createElement("style");
-    style.id = "konami-style";
-    style.textContent = `
-      @keyframes rainbow-border {
-        0% { box-shadow: inset 0 0 0 3px #f38ba8; }
-        16% { box-shadow: inset 0 0 0 3px #fab387; }
-        33% { box-shadow: inset 0 0 0 3px #f9e2af; }
-        50% { box-shadow: inset 0 0 0 3px #a6e3a1; }
-        66% { box-shadow: inset 0 0 0 3px #89dceb; }
-        83% { box-shadow: inset 0 0 0 3px #89b4fa; }
-        100% { box-shadow: inset 0 0 0 3px #cba6f7; }
+  const style = document.getElementById("konami-style") ?? document.createElement("style");
+  style.id = "konami-style";
+  style.textContent = `
+      .konami-frame {
+        position: fixed;
+        z-index: 9998;
+        inset: 0;
+        border: 2px solid #cba6f7;
+        box-shadow: inset 0 0 48px #cba6f722;
+        pointer-events: none;
+        animation: konami-frame-pulse 1.8s ease-in-out infinite alternate;
       }
-    `;
+      @keyframes konami-frame-pulse {
+        from { opacity: .68; }
+        to { opacity: 1; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .konami-frame { animation: none !important; }
+      }
+  `;
+  if (!style.isConnected) {
     document.head.appendChild(style);
   }
 
-  // Remove rainbow border after 5 seconds
-  setTimeout(() => {
-    document.body.style.animation = "";
-  }, 5000);
+  const frame = document.createElement("div");
+  frame.className = "konami-frame";
+  frame.setAttribute("aria-hidden", "true");
+
+  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  let confettiCanvas;
+  if (!reducedMotion) {
+    confettiCanvas = document.createElement("canvas");
+    confettiCanvas.setAttribute("aria-hidden", "true");
+    Object.assign(confettiCanvas.style, {
+      position: "fixed",
+      inset: "0",
+      width: "100%",
+      height: "100%",
+      pointerEvents: "none",
+      zIndex: "9999",
+    });
+    document.body.appendChild(confettiCanvas);
+    activeConfetti = confetti.create(confettiCanvas, {
+      resize: true,
+      useWorker: true,
+      disableForReducedMotion: true,
+    });
+    const colors = ["#cba6f7", "#94e2d5", "#f9e2af", "#f38ba8", "#89b4fa", "#a6e3a1"];
+    const burst = {
+      particleCount: 220,
+      spread: 60,
+      colors,
+      startVelocity: 50,
+      ticks: 320,
+      zIndex: 9999,
+    };
+    activeConfetti({ ...burst, angle: 60, origin: { x: 0, y: 0.65 } });
+    activeConfetti({ ...burst, angle: 120, origin: { x: 1, y: 0.65 } });
+  }
+
+  document.body.append(frame);
+  activeKonamiElements = [frame, confettiCanvas].filter(Boolean);
+
+  const dismiss = () => {
+    clearTimeout(konamiTimeout);
+    activeConfetti?.reset();
+    activeConfetti = undefined;
+    activeKonamiElements.forEach((element) => element.remove());
+    activeKonamiElements = [];
+  };
+  konamiTimeout = setTimeout(dismiss, 6500);
 };
