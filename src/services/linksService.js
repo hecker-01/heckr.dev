@@ -35,6 +35,13 @@ export const linkItems = [
     external: true,
     accentColor: "white",
   },
+  {
+    id: "discord",
+    label: "discord",
+    href: "https://discord.gg/bitzen",
+    external: true,
+    accentColor: "blue",
+  },
 ];
 
 export function getLinks() {
