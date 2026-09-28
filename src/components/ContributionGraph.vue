@@ -9,11 +9,25 @@ import {
 const contributions = ref([]);
 const contributionsLoading = ref(true);
 const contributionsError = ref(null);
+const weekdays = ["", "Mon", "", "Wed", "", "Fri", ""];
+
+const todayDate = (() => {
+    const today = new Date();
+    return [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, "0"),
+        String(today.getDate()).padStart(2, "0"),
+    ].join("-");
+})();
 
 const contributionWeeks = computed(() => {
     const weeks = [];
     for (let i = 0; i < contributions.value.length; i += 7) {
-        weeks.push(contributions.value.slice(i, i + 7));
+        weeks.push(
+            contributions.value
+                .slice(i, i + 7)
+                .filter((day) => day.date <= todayDate),
+        );
     }
     return weeks;
 });
@@ -25,7 +39,7 @@ const totalContributions = computed(() => {
 const monthLabels = computed(() => {
     if (!contributions.value.length) return [];
 
-    const months = [];
+    const months = {};
     const monthNames = [
         "Jan",
         "Feb",
@@ -45,10 +59,11 @@ const monthLabels = computed(() => {
     contributionWeeks.value.forEach((week, weekIndex) => {
         const firstDay = week[0];
         if (firstDay) {
-            const date = new Date(firstDay.date);
-            const month = date.getMonth();
+            const month = Number(firstDay.date.slice(5, 7)) - 1;
             if (month !== lastMonth) {
-                months.push({ name: monthNames[month], weekIndex });
+                if (weekIndex > 0 || firstDay.date.slice(8, 10) === "01") {
+                    months[weekIndex] = monthNames[month];
+                }
                 lastMonth = month;
             }
         }
@@ -78,33 +93,9 @@ onMounted(() => {
 
 <template>
     <div class="mt-6 border-l-2 border-catppuccin-surface pl-4">
-        <div class="flex items-center justify-between mb-3">
+        <div class="mb-3">
             <div class="text-catppuccin-subtle text-sm">
                 ~$ git log --oneline --since="1.year.ago" | wc -l
-            </div>
-            <div
-                v-if="!contributionsLoading && !contributionsError"
-                class="flex items-center gap-1 text-[10px] text-catppuccin-subtle"
-            >
-                <span>less</span>
-                <div class="flex gap-[1px]">
-                    <div
-                        class="w-2 h-2 rounded-[2px] bg-catppuccin-surface/50"
-                    ></div>
-                    <div
-                        class="w-2 h-2 rounded-[2px] bg-catppuccin-green/30"
-                    ></div>
-                    <div
-                        class="w-2 h-2 rounded-[2px] bg-catppuccin-green/50"
-                    ></div>
-                    <div
-                        class="w-2 h-2 rounded-[2px] bg-catppuccin-green/70"
-                    ></div>
-                    <div
-                        class="w-2 h-2 rounded-[2px] bg-catppuccin-green"
-                    ></div>
-                </div>
-                <span>more</span>
             </div>
         </div>
         <div v-if="contributionsLoading">
@@ -126,52 +117,90 @@ onMounted(() => {
             </span>
         </div>
         <div v-else>
-            <!-- Contribution grid - fixed on desktop, scrollable on mobile -->
-            <div
-                class="overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-thin"
-            >
+            <div class="max-w-full overflow-x-auto pb-2 scrollbar-thin">
                 <div
-                    class="inline-flex md:flex gap-[3px] md:gap-1"
-                    style="min-width: max-content"
+                    class="grid w-full gap-[3px]"
+                    :style="{
+                        minWidth: `${32 + contributionWeeks.length * 13}px`,
+                        gridTemplateColumns: `32px repeat(${contributionWeeks.length}, minmax(10px, 1fr))`,
+                    }"
                 >
-                    <div
+                    <span
                         v-for="(week, weekIndex) in contributionWeeks"
-                        :key="weekIndex"
-                        class="flex flex-col gap-[3px] md:gap-1 md:flex-1"
+                        v-show="monthLabels[weekIndex]"
+                        :key="`month-${weekIndex}`"
+                        class="whitespace-nowrap text-[12px] leading-4 text-catppuccin-subtle"
+                        :style="{ gridColumn: weekIndex + 2, gridRow: 1 }"
                     >
-                        <template
-                            v-for="(day, dayIndex) in week"
-                            :key="dayIndex"
-                        >
+                        {{ monthLabels[weekIndex] }}
+                    </span>
+                    <span
+                        v-for="(weekday, dayIndex) in weekdays"
+                        :key="`weekday-${dayIndex}`"
+                        class="self-center text-[12px] leading-[10px] text-catppuccin-subtle"
+                        :style="{ gridColumn: 1, gridRow: dayIndex + 2 }"
+                    >
+                        {{ weekday }}
+                    </span>
+                    <template v-for="(week, weekIndex) in contributionWeeks" :key="weekIndex">
+                        <template v-for="(day, dayIndex) in week" :key="day.date">
                             <a
                                 v-if="day.count > 0"
                                 :href="getGitHubContributionUrl(day.date)"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="w-[10px] h-[10px] md:w-auto md:h-auto md:aspect-square rounded-sm transition-all hover:ring-1 hover:ring-catppuccin-green hover:scale-110 cursor-pointer"
+                                class="aspect-square min-w-[10px] w-full rounded-[20%] transition-shadow duration-150 ease-out hover:ring-1 hover:ring-catppuccin-green cursor-pointer"
                                 :class="[
                                     getContributionLevel(day.count) === 1
-                                        ? 'bg-catppuccin-green/30 hover:bg-catppuccin-green/40'
+                                        ? 'bg-catppuccin-green/30'
                                         : getContributionLevel(day.count) === 2
-                                          ? 'bg-catppuccin-green/50 hover:bg-catppuccin-green/60'
-                                          : getContributionLevel(day.count) ===
-                                              3
-                                            ? 'bg-catppuccin-green/70 hover:bg-catppuccin-green/80'
-                                            : 'bg-catppuccin-green hover:bg-catppuccin-green',
+                                          ? 'bg-catppuccin-green/50'
+                                          : getContributionLevel(day.count) === 3
+                                            ? 'bg-catppuccin-green/70'
+                                            : 'bg-catppuccin-green',
                                 ]"
+                                :style="{ gridColumn: weekIndex + 2, gridRow: dayIndex + 2 }"
                                 :title="`${day.date}: ${day.count} contributions - Click to view on GitHub`"
                             ></a>
                             <div
                                 v-else
-                                class="w-[10px] h-[10px] md:w-auto md:h-auto md:aspect-square rounded-sm bg-catppuccin-surface/50"
+                                class="aspect-square min-w-[10px] w-full rounded-[20%] bg-catppuccin-surface/50"
+                                :style="{ gridColumn: weekIndex + 2, gridRow: dayIndex + 2 }"
                                 :title="`${day.date}: ${day.count} contributions`"
                             ></div>
                         </template>
-                    </div>
+                    </template>
                 </div>
             </div>
-            <div class="text-xs text-catppuccin-gray mt-2">
-                {{ totalContributions }} contributions in the last year
+            <div
+                class="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-catppuccin-subtle"
+            >
+                <span class="text-catppuccin-gray">
+                    {{ totalContributions }} contributions in the last year
+                </span>
+                <div
+                    class="flex items-center gap-1 whitespace-nowrap"
+                >
+                    <span>Less</span>
+                    <div class="flex gap-[1px]">
+                        <div
+                            class="w-2 h-2 rounded-[2px] bg-catppuccin-surface/50"
+                        ></div>
+                        <div
+                            class="w-2 h-2 rounded-[2px] bg-catppuccin-green/30"
+                        ></div>
+                        <div
+                            class="w-2 h-2 rounded-[2px] bg-catppuccin-green/50"
+                        ></div>
+                        <div
+                            class="w-2 h-2 rounded-[2px] bg-catppuccin-green/70"
+                        ></div>
+                        <div
+                            class="w-2 h-2 rounded-[2px] bg-catppuccin-green"
+                        ></div>
+                    </div>
+                    <span>More</span>
+                </div>
             </div>
         </div>
     </div>

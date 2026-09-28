@@ -111,13 +111,23 @@ const loadContributionData = async () => {
   const contributionsByDate = new Map(
     data.contributions.map(({ date, count }) => [date, count]),
   );
-  const startDate = new Date(today);
-  startDate.setDate(startDate.getDate() - targetDays + 1);
+  const startDate = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate(),
+  );
+  startDate.setDate(
+    startDate.getDate() - startDate.getDay() - (weeks - 1) * 7,
+  );
 
   return Array.from({ length: targetDays }, (_, index) => {
     const date = new Date(startDate);
     date.setDate(date.getDate() + index);
-    const dateString = date.toISOString().split("T")[0];
+    const dateString = [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, "0"),
+      String(date.getDate()).padStart(2, "0"),
+    ].join("-");
     return {
       date: dateString,
       count: contributionsByDate.get(dateString) || 0,
