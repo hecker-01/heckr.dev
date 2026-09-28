@@ -88,6 +88,11 @@ the markdown parser supports extended syntax:
 
 ## content management
 
+Post and project front matter blocks support `key: value` fields, quoted
+strings, inline arrays, boolean values, and indented continuation lines. This
+is a small content parser, not a full YAML parser. Malformed front matter stops
+the build and reports the file and relevant line.
+
 ### adding posts
 
 create a new `.md` file in the `/posts/` directory:
@@ -108,7 +113,9 @@ Your markdown content here...
 **frontmatter fields:**
 
 - `title` - Post title
-- `slug` - Auto-generated from filename, but can be overridden
+- `slug` - Defaults to the filename but can be overridden. Use lowercase
+  letters and numbers separated by single hyphens. Keep each slug unique
+  among posts.
 - `date` - Format: dd-mm-yyyy
 - `tags` - Array of tags for filtering
 - `description` - Shown in post list
@@ -138,7 +145,9 @@ Full project description with markdown...
 **frontmatter fields:**
 
 - `title` - Project name
-- `slug` - Auto-generated from filename
+- `slug` - Defaults to the filename but can be overridden. Use lowercase
+  letters and numbers separated by single hyphens. Keep each slug unique
+  among projects.
 - `description` - Brief description for project card
 - `coverImage` - Path to cover image (store in `/public/`)
 - `accentColor` - One of: mauve, blue, green, red, pink, yellow, teal, sapphire, sky, lavender, peach, maroon, flamingo
