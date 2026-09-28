@@ -1,4 +1,7 @@
-import { parseFrontmatter } from "./frontmatterService.js";
+import {
+  parseFrontmatter,
+  resolveContentSlug,
+} from "./frontmatterService.js";
 
 const catppuccinColors = {
   mauve: "#cba6f7",
@@ -28,7 +31,7 @@ const loadProjects = () => {
 
   Object.entries(projectFiles).forEach(([filepath, content]) => {
     const { frontmatter, content: body } = parseFrontmatter(content, filepath);
-    const slug = filepath.split("/").pop().replace(".md", "");
+    const slug = resolveContentSlug(frontmatter, filepath, filepath);
 
     projects.push({
       id: id++,

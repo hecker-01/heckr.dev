@@ -1,4 +1,7 @@
-import { parseFrontmatter } from "./frontmatterService.js";
+import {
+  parseFrontmatter,
+  resolveContentSlug,
+} from "./frontmatterService.js";
 
 const postFiles = import.meta.glob("/posts/*.md", {
   eager: true,
@@ -12,7 +15,7 @@ const loadPosts = () => {
 
   Object.entries(postFiles).forEach(([filepath, content]) => {
     const { frontmatter, content: body } = parseFrontmatter(content, filepath);
-    const slug = filepath.split("/").pop().replace(".md", "");
+    const slug = resolveContentSlug(frontmatter, filepath, filepath);
 
     posts.push({
       id: id++,

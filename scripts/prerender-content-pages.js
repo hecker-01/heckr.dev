@@ -1,7 +1,10 @@
 import { readdir, readFile, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { parseFrontmatter } from "../src/services/frontmatterService.js";
+import {
+  parseFrontmatter,
+  resolveContentSlug,
+} from "../src/services/frontmatterService.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
@@ -42,16 +45,14 @@ const setCanonical = (html, url) => {
     : html.replace("</head>", `  ${tag}\n  </head>`);
 };
 
-const createPage = async (template, sourceDir, filename, kind) => {
-  const sourcePath = path.join(root, sourceDir, filename);
-  const fields = await readFrontmatter(sourcePath);
-  const slug = path.basename(filename, ".md");
+const contentRoutePath = (kind, slug) =>
+  kind === "project" && slug === "kitsudo"
+    ? "/kitsudo/"
+    : `/${kind === "post" ? "posts" : "projects"}/${encodeURIComponent(slug)}/`;
+
+const createPage = async (template, fields, routePath, slug) => {
   const title = fields.title || slug;
   const description = fields.description || "Personal portfolio and blog by Jesse.";
-  const routePath =
-    kind === "project" && slug === "kitsudo"
-      ? "/kitsudo/"
-      : `/${kind === "post" ? "posts" : "projects"}/${encodeURIComponent(slug)}/`;
   const pageUrl = new URL(routePath, origin).href;
   const imagePath = fields.coverImage || "/screenshot.png";
   const imageUrl = new URL(imagePath, origin).href;
@@ -80,22 +81,35 @@ const sitemapUrls = [
   new URL("/posts/", origin).href,
   new URL("/projects/", origin).href,
 ];
+const contentRoutes = new Map();
+const contentPages = [];
 for (const [sourceDir, kind] of [["posts", "post"], ["projects", "project"]]) {
   const filenames = (await readdir(path.join(root, sourceDir)))
     .filter((filename) => filename.endsWith(".md"))
     .sort();
   for (const filename of filenames) {
-    const fields = await readFrontmatter(path.join(root, sourceDir, filename));
-    const slug = path.basename(filename, ".md");
-    const routePath =
-      kind === "project" && slug === "kitsudo"
-        ? "/kitsudo/"
-        : `/${kind === "post" ? "posts" : "projects"}/${encodeURIComponent(slug)}/`;
+    const sourcePath = path.join(root, sourceDir, filename);
+    const sourceName = path.relative(root, sourcePath);
+    const fields = await readFrontmatter(sourcePath);
+    const slug = resolveContentSlug(fields, filename, sourceName);
+    const routePath = contentRoutePath(kind, slug);
+    const previousSource = contentRoutes.get(routePath);
+    if (previousSource) {
+      throw new Error(
+        `${sourceName}: duplicate content route '${routePath}' also used by ${previousSource}`,
+      );
+    }
+    contentRoutes.set(routePath, sourceName);
+
     if (fields.unlisted !== true && fields.unlisted !== "true") {
       sitemapUrls.push(new URL(routePath, origin).href);
     }
-    await createPage(template, sourceDir, filename, kind);
+    contentPages.push({ fields, routePath, slug });
   }
+}
+
+for (const { fields, routePath, slug } of contentPages) {
+  await createPage(template, fields, routePath, slug);
 }
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls

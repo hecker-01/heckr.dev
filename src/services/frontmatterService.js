@@ -146,3 +146,24 @@ export const parseFrontmatter = (source, sourceName = "content") => {
   saveCurrentField();
   return { frontmatter, content };
 };
+
+export const resolveContentSlug = (
+  frontmatter,
+  filename,
+  sourceName = filename,
+) => {
+  const basename = String(filename).replace(/\\/g, "/").split("/").at(-1);
+  const filenameSlug = basename.replace(/\.md$/i, "");
+  const slug =
+    frontmatter.slug === undefined || frontmatter.slug === ""
+      ? filenameSlug
+      : frontmatter.slug;
+
+  if (typeof slug !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    throw new Error(
+      `${sourceName}: invalid slug '${slug}': use lowercase letters, numbers, and single hyphens`,
+    );
+  }
+
+  return slug;
+};
