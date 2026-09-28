@@ -1,6 +1,7 @@
 import { readdir, readFile, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseFrontmatter } from "../src/services/frontmatterService.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
@@ -16,26 +17,11 @@ const escapeHtml = (value) =>
 
 const readFrontmatter = async (filepath) => {
   const source = await readFile(filepath, "utf8");
-  const match = source.match(/^---\s*\r?\n([\s\S]*?)\r?\n---/);
-  const fields = {};
-
-  if (!match) return fields;
-
-  for (const line of match[1].split(/\r?\n/)) {
-    const field = line.match(/^([\w-]+):\s*(.*)$/);
-    if (!field) continue;
-
-    let value = field[2].trim();
-    if (
-      (value.startsWith("\"") && value.endsWith("\"")) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
-    }
-    fields[field[1]] = value;
-  }
-
-  return fields;
+  const { frontmatter } = parseFrontmatter(
+    source,
+    path.relative(root, filepath),
+  );
+  return frontmatter;
 };
 
 const setMeta = (html, attribute, key, value) => {
@@ -105,7 +91,7 @@ for (const [sourceDir, kind] of [["posts", "post"], ["projects", "project"]]) {
       kind === "project" && slug === "kitsudo"
         ? "/kitsudo/"
         : `/${kind === "post" ? "posts" : "projects"}/${encodeURIComponent(slug)}/`;
-    if (fields.unlisted !== "true") {
+    if (fields.unlisted !== true && fields.unlisted !== "true") {
       sitemapUrls.push(new URL(routePath, origin).href);
     }
     await createPage(template, sourceDir, filename, kind);

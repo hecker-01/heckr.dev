@@ -1,69 +1,17 @@
+import { parseFrontmatter } from "./frontmatterService.js";
+
 const postFiles = import.meta.glob("/posts/*.md", {
   eager: true,
   query: "?raw",
   import: "default",
 });
 
-const parseFrontmatter = (content) => {
-  const match = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-
-  if (!match) return { frontmatter: {}, content };
-
-  const [, frontmatterText, bodyContent] = match;
-  const frontmatter = {};
-
-  const lines = frontmatterText.split("\n");
-  let currentKey = null;
-  let currentValue = "";
-
-  const processValue = (key, value) => {
-    value = value.trim();
-    if (value.startsWith("[") && value.endsWith("]")) {
-      frontmatter[key] = value
-        .slice(1, -1)
-        .split(",")
-        .map((item) => item.trim());
-    } else {
-      frontmatter[key] = value;
-    }
-  };
-
-  lines.forEach((line) => {
-    // Check if line is a continuation (starts with whitespace and no colon at start)
-    const isContinuation = /^\s+/.test(line) && !/^\s*\w+:/.test(line);
-
-    if (isContinuation && currentKey) {
-      // Append to current value
-      currentValue += " " + line.trim();
-    } else {
-      // Process previous key-value pair if exists
-      if (currentKey && currentValue) {
-        processValue(currentKey, currentValue);
-      }
-
-      // Parse new key-value pair
-      const [key, ...rest] = line.split(":");
-      if (!key || key.trim() === "") return;
-
-      currentKey = key.trim();
-      currentValue = rest.join(":").trim();
-    }
-  });
-
-  // Process the last key-value pair
-  if (currentKey && currentValue) {
-    processValue(currentKey, currentValue);
-  }
-
-  return { frontmatter, content: bodyContent };
-};
-
 const loadPosts = () => {
   const posts = [];
   let id = 1;
 
   Object.entries(postFiles).forEach(([filepath, content]) => {
-    const { frontmatter, content: body } = parseFrontmatter(content);
+    const { frontmatter, content: body } = parseFrontmatter(content, filepath);
     const slug = filepath.split("/").pop().replace(".md", "");
 
     posts.push({

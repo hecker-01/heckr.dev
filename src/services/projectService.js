@@ -1,3 +1,5 @@
+import { parseFrontmatter } from "./frontmatterService.js";
+
 const catppuccinColors = {
   mauve: "#cba6f7",
   blue: "#89b4fa",
@@ -20,65 +22,12 @@ const projectFiles = import.meta.glob("/projects/*.md", {
   import: "default",
 });
 
-const parseFrontmatter = (content) => {
-  const match = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-
-  if (!match) return { frontmatter: {}, content };
-
-  const [, frontmatterText, bodyContent] = match;
-  const frontmatter = {};
-
-  const lines = frontmatterText.split("\n");
-  let currentKey = null;
-  let currentValue = "";
-
-  const processValue = (key, value) => {
-    value = value.trim();
-    if (value.startsWith("[") && value.endsWith("]")) {
-      frontmatter[key] = value
-        .slice(1, -1)
-        .split(",")
-        .map((item) => item.trim());
-    } else if (value === "true") {
-      frontmatter[key] = true;
-    } else if (value === "false") {
-      frontmatter[key] = false;
-    } else {
-      frontmatter[key] = value;
-    }
-  };
-
-  lines.forEach((line) => {
-    const isContinuation = /^\s+/.test(line) && !/^\s*\w+:/.test(line);
-
-    if (isContinuation && currentKey) {
-      currentValue += " " + line.trim();
-    } else {
-      if (currentKey && currentValue) {
-        processValue(currentKey, currentValue);
-      }
-
-      const [key, ...rest] = line.split(":");
-      if (!key || key.trim() === "") return;
-
-      currentKey = key.trim();
-      currentValue = rest.join(":").trim();
-    }
-  });
-
-  if (currentKey && currentValue) {
-    processValue(currentKey, currentValue);
-  }
-
-  return { frontmatter, content: bodyContent };
-};
-
 const loadProjects = () => {
   const projects = [];
   let id = 1;
 
   Object.entries(projectFiles).forEach(([filepath, content]) => {
-    const { frontmatter, content: body } = parseFrontmatter(content);
+    const { frontmatter, content: body } = parseFrontmatter(content, filepath);
     const slug = filepath.split("/").pop().replace(".md", "");
 
     projects.push({
