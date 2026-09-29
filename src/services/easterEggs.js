@@ -1,23 +1,100 @@
 // Easter eggs and fun terminal interactions
-import confetti from "canvas-confetti";
 import { getAllReposWithLanguages } from "./githubService.js";
 
-let konamiIndex = 0;
-let konamiTimeout;
-let activeKonamiElements = [];
-let activeConfetti;
-const konamiCode = [
-  "ArrowUp",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowLeft",
-  "ArrowRight",
-  "KeyB",
-  "KeyA",
-];
+let onekoLoadPromise;
+let pendingOnekoVisible = true;
+let pointerBridgeInstalled = false;
+
+const moveOnekoTarget = ({ x, y }) => {
+  document.dispatchEvent(
+    new MouseEvent("mousemove", {
+      bubbles: true,
+      clientX: x,
+      clientY: y,
+    }),
+  );
+};
+
+export const isOnekoVisible = () => {
+  const oneko = document.getElementById("oneko");
+  return Boolean(oneko && oneko.style.display !== "none");
+};
+
+export const toggleOneko = (position = {}) => {
+  const target = {
+    x: Number.isFinite(position.x) ? position.x : window.innerWidth / 2,
+    y: Number.isFinite(position.y) ? position.y : window.innerHeight / 2,
+  };
+
+  const existingOneko = document.getElementById("oneko");
+  if (existingOneko) {
+    if (existingOneko.style.display === "none") {
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        return Promise.resolve(false);
+      }
+      window.heckrOneko?.show();
+      existingOneko.style.display = "";
+      moveOnekoTarget(target);
+      return Promise.resolve(true);
+    }
+
+    window.heckrOneko?.hide();
+    existingOneko.style.display = "none";
+    return Promise.resolve(false);
+  }
+
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    return Promise.resolve(false);
+  }
+
+  if (onekoLoadPromise) {
+    pendingOnekoVisible = !pendingOnekoVisible;
+    return onekoLoadPromise;
+  }
+
+  if (!pointerBridgeInstalled) {
+    document.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "mouse") return;
+      moveOnekoTarget({ x: event.clientX, y: event.clientY });
+    });
+    pointerBridgeInstalled = true;
+  }
+
+  pendingOnekoVisible = true;
+  onekoLoadPromise = new Promise((resolve) => {
+    const script = document.createElement("script");
+    const assetBase = import.meta.env.BASE_URL;
+    script.src = `${assetBase}oneko/oneko.js`;
+    script.dataset.cat = `${assetBase}oneko/oneko.gif`;
+    script.dataset.persistPosition = "false";
+    script.async = true;
+
+    script.onload = () => {
+      const oneko = document.getElementById("oneko");
+      const started = Boolean(oneko);
+      if (started && pendingOnekoVisible) {
+        moveOnekoTarget(target);
+      } else if (oneko) {
+        window.heckrOneko?.hide();
+        oneko.style.display = "none";
+      } else {
+        script.remove();
+        onekoLoadPromise = undefined;
+      }
+      resolve(started && pendingOnekoVisible);
+    };
+
+    script.onerror = () => {
+      script.remove();
+      onekoLoadPromise = undefined;
+      resolve(false);
+    };
+
+    document.body.appendChild(script);
+  });
+
+  return onekoLoadPromise;
+};
 
 export const initEasterEggs = () => {
   // Console welcome message
@@ -50,7 +127,7 @@ export const initEasterEggs = () => {
         "- about() - about the developer\n" +
         "- skills() - technical skills\n" +
         "- contact() - contact information\n" +
-        "- secret() - ???\n",
+        "- secret() - get a hint about the hidden interactions\n",
       "font-size: 12px; color: #a6adc8;",
     );
   };
@@ -95,7 +172,7 @@ export const initEasterEggs = () => {
           "font-size: 12px; color: #f38ba8;",
         );
       }
-    } catch (error) {
+    } catch {
       console.log(
         "%cError loading data, please try again later.",
         "font-size: 12px; color: #f38ba8;",
@@ -120,106 +197,8 @@ export const initEasterEggs = () => {
       "font-size: 18px; font-weight: bold; color: #f9e2af;",
     );
     console.log(
-      "%cHere's a hint: ↑ ↑ ↓ ↓ ← → ← → B A",
+      "%cClick the ASCII art for Oneko, or the git log heading for the commit tree.",
       "font-size: 12px; color: #fab387;",
     );
   };
-
-  // Konami code handler
-  document.addEventListener("keydown", (e) => {
-    if (e.code === konamiCode[konamiIndex]) {
-      konamiIndex++;
-      if (konamiIndex === konamiCode.length) {
-        activateKonamiCode();
-        konamiIndex = 0;
-      }
-    } else {
-      konamiIndex = 0;
-    }
-  });
-};
-
-const activateKonamiCode = () => {
-  console.log(
-    "%cKONAMI CODE ACTIVATED!",
-    "font-size: 24px; font-weight: bold; color: #f9e2af; text-shadow: 2px 2px 4px #000;",
-  );
-
-  clearTimeout(konamiTimeout);
-  activeConfetti?.reset();
-  activeConfetti = undefined;
-  activeKonamiElements.forEach((element) => element.remove());
-  activeKonamiElements = [];
-
-  const style = document.getElementById("konami-style") ?? document.createElement("style");
-  style.id = "konami-style";
-  style.textContent = `
-      .konami-frame {
-        position: fixed;
-        z-index: 9998;
-        inset: 0;
-        border: 2px solid #cba6f7;
-        box-shadow: inset 0 0 48px #cba6f722;
-        pointer-events: none;
-        animation: konami-frame-pulse 1.8s ease-in-out infinite alternate;
-      }
-      @keyframes konami-frame-pulse {
-        from { opacity: .68; }
-        to { opacity: 1; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .konami-frame { animation: none !important; }
-      }
-  `;
-  if (!style.isConnected) {
-    document.head.appendChild(style);
-  }
-
-  const frame = document.createElement("div");
-  frame.className = "konami-frame";
-  frame.setAttribute("aria-hidden", "true");
-
-  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-  let confettiCanvas;
-  if (!reducedMotion) {
-    confettiCanvas = document.createElement("canvas");
-    confettiCanvas.setAttribute("aria-hidden", "true");
-    Object.assign(confettiCanvas.style, {
-      position: "fixed",
-      inset: "0",
-      width: "100%",
-      height: "100%",
-      pointerEvents: "none",
-      zIndex: "9999",
-    });
-    document.body.appendChild(confettiCanvas);
-    activeConfetti = confetti.create(confettiCanvas, {
-      resize: true,
-      useWorker: true,
-      disableForReducedMotion: true,
-    });
-    const colors = ["#cba6f7", "#94e2d5", "#f9e2af", "#f38ba8", "#89b4fa", "#a6e3a1"];
-    const burst = {
-      particleCount: 220,
-      spread: 60,
-      colors,
-      startVelocity: 50,
-      ticks: 320,
-      zIndex: 9999,
-    };
-    activeConfetti({ ...burst, angle: 60, origin: { x: 0, y: 0.65 } });
-    activeConfetti({ ...burst, angle: 120, origin: { x: 1, y: 0.65 } });
-  }
-
-  document.body.append(frame);
-  activeKonamiElements = [frame, confettiCanvas].filter(Boolean);
-
-  const dismiss = () => {
-    clearTimeout(konamiTimeout);
-    activeConfetti?.reset();
-    activeConfetti = undefined;
-    activeKonamiElements.forEach((element) => element.remove());
-    activeKonamiElements = [];
-  };
-  konamiTimeout = setTimeout(dismiss, 6500);
 };

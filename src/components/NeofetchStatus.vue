@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
 import { lanyardData } from "@/services/lanyardService";
+import { isOnekoVisible, toggleOneko } from "@/services/easterEggs";
 
 const discordStatusColor = computed(() => lanyardData.discordStatusColor);
 const spotify = computed(() => lanyardData.spotify);
@@ -11,8 +12,29 @@ const isLoading = computed(() => lanyardData.isLoading);
 
 // Browser detection
 const browserInfo = ref({ name: "", version: "" });
+const onekoVisible = ref(false);
+
+async function toggleOnekoFromArt(position) {
+    onekoVisible.value = await toggleOneko(position);
+}
+
+function handleAsciiArtClick(event) {
+    void toggleOnekoFromArt({ x: event.clientX, y: event.clientY });
+}
+
+function handleAsciiArtKeydown(event) {
+    if (!["Enter", " ", "Spacebar"].includes(event.key)) return;
+    event.preventDefault();
+    const bounds = event.currentTarget.getBoundingClientRect();
+    void toggleOnekoFromArt({
+        x: bounds.left + bounds.width / 2,
+        y: bounds.top + bounds.height / 2,
+    });
+}
 
 onMounted(() => {
+    onekoVisible.value = isOnekoVisible();
+
     const ua = navigator.userAgent;
     let name = "Unknown";
     let version = "";
@@ -137,8 +159,13 @@ const editorLabel = computed(() => {
             <!-- ASCII Art (hidden on very small screens) -->
             <div class="hidden sm:block flex-shrink-0 ascii-tooltip-wrapper">
                 <pre
-                    class="text-catppuccin-mauve text-xs select-none ascii-art"
-                    aria-label="Art credit: @vilthuril.rah on Instagram"
+                    class="text-catppuccin-mauve text-xs select-none ascii-art cursor-pointer"
+                    role="button"
+                    tabindex="0"
+                    :aria-label="onekoVisible ? 'Hide Oneko' : 'Start Oneko'"
+                    :aria-pressed="onekoVisible"
+                    @click="handleAsciiArtClick"
+                    @keydown="handleAsciiArtKeydown"
                 ><template v-for="(line, i) in asciiArt" :key="i">{{ line }}
 </template></pre>
                 <span class="ascii-tooltip"

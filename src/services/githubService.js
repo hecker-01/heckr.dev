@@ -1,4 +1,6 @@
 const GITHUB_USERNAME = "hecker-01";
+const GITHUB_REPOSITORY = `${GITHUB_USERNAME}/heckr.dev`;
+const GITHUB_COMMIT_LIMIT = 12;
 const CACHE_TTL_MS = 15 * 60 * 1000;
 const REQUEST_TIMEOUT_MS = 10000;
 
@@ -8,6 +10,9 @@ let reposRequest = null;
 let contributionsCache = null;
 let contributionsCachedAt = 0;
 let contributionsRequest = null;
+let commitsCache = null;
+let commitsCachedAt = 0;
+let commitsRequest = null;
 
 const fetchJson = async (url, { rateLimitMessage } = {}) => {
   const controller = new AbortController();
@@ -162,6 +167,45 @@ export const getContributionData = () => {
   })();
 
   return contributionsRequest;
+};
+
+export const getRecentCommits = () => {
+  if (commitsCache && Date.now() - commitsCachedAt < CACHE_TTL_MS) {
+    return Promise.resolve({ commits: commitsCache, error: null });
+  }
+  if (commitsRequest) return commitsRequest;
+
+  commitsRequest = (async () => {
+    try {
+      const data = await fetchJson(
+        `https://api.github.com/repos/${GITHUB_REPOSITORY}/commits?per_page=${GITHUB_COMMIT_LIMIT}`,
+        { rateLimitMessage: "GitHub API rate limit reached." },
+      );
+      if (!Array.isArray(data)) {
+        throw new Error("GitHub returned an unexpected commit response.");
+      }
+
+      const commits = data.map(({ sha, html_url, commit, parents }) => ({
+        sha,
+        message: commit?.message?.split("\n", 1)[0] || "(no commit message)",
+        url: html_url,
+        parents: Array.isArray(parents)
+          ? parents.map(({ sha: parentSha }) => parentSha).filter(Boolean)
+          : [],
+      }));
+
+      commitsCache = commits;
+      commitsCachedAt = Date.now();
+      return { commits, error: null };
+    } catch (error) {
+      const message = `Could not refresh Git history: ${errorMessage(error)}`;
+      return { commits: commitsCache || [], error: message };
+    } finally {
+      commitsRequest = null;
+    }
+  })();
+
+  return commitsRequest;
 };
 
 export const getContributionLevel = (count) => {
