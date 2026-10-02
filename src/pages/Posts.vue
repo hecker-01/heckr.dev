@@ -6,6 +6,7 @@ import TagFilter from "@/components/TagFilter.vue";
 import PostList from "@/components/PostList.vue";
 import PostComponent from "@/components/PostComponent.vue";
 import Footer from "@/components/Footer.vue";
+import NotFound from "@/pages/NotFound.vue";
 import { setPageMetadata } from "@/services/seoService";
 
 const view = ref("list");
@@ -46,9 +47,12 @@ const openPost = (slug) => {
             });
         }
     } else if (route.params.slug || route.query.post) {
-        const newQuery = { ...route.query };
-        delete newQuery.post;
-        router.replace({ name: "Posts", query: newQuery });
+        view.value = "not-found";
+        setPageMetadata({
+            title: "404 Not Found",
+            description: "This post doesn't exist.",
+            path: route.path,
+        });
     }
 };
 
@@ -121,7 +125,7 @@ watch(
     (slug, prevSlug) => {
         if (slug && slug !== prevSlug) {
             openPost(slug);
-        } else if (!slug && view.value === "post") {
+        } else if (!slug && view.value !== "list") {
             goBack({ skipQueryUpdate: true });
         }
     },
@@ -191,6 +195,13 @@ watch(
                     <PostComponent :post="currentPost" @go-back="goBack" />
                     <Footer />
                 </div>
+
+                <NotFound
+                    v-else-if="view === 'not-found'"
+                    key="not-found"
+                    message="This post doesn't exist."
+                    return-to="/posts"
+                />
             </Transition>
         </div>
     </div>

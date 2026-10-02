@@ -3,6 +3,17 @@ import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Footer from "@/components/Footer.vue";
 
+const props = defineProps({
+    message: {
+        type: String,
+        default: "The fox searched its den but couldnt find anything",
+    },
+    returnTo: {
+        type: String,
+        default: "/",
+    },
+});
+
 const route = useRoute();
 const router = useRouter();
 
@@ -12,7 +23,7 @@ const pathDisplay = computed(() => {
     return trimmed || ".";
 });
 
-const goHome = () => router.push("/");
+const goToReturn = () => router.push(props.returnTo);
 </script>
 
 <template>
@@ -27,7 +38,7 @@ const goHome = () => router.push("/");
 
                 <div class="flex items-center gap-4 text-sm mb-6">
                     <button
-                        @click="goHome"
+                        @click="goToReturn"
                         class="px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group"
                     >
                         <span
@@ -35,9 +46,11 @@ const goHome = () => router.push("/");
                             >cd</span
                         >
                         <span class="text-catppuccin-mauve font-medium"
-                            >~/</span
+                            >{{ returnTo === "/" ? "~/" : `~${returnTo}` }}</span
                         >
-                        <span class="text-catppuccin-subtle font-medium"
+                        <span
+                            v-if="returnTo === '/'"
+                            class="text-catppuccin-subtle font-medium"
                             >(home)</span
                         >
                     </button>
@@ -55,7 +68,7 @@ const goHome = () => router.push("/");
                     <span class="text-catppuccin-mauve" aria-hidden="true"
                         >V*꓃*V</span>
                     <span class="ml-2"
-                        >The fox searched its den but couldnt find anything</span
+                        >{{ message }}</span
                     >
                 </div>
             </div>

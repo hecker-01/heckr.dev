@@ -10,6 +10,7 @@ import TagFilter from "@/components/TagFilter.vue";
 import ProjectList from "@/components/ProjectList.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
 import Footer from "@/components/Footer.vue";
+import NotFound from "@/pages/NotFound.vue";
 import { setPageMetadata } from "@/services/seoService";
 
 const view = ref("list");
@@ -56,9 +57,12 @@ const openProject = (slug) => {
             });
         }
     } else if (route.params.slug || route.query.project) {
-        const newQuery = { ...route.query };
-        delete newQuery.project;
-        router.replace({ name: "Projects", query: newQuery });
+        view.value = "not-found";
+        setPageMetadata({
+            title: "404 Not Found",
+            description: "This project doesn't exist.",
+            path: route.path,
+        });
     }
 };
 
@@ -129,7 +133,7 @@ watch(
     (slug, prevSlug) => {
         if (slug && slug !== prevSlug) {
             openProject(slug);
-        } else if (!slug && view.value === "project") {
+        } else if (!slug && view.value !== "list") {
             goBack({ skipQueryUpdate: true });
         }
     },
@@ -205,6 +209,13 @@ watch(
                     />
                     <Footer />
                 </div>
+
+                <NotFound
+                    v-else-if="view === 'not-found'"
+                    key="not-found"
+                    message="This project doesn't exist."
+                    return-to="/projects"
+                />
             </Transition>
         </div>
     </div>
