@@ -79,7 +79,10 @@ sudo usermod -aG docker $USER
 ```
 
 :::hint warning
-Log out and back in for the group change to take effect.
+Use the following command to reload the group change or log out and back in:
+```bash
+newgrp docker
+```
 :::
 
 Verify:
