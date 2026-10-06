@@ -1,0 +1,1 @@
+import{R as e,V as t,k as n,v as r,x as i}from"./index-_cjflTp6.js";var a={class:`w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400`},o={__name:`Footer`,setup(o){let s=new Date().getFullYear();return(o,c)=>(n(),i(`footer`,a,[r(`p`,null,`© 2020 - `+t(e(s))+` heckr.dev | All rights reserved.`,1)]))}};export{o as t};
