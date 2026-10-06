@@ -2,7 +2,7 @@
 title: Wordr
 slug: wordr
 description: Client-side Markdown to DOCX converter
-coverImage: /screenshot-wordr.png
+coverImage: /screenshot-wordr.webp
 accentColor: pink
 tags: [vue, markdown, docx]
 url: https://wordr.heckr.dev/

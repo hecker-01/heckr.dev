@@ -2,7 +2,7 @@
 title: satisSuite
 slug: satissuite
 description: Modular Minecraft plugin suite for Spigot/Paper servers, covering moderation, player management, and server utilities.
-coverImage: /screenshot-satissuite.png
+coverImage: /screenshot-satissuite.webp
 accentColor: mauve
 tags: [java, minecraft, plugin, spigot]
 url: https://satissuite.heckr.dev

@@ -2,7 +2,7 @@
 title: Kitsudo
 slug: kitsudo
 description: A local-first task planner for Android with subtasks, reminders, custom themes, and a Wear OS companion.
-coverImage: /screenshot-kitsudo.png
+coverImage: /screenshot-kitsudo.webp
 accentColor: mauve
 tags: [android, wear-os, kotlin, privacy, play-store]
 url: https://kitsudo.app

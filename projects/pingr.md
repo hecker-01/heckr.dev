@@ -2,7 +2,7 @@
 title: Pingr
 slug: pingr
 description: Overlay a Discord ping badge onto any server icon to make your entire server think they got pinged.
-coverImage: /screenshot-pingr.png
+coverImage: /screenshot-pingr.webp
 accentColor: red
 tags: [vue, discord, april-fools]
 url: https://pingr.heckr.dev

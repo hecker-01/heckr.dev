@@ -1,51 +1,46 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/pages/Home.vue";
-import Posts from "@/pages/Posts.vue";
-import Projects from "@/pages/Projects.vue";
-import Kitsudo from "@/pages/Kitsudo.vue";
-import NotFound from "@/pages/NotFound.vue";
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import("@/pages/Home.vue"),
     meta: { title: "Home | heckr.dev" },
   },
   {
     path: "/posts",
     name: "Posts",
-    component: Posts,
+    component: () => import("@/pages/Posts.vue"),
     meta: { title: "Posts | heckr.dev" },
   },
   {
     path: "/posts/:slug",
     name: "PostDetail",
-    component: Posts,
+    component: () => import("@/pages/Posts.vue"),
     meta: { title: "Post | heckr.dev", pageKey: "/posts" },
   },
   {
     path: "/projects",
     name: "Projects",
-    component: Projects,
+    component: () => import("@/pages/Projects.vue"),
     meta: { title: "Projects | heckr.dev" },
   },
   {
     path: "/projects/:slug",
     name: "ProjectDetail",
-    component: Projects,
+    component: () => import("@/pages/Projects.vue"),
     meta: { title: "Project | heckr.dev", pageKey: "/projects" },
   },
   {
     path: "/kitsudo",
     name: "Kitsudo",
-    component: Kitsudo,
+    component: () => import("@/pages/Kitsudo.vue"),
     meta: { title: "Kitsudo | heckr.dev" },
   },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
-    component: NotFound,
+    component: () => import("@/pages/NotFound.vue"),
     meta: { title: "404 Not Found | heckr.dev" },
   },
 ];

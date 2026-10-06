@@ -439,7 +439,7 @@ export class MarkdownParser {
             : `<span class="text-catppuccin-mauve font-medium">${displayLang}</span>`
         }
       </div>
-      <button data-clipboard-target="#${blockId}" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+      <button data-clipboard-target="#${blockId}" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
     </div>`;
 
     return `<div class="my-4 -mx-2 sm:mx-0">

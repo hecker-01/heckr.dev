@@ -2,7 +2,7 @@
 title: MCBE Pack Decryptor
 slug: mcbe-pack-decryptor
 description: Python CLI that decrypts encrypted Minecraft Bedrock Edition marketplace packs using AES-CFB.
-coverImage: /screenshot-mcbe-decryptor.png
+coverImage: /screenshot-mcbe-decryptor.webp
 accentColor: green
 tags: [python, minecraft, cryptography, cli]
 github: https://github.com/hecker-01/MCBE_Pack_Decryptor

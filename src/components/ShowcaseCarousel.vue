@@ -81,6 +81,8 @@ onBeforeUnmount(() => {
                         >
                             <img
                                 :src="currentShowcaseItem.screenshot"
+                                :srcset="`${currentShowcaseItem.screenshot.replace('.webp', '-640.webp')} 640w, ${currentShowcaseItem.screenshot} 1200w`"
+                                sizes="(max-width: 1024px) calc(100vw - 3rem), 40vw"
                                 :alt="currentShowcaseItem.name"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
@@ -97,14 +99,14 @@ onBeforeUnmount(() => {
                                 >
 
                                 <div class="flex-1 min-w-0">
-                                    <h3
+                                    <h2
                                         class="text-sm font-medium text-catppuccin-text transition-colors mb-1"
                                         :style="{
                                             color: currentShowcaseItem.accentColor,
                                         }"
                                     >
                                         {{ currentShowcaseItem.name }}
-                                    </h3>
+                                    </h2>
 
                                     <p
                                         class="text-xs text-catppuccin-gray leading-relaxed"
@@ -128,6 +130,8 @@ onBeforeUnmount(() => {
                     :key="`dot-${item.id}`"
                     @click="currentShowcaseIndex = index"
                     class="w-2 h-2.5 rounded-full transition-all"
+                    :aria-label="`Show ${item.name} project`"
+                    :aria-current="index === currentShowcaseIndex ? 'true' : undefined"
                     :class="
                         index === currentShowcaseIndex
                             ? 'bg-catppuccin-mauve w-4'
@@ -146,6 +150,7 @@ onBeforeUnmount(() => {
 
             <!-- More Projects Button -->
             <button
+                type="button"
                 @click="router.push('/projects')"
                 class="mt-3 w-full py-2 px-3 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 text-sm text-catppuccin-subtle hover:text-catppuccin-mauve transition-all flex items-center justify-center gap-2"
             >

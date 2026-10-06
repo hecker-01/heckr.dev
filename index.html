@@ -48,24 +48,21 @@
     <!-- Robots -->
     <meta name="robots" content="index, follow" />
 
-    <!-- Preload critical assets -->
-    <link rel="modulepreload" href="/src/main.js" />
-
-    <!-- Prism.js for syntax highlighting -->
-    <link
-      rel="stylesheet"
-      href="https://prismjs.catppuccin.com/mocha.css"
-    />
+    <!-- Load the display font without blocking the first render. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
-      as="script"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <link
-      rel="preload"
-      href="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"
-      as="script"
-    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+      />
+    </noscript>
 
     <!-- Accessibility -->
     <meta name="theme-color" content="#11111b" />
@@ -74,18 +71,7 @@
     class="overflow-x-hidden bg-catppuccin-crust text-catppuccin-text font-mono antialiased"
   >
     <div id="app" role="main"></div>
-    <script type="module" src="/src/main.js" defer></script>
-
-    <!-- Prism.js and Clipboard.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-docker.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
 
     <!-- Default Statcounter code for heckr.dev https://heckr.dev -->
     <script type="text/javascript">

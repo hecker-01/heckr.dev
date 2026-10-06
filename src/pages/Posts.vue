@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getAllPosts, getPostBySlug, getAllTags } from "@/services/postService";
 import TagFilter from "@/components/TagFilter.vue";
@@ -8,6 +8,11 @@ import PostComponent from "@/components/PostComponent.vue";
 import Footer from "@/components/Footer.vue";
 import NotFound from "@/pages/NotFound.vue";
 import { setPageMetadata } from "@/services/seoService";
+import {
+    highlightCode,
+    installCopyCodeHandler,
+    loadCodeTools,
+} from "@/services/codeEnhancements";
 
 const view = ref("list");
 const currentPost = ref(null);
@@ -17,6 +22,7 @@ const tags = ref([]);
 
 const route = useRoute();
 const router = useRouter();
+let removeCopyCodeHandler;
 
 const filteredPosts = computed(() => {
     if (!selectedTag.value) return posts.value;
@@ -38,6 +44,7 @@ const openPost = (slug) => {
             description: currentPost.value.description,
             path: `/posts/${currentPost.value.slug}`,
         });
+        void nextTick(() => highlightCode());
         if (route.params.slug !== slug) {
             const { post: _post, ...query } = route.query;
             router.replace({
@@ -88,26 +95,8 @@ onMounted(() => {
     document.documentElement.style.overflowY = "auto";
     document.body.style.overflowY = "auto";
 
-    // Initialize Clipboard.js
-    const clipboard = new ClipboardJS("[data-clipboard-target]");
-    clipboard.on("success", function (e) {
-        const button = e.trigger;
-        const originalText = button.textContent;
-        button.textContent = "copied!";
-        button.classList.add("text-catppuccin-green");
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.classList.remove("text-catppuccin-green");
-        }, 2000);
-        e.clearSelection();
-    });
-
-    // Initialize Prism syntax highlighting
-    setTimeout(() => {
-        if (window.Prism) {
-            Prism.highlightAll();
-        }
-    }, 100);
+    removeCopyCodeHandler = installCopyCodeHandler();
+    void loadCodeTools().then(highlightCode).catch(() => {});
 
     const slug = route.params.slug || route.query.post;
     if (slug) {
@@ -116,6 +105,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+    removeCopyCodeHandler?.();
     document.documentElement.style.overflowY = "";
     document.body.style.overflowY = "";
 });
