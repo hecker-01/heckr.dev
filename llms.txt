@@ -1,0 +1,10 @@
+# heckr.dev
+
+Personal portfolio and technical blog by Jesse.
+
+## Pages
+
+- [Home](https://heckr.dev/): Portfolio, GitHub activity, and project highlights.
+- [Posts](https://heckr.dev/posts/): Technical articles and guides.
+- [Projects](https://heckr.dev/projects/): Software projects and showcases.
+- [Kitsudo](https://heckr.dev/kitsudo/): Details about the Kitsudo app.
