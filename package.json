@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "dompurify": "^3.4.15",
-    "vue": "^3.4.15",
+    "vue": "^3.5.44",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
