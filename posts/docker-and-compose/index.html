@@ -9,10 +9,7 @@
     <!-- Primary Meta Tags -->
     <meta name="title" content="Using Docker and Docker Compose for Application Deployment | heckr.dev" />
     <meta name="description" content="A comprehensive guide to using Docker and Docker Compose for deploying applications in a containerized environment." />
-    <meta
-      name="keywords"
-      content="heckerdev, personal website, portfolio, photography, developer, creative, digital portfolio"
-    />
+    <meta name="keywords" content="docker, docker-compose, containerization, cli, tutorial, guide" />
     <meta name="author" content="heckerdev" />
 
     <!-- Canonical URL -->
@@ -22,7 +19,7 @@
     <link rel="icon" href="/favicon.png" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="https://heckr.dev/posts/docker-and-compose/" />
     <meta property="og:title" content="Using Docker and Docker Compose for Application Deployment | heckr.dev" />
     <meta property="og:description" content="A comprehensive guide to using Docker and Docker Compose for deploying applications in a containerized environment." />
@@ -57,13 +54,983 @@
 
     <!-- Accessibility -->
     <meta name="theme-color" content="#11111b" />
-    <script type="module" crossorigin src="/assets/index-DmYuc32t.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-tFggVQGR.css">
+    <script type="module" crossorigin src="/assets/js/index-DIO4s8w9.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/js/vue-BGk8_v1A.js">
+    <link rel="stylesheet" crossorigin href="/assets/css/index-tFggVQGR.css">
+    <meta property="article:published_time" content="2026-03-01" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="docker-compose" />
+    <meta property="article:tag" content="containerization" />
+    <meta property="article:tag" content="cli" />
+    <meta property="article:tag" content="tutorial" />
+    <meta property="article:tag" content="guide" />
+    <script type="application/ld+json">{"@context":"https://schema.org","url":"https://heckr.dev/posts/docker-and-compose/","@type":"BlogPosting","headline":"Using Docker and Docker Compose for Application Deployment","description":"A comprehensive guide to using Docker and Docker Compose for deploying applications in a containerized environment.","image":"https://heckr.dev/screenshot.png","datePublished":"2026-03-01","keywords":"docker, docker-compose, containerization, cli, tutorial, guide","author":{"@type":"Person","name":"Jesse","url":"https://heckr.dev/"},"mainEntityOfPage":"https://heckr.dev/posts/docker-and-compose/"}</script>
   </head>
   <body
     class="overflow-x-hidden bg-catppuccin-crust text-catppuccin-text font-mono antialiased"
-  >
-    <div id="app" role="main"></div>
+  ><!--teleport start anchor--><!----><!--teleport anchor-->
+    <div id="app" data-prerendered="/posts/docker-and-compose/" role="main"><div class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono" data-v-d0a5070c><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2" data-v-d0a5070c><div data-v-d0a5070c><div data-v-d0a5070c data-v-077ea2ea><div class="mb-8" data-v-077ea2ea><div class="text-catppuccin-subtle text-sm mb-2" data-v-077ea2ea> ~$ cat docker-and-compose.md </div><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all mb-6 inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><h1 class="text-3xl md:text-4xl font-bold text-catppuccin-mauve mb-3" data-v-077ea2ea>Using Docker and Docker Compose for Application Deployment</h1><div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-catppuccin-subtle mb-4" data-v-077ea2ea><span data-v-077ea2ea>01-03-2026</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><span data-v-077ea2ea>~9 min read</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><div class="flex flex-wrap gap-2" data-v-077ea2ea><!--[--><span class="text-catppuccin-gray" data-v-077ea2ea> #docker</span><span class="text-catppuccin-gray" data-v-077ea2ea> #docker-compose</span><span class="text-catppuccin-gray" data-v-077ea2ea> #containerization</span><span class="text-catppuccin-gray" data-v-077ea2ea> #cli</span><span class="text-catppuccin-gray" data-v-077ea2ea> #tutorial</span><span class="text-catppuccin-gray" data-v-077ea2ea> #guide</span><!--]--></div></div></div><!----><article class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden" data-v-077ea2ea><div class="prose prose-invert max-w-none text-catppuccin-text" data-v-077ea2ea><h2 id="what-is-docker" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">What is Docker?<a href="#what-is-docker" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Docker is a platform that lets you package applications into <strong class="text-catppuccin-mauve font-semibold">containers</strong> - lightweight, standalone units that include everything needed to run your software: code, runtime, libraries, and system tools.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Think of a container like a shipping container: no matter what's inside, it fits on any ship (server) the same way. This solves the classic "it works on my machine" problem.</p>
+
+<h3 id="why-use-docker" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Why Use Docker?<a href="#why-use-docker" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Consistency</strong> - your app runs the same everywhere (dev, staging, production)</li>
+<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Isolation</strong> - containers don't interfere with each other or the host system</li>
+<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Portability</strong> - move containers between machines, clouds, or CI/CD pipelines effortlessly</li>
+<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Efficiency</strong> - containers share the host OS kernel, making them much lighter than virtual machines</li>
+<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Reproducibility</strong> - define your environment in code and rebuild it identically every time</li></ul>
+
+<h3 id="docker-vs-virtual-machines" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Docker vs Virtual Machines<a href="#docker-vs-virtual-machines" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Feature</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Docker Container</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Virtual Machine</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Startup time</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Seconds</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Minutes</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Size</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Megabytes</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Gigabytes</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">OS</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Shares host kernel</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Full guest OS</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Performance</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Near-native</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Overhead from hypervisor</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Isolation</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Process-level</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Full hardware-level</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Resource usage</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Lightweight</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Heavy</td></tr></tbody></table></div>
+<hr class="border-catppuccin-surface my-6">
+<h2 id="installing-docker" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Installing Docker<a href="#installing-docker" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
+      <summary class="bg-catppuccin-crust px-3 sm:px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors text-sm sm:text-base">
+        Linux (Ubuntu/Debian)
+      </summary>
+      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm"><p class="text-catppuccin-text leading-relaxed mb-4">Remove any old Docker packages:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-0" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-0" class="language-bash">sudo apt remove docker.io docker-compose docker-compose-plugin -y
+sudo apt autoremove -y</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Install dependencies:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-1" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-1" class="language-bash">sudo apt update
+sudo apt install ca-certificates curl gnupg lsb-release -y</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Add Docker's GPG key:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-2" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-2" class="language-bash">sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Add the Docker repository:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-3" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-3" class="language-bash">echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Install Docker CE + Compose plugin:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-4" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-4" class="language-bash">sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Enable Docker and add your user to the docker group:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-5" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-5" class="language-bash">sudo systemctl enable --now docker
+sudo usermod -aG docker $USER</code></pre>
+      </div>
+
+<div class="my-4 bg-catppuccin-yellow/10 border-catppuccin-yellow/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[!]</span>
+        <span>Warning</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">Log out and back in for the group change to take effect.</div>
+    </div></div>
+    </details>
+
+<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
+      <summary class="bg-catppuccin-crust px-3 sm:px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors text-sm sm:text-base">
+        Windows / Mac
+      </summary>
+      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm"><p class="text-catppuccin-text leading-relaxed mb-4">Download and install <a href="https://www.docker.com/products/docker-desktop/" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">Docker Desktop</a> - it includes Docker Engine, Docker CLI, and Docker Compose out of the box.</p></div>
+    </details>
+
+<h3 id="verify-installation" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Verify Installation<a href="#verify-installation" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-6" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-6" class="language-bash">docker --version
+docker compose version</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Test with a hello-world container:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-7" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-7" class="language-bash">docker run hello-world</code></pre>
+      </div>
+
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">If you see a success message, Docker is installed and working correctly.</div>
+    </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="core-concepts" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Core Concepts<a href="#core-concepts" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Before diving into commands, understand these key building blocks:</p>
+
+<h3 id="images" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Images<a href="#images" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">An <strong class="text-catppuccin-mauve font-semibold">image</strong> is a read-only template used to create containers. Think of it as a snapshot of an application and its environment. Images are built from a <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Dockerfile</code> or pulled from a registry like <a href="https://hub.docker.com/" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">Docker Hub</a>.</p>
+
+<h3 id="containers" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Containers<a href="#containers" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">A <strong class="text-catppuccin-mauve font-semibold">container</strong> is a running instance of an image. You can start, stop, restart, and delete containers. Multiple containers can be created from the same image.</p>
+
+<h3 id="volumes" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Volumes<a href="#volumes" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Volumes</strong> are used to persist data outside of a container's lifecycle. Without volumes, data inside a container is lost when the container is removed.</p>
+
+<h3 id="networks" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Networks<a href="#networks" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Networks</strong> allow containers to communicate with each other. Docker creates a default network, but you can define custom ones to isolate or connect services.</p>
+
+<h3 id="registries" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Registries<a href="#registries" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">A <strong class="text-catppuccin-mauve font-semibold">registry</strong> is a storage and distribution system for Docker images. <a href="https://hub.docker.com/" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">Docker Hub</a> is the default public registry, but you can use private registries too.</p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="essential-docker-commands" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Essential Docker Commands<a href="#essential-docker-commands" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="working-with-images" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Working with Images<a href="#working-with-images" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Pull an image from Docker Hub:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-8" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-8" class="language-bash">docker pull nginx</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">List all downloaded images:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-9" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-9" class="language-bash">docker images</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Remove an image:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-10" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-10" class="language-bash">docker rmi nginx</code></pre>
+      </div>
+
+<h3 id="running-containers" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Running Containers<a href="#running-containers" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Run a container from an image:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-11" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-11" class="language-bash">docker run nginx</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">This runs in the foreground. To run in the background (detached mode):</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-12" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-12" class="language-bash">docker run -d nginx</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Give your container a name:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-13" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-13" class="language-bash">docker run -d --name my-webserver nginx</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Map a port from the container to your host:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-14" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-14" class="language-bash">docker run -d -p 8080:80 --name my-webserver nginx</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Now you can access the Nginx web server at <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">http://localhost:8080</code>.</p>
+
+<h3 id="managing-containers" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Managing Containers<a href="#managing-containers" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">List running containers:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-15" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-15" class="language-bash">docker ps</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">List all containers (including stopped):</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-16" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-16" class="language-bash">docker ps -a</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Stop a running container:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-17" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-17" class="language-bash">docker stop my-webserver</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Start a stopped container:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-18" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-18" class="language-bash">docker start my-webserver</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Restart a container:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-19" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-19" class="language-bash">docker restart my-webserver</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Remove a container (must be stopped first):</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-20" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-20" class="language-bash">docker rm my-webserver</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Force remove a running container:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-21" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-21" class="language-bash">docker rm -f my-webserver</code></pre>
+      </div>
+
+<h3 id="inspecting-containers" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Inspecting Containers<a href="#inspecting-containers" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">View container logs:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-22" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-22" class="language-bash">docker logs my-webserver</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Follow logs in real-time:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-23" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-23" class="language-bash">docker logs -f my-webserver</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Open a shell inside a running container:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-24" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-24" class="language-bash">docker exec -it my-webserver bash</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Inspect container details (network, mounts, config):</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-25" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-25" class="language-bash">docker inspect my-webserver</code></pre>
+      </div>
+
+<h3 id="working-with-volumes" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Working with Volumes<a href="#working-with-volumes" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Create a named volume:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-26" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-26" class="language-bash">docker volume create my-data</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Run a container with a volume:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-27" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-27" class="language-bash">docker run -d -v my-data:/usr/share/nginx/html --name my-webserver nginx</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Or bind-mount a host directory:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-28" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-28" class="language-bash">docker run -d -v ./my-site:/usr/share/nginx/html --name my-webserver nginx</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">List volumes:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-29" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-29" class="language-bash">docker volume ls</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Remove a volume:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-30" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-30" class="language-bash">docker volume rm my-data</code></pre>
+      </div>
+
+<h3 id="cleanup" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Cleanup<a href="#cleanup" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Remove all stopped containers:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-31" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-31" class="language-bash">docker container prune</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Remove all unused images:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-32" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-32" class="language-bash">docker image prune</code></pre>
+      </div>
+
+<div class="my-4 bg-catppuccin-red/10 border-catppuccin-red/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[x]</span>
+        <span>Danger</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">The following command removes <strong class="text-catppuccin-mauve font-semibold">all</strong> unused containers, networks, images, and volumes. This is irreversible.</div>
+    </div>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-33" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-33" class="language-bash">docker system prune -a --volumes</code></pre>
+      </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="writing-a-dockerfile" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Writing a Dockerfile<a href="#writing-a-dockerfile" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">A <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Dockerfile</code> is a text file with instructions to build a custom Docker image. Each instruction creates a layer in the image.</p>
+
+<h3 id="basic-dockerfile-example" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Basic Dockerfile Example<a href="#basic-dockerfile-example" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Here's a Dockerfile for a simple Node.js application:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">dockerfile</span>
+      </div>
+      <button data-clipboard-target="#code-block-34" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-34" class="language-dockerfile"># Start from the official Node.js image
+FROM node:20-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package files first (for better caching)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Command to run when the container starts
+CMD ["node", "server.js"]</code></pre>
+      </div>
+
+<h3 id="common-dockerfile-instructions" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Common Dockerfile Instructions<a href="#common-dockerfile-instructions" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Instruction</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Purpose</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">FROM</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Base image to build on</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">WORKDIR</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Set the working directory</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">COPY</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Copy files from host to image</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">RUN</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Execute a command during build</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">EXPOSE</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Document which port the container listens on</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">CMD</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Default command when container starts</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ENV</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Set environment variables</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ARG</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Build-time variables</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ENTRYPOINT</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Configure the container to run as an executable</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">VOLUME</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Create a mount point for external volumes</td></tr></tbody></table></div>
+<h3 id="building-an-image" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Building an Image<a href="#building-an-image" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Build an image from a Dockerfile in the current directory:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-35" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-35" class="language-bash">docker build -t my-app .</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">The <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-t</code> flag tags the image with a name. The <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">.</code> tells Docker to look for the Dockerfile in the current directory.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Build with a specific tag/version:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-36" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-36" class="language-bash">docker build -t my-app:1.0 .</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Run your custom image:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-37" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-37" class="language-bash">docker run -d -p 3000:3000 --name my-app my-app:1.0</code></pre>
+      </div>
+
+<h3 id="dockerignore" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">.dockerignore<a href="#dockerignore" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Create a <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">.dockerignore</code> file to exclude files from the build context (similar to <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">.gitignore</code>):</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-text truncate">.dockerignore</span><span class="text-catppuccin-subtle shrink-0">(txt)</span>
+      </div>
+      <button data-clipboard-target="#code-block-38" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-38" class="language-txt">node_modules
+.git
+.env
+*.log
+README.md</code></pre>
+      </div>
+
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">This keeps your image smaller and speeds up builds.</div>
+    </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="docker-compose" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Docker Compose<a href="#docker-compose" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Docker Compose is a tool for defining and running <strong class="text-catppuccin-mauve font-semibold">multi-container</strong> applications. Instead of running multiple <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker run</code> commands with long options, you define everything in a single <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker-compose.yml</code> file.</p>
+
+<h3 id="why-docker-compose" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Why Docker Compose?<a href="#why-docker-compose" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Imagine you have a web app that needs:</p>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">A <strong class="text-catppuccin-mauve font-semibold">web server</strong> (Node.js/Python/etc.)</li>
+<li class="ml-6 text-catppuccin-text mb-1">A <strong class="text-catppuccin-mauve font-semibold">database</strong> (PostgreSQL/MySQL)</li>
+<li class="ml-6 text-catppuccin-text mb-1">A <strong class="text-catppuccin-mauve font-semibold">cache</strong> (Redis)</li></ul>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Without Compose, you'd need to:</p>
+
+<ol class="list-decimal my-4 pl-2"><li class="ml-6 text-catppuccin-text mb-1">Create a network</li>
+<li class="ml-6 text-catppuccin-text mb-1">Run each container separately with the right ports, volumes, networks, and environment variables</li>
+<li class="ml-6 text-catppuccin-text mb-1">Remember the exact commands to recreate everything</li></ol>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">With Compose, you define it all in one file and run <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose up</code>. Done.</p>
+
+<h3 id="docker-composeyml-structure" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">docker-compose.yml Structure<a href="#docker-composeyml-structure" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-text truncate">docker-compose.yml</span><span class="text-catppuccin-subtle shrink-0">(yaml)</span>
+      </div>
+      <button data-clipboard-target="#code-block-39" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-39" class="language-yaml">services:
+  service-name:
+    image: image-name # Use a pre-built image
+    # OR
+    build: ./path # Build from a Dockerfile
+    ports:
+      - "host:container" # Port mapping
+    volumes:
+      - host-path:container-path # Bind mount
+      - volume-name:container-path # Named volume
+    environment:
+      - KEY=value # Environment variables
+    depends_on:
+      - other-service # Start order dependency
+    restart: unless-stopped # Restart policy
+    networks:
+      - my-network # Custom network
+
+volumes:
+  volume-name: # Declare named volumes
+
+networks:
+  my-network: # Declare custom networks</code></pre>
+      </div>
+
+<h3 id="practical-example-web-app-with-database" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Practical Example: Web App with Database<a href="#practical-example-web-app-with-database" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Let's deploy a Node.js app with a PostgreSQL database and Redis cache:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-text truncate">docker-compose.yml</span><span class="text-catppuccin-subtle shrink-0">(yaml)</span>
+      </div>
+      <button data-clipboard-target="#code-block-40" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-40" class="language-yaml">services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://myuser:mypassword@db:5432/mydb
+      - REDIS_URL=redis://cache:6379
+    depends_on:
+      - db
+      - cache
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=mydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  cache:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  pgdata:</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">A few things to notice:</p>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">The <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">app</code> service uses <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">build: .</code> to build from a Dockerfile in the current directory</li>
+<li class="ml-6 text-catppuccin-text mb-1">The <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">db</code> service uses a named volume <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">pgdata</code> to persist database data</li>
+<li class="ml-6 text-catppuccin-text mb-1">Services can refer to each other by name (<code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">db</code>, <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cache</code>) - Docker Compose sets up DNS automatically</li>
+<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">depends_on</code> ensures the database and cache start before the app</li></ul>
+
+<h3 id="docker-compose-commands" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Docker Compose Commands<a href="#docker-compose-commands" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Start all services (in the background):</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-41" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-41" class="language-bash">docker compose up -d</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Start and force rebuild images:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-42" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-42" class="language-bash">docker compose up -d --build</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Stop all services:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-43" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-43" class="language-bash">docker compose down</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Stop and remove all data (volumes too):</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-44" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-44" class="language-bash">docker compose down -v</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">View logs for all services:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-45" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-45" class="language-bash">docker compose logs</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Follow logs for a specific service:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-46" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-46" class="language-bash">docker compose logs -f app</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">List running services:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-47" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-47" class="language-bash">docker compose ps</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Execute a command in a running service:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-48" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-48" class="language-bash">docker compose exec app sh</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Restart a specific service:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-49" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-49" class="language-bash">docker compose restart app</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Pull latest images:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-50" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-50" class="language-bash">docker compose pull</code></pre>
+      </div>
+
+<h3 id="environment-variables" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Environment Variables<a href="#environment-variables" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Instead of hardcoding secrets in your compose file, use a <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">.env</code> file:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-text truncate">.env</span><span class="text-catppuccin-subtle shrink-0">(env)</span>
+      </div>
+      <button data-clipboard-target="#code-block-51" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-51" class="language-env">POSTGRES_USER=myuser
+POSTGRES_PASSWORD=supersecretpassword
+POSTGRES_DB=mydb</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Reference them in your <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker-compose.yml</code>:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-text truncate">docker-compose.yml</span><span class="text-catppuccin-subtle shrink-0">(yaml)</span>
+      </div>
+      <button data-clipboard-target="#code-block-52" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-52" class="language-yaml">services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Docker Compose automatically reads <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">.env</code> files in the same directory.</p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="useful-tips" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Useful Tips<a href="#useful-tips" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="restart-policies" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Restart Policies<a href="#restart-policies" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Control what happens when a container crashes:</p>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Policy</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Behavior</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">no</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Never restart (default)</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">always</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Always restart, even if manually stopped</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">on-failure</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Restart only if the container exits with error</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">unless-stopped</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Restart unless explicitly stopped</td></tr></tbody></table></div>
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">unless-stopped</code> is the best restart policy for most services - containers will auto-start on reboot but won't restart if you manually stop them.</div>
+    </div>
+
+<h3 id="viewing-resource-usage" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Viewing Resource Usage<a href="#viewing-resource-usage" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Check CPU and memory usage of running containers:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-53" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-53" class="language-bash">docker stats</code></pre>
+      </div>
+
+<h3 id="networking-between-containers" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Networking Between Containers<a href="#networking-between-containers" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Containers in the same Docker Compose file can communicate using the <strong class="text-catppuccin-mauve font-semibold">service name</strong> as the hostname:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-54" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-54" class="language-bash"># From the "app" container, connect to the database:
+postgresql://myuser:mypassword@db:5432/mydb
+#                               ^^ service name, not localhost</code></pre>
+      </div>
+
+<h3 id="multi-stage-builds" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Multi-Stage Builds<a href="#multi-stage-builds" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Keep your production images small by using multi-stage builds:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">dockerfile</span>
+      </div>
+      <button data-clipboard-target="#code-block-55" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-55" class="language-dockerfile"># Stage 1: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Production
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+EXPOSE 3000
+CMD ["node", "dist/server.js"]</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">The final image only contains the built output, not the source code or build tools.</p>
+
+<h3 id="quick-reference" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Quick Reference<a href="#quick-reference" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Task</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Command</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Pull an image</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker pull image</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Run a container</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker run -d -p 80:80 image</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">List running containers</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker ps</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Stop a container</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker stop name</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">View logs</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker logs name</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Shell into container</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker exec -it name sh</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Start compose stack</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose up -d</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Stop compose stack</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose down</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">View compose logs</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose logs -f</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Rebuild and start</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose up -d --build</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Clean up everything</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker system prune -a --volumes</code></td></tr></tbody></table></div></div></article><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><!--teleport start--><!--teleport end--></div><footer class="w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400" data-v-d0a5070c><p>© 2020 - 2026 heckr.dev | All rights reserved.</p></footer></div></div></div></div>
 
     <!-- Default Statcounter code for heckr.dev https://heckr.dev -->
     <script type="text/javascript">

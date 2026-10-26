@@ -1,0 +1,1 @@
+import{E as e,I as t,h as n,v as r,z as i}from"./vue-BGk8_v1A.js";var a={class:`w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400`},o={__name:`Footer`,setup(o){let s=new Date().getFullYear();return(o,c)=>(e(),r(`footer`,a,[n(`p`,null,`© 2020 - `+i(t(s))+` heckr.dev | All rights reserved.`,1)]))}};export{o as t};
