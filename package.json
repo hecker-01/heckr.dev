@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "dompurify": "^3.4.17",
-    "vue": "^3.4.15",
+    "vue": "^3.5.44",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
@@ -18,7 +18,7 @@
     "autoprefixer": "^10.4.17",
     "baseline-browser-mapping": "^2.9.17",
     "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^4.3.3",
     "vite": "^8.3.5"
   }
 }
