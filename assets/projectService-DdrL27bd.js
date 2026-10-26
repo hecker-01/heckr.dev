@@ -1,4 +1,4 @@
-import{n as e,t}from"./frontmatterService-D5_gk3XS.js";var n=`---
+import{n as e,t}from"./frontmatterService-COEGX6Lh.js";var n=`---
 title: Kitsudo
 slug: kitsudo
 description: A local-first task planner for Android with subtasks, reminders, custom themes, and a Wear OS companion.
