@@ -1,4 +1,42 @@
 import{n as e,t}from"./frontmatterService-COEGX6Lh.js";var n=`---
+title: Jellycord
+slug: jellycord
+description: A Jellyfin plugin that shares linked users’ playback as their Discord status, complete with artwork and progress.
+coverImage: /screenshot-jellycord.png
+accentColor: lavender
+tags: [jellyfin, discord, csharp, dotnet, plugin, privacy]
+github: https://github.com/hecker-01/jellycord
+status: beta
+unlisted: false
+---
+
+## About
+
+Jellycord is a server-side Jellyfin plugin that turns playback into a Discord activity. Linked users can show what they are watching or listening to, with artwork and playback progress, across TVs, phones, and browsers. They do not need the Discord desktop app running.
+
+Each server administrator connects a Discord application, and each user links their own Discord account. Jellycord tracks Jellyfin playback and updates the linked user's activity through Discord's Social SDK presence flow.
+
+## Features
+
+- **Movies, episodes, and music.** Shows a film title, series and episode, or track and artist as the appropriate Watching or Listening activity.
+- **Artwork and progress.** Uses available media artwork and shows a live progress bar while playback is active.
+- **Per-user linking.** Users authorize their own Discord account from Jellyfin's web interface; admins can review or unlink accounts.
+- **Privacy controls.** Admin and user rules can hide private libraries, tags, and ratings. Private items show only a generic Jellyfin activity, without their title or artwork.
+- **Private-server artwork support.** Jellycord can use public artwork sources for servers that are not internet-accessible. Uploading unmatched posters to a temporary third-party host is optional and off by default.
+
+## Technical Notes
+
+The plugin listens to Jellyfin playback events, maps eligible media to Discord activities, and sends updates from the server. A privacy filter runs before artwork lookup or activity creation, and credentials are stored separately from the plugin's regular configuration.
+
+Jellycord is an early project for Jellyfin 12 and .NET 10. Its Discord headless-sessions integration is undocumented by Discord and may change; the project keeps the presence delivery behind a replaceable sink.
+
+## Stack
+
+- **Platform:** Jellyfin plugin
+- **Language:** C# / .NET
+- **Presence:** Discord Social SDK presence flow
+- **License:** GPL-3.0
+`,r=`---
 title: Kitsudo
 slug: kitsudo
 description: A local-first task planner for Android with subtasks, reminders, custom themes, and a Wear OS companion.
@@ -46,7 +84,7 @@ git clone https://github.com/hecker-01/Kitsudo.git
 cd Kitsudo
 ./gradlew assembleGithubRelease
 \`\`\`
-`,r=`---
+`,i=`---
 title: MCBE Pack Decryptor
 slug: mcbe-pack-decryptor
 description: Python CLI that decrypts encrypted Minecraft Bedrock Edition marketplace packs using AES-CFB.
@@ -137,7 +175,7 @@ Decryption complete! Output folder: /home/user/my-pack-decrypted
 \`\`\`
 
 :::
-`,i=`---
+`,a=`---
 title: Pingr
 slug: pingr
 description: Overlay a Discord ping badge onto any server icon to make your entire server think they got pinged.
@@ -192,7 +230,7 @@ Keeps things dead simple. The overlay is just a transparent PNG with the badge s
 ---
 
 Built in an afternoon on April 1st. It does exactly one thing.
-`,a=`---
+`,o=`---
 title: Portfolio
 slug: portfolio
 description: Built with Vue.js and Tailwind CSS, showcasing my projects and skills.
@@ -287,7 +325,7 @@ Post and project detail views are not separate routes - they render inline when 
 - **HTTP**: Fetch (GitHub API, contribution API)
 - **Presence**: Lanyard WebSocket API
 - **Hosting**: Static deployment
-`,o=`---
+`,s=`---
 title: reCodr
 slug: recodr
 description: Desktop video re-encoder with hardware-accelerated GPU encoding via ffmpeg.
@@ -372,7 +410,7 @@ An encoder family is included if **at least one** of its codecs (H.264 or HEVC) 
 - **Backend:** ffmpeg / ffprobe via \`child_process.spawn()\`
 - **Language:** Vanilla JavaScript - no frameworks, no bundler
 - **License:** GPL-2.0
-`,s=`---
+`,c=`---
 title: satisSuite
 slug: satissuite
 description: Modular Minecraft plugin suite for Spigot/Paper servers, covering moderation, player management, and server utilities.
@@ -404,7 +442,7 @@ satisSuite is a Minecraft plugin suite for Spigot/Paper servers. It's built arou
 ## Technical Details
 
 Built in Java for the Spigot/Paper API. The plugin targets clean command structure and a straightforward configuration format.
-`,c=`---
+`,l=`---
 title: Wordr
 slug: wordr
 description: Client-side Markdown to DOCX converter
@@ -458,4 +496,4 @@ Wordr never sends your content to a server. Markdown parsing, AST transformation
 - **Icons:** Font Awesome 6
 - **License:** GPL-2.0
   :::
-`,l={mauve:`#cba6f7`,blue:`#89b4fa`,green:`#a6e3a1`,red:`#f38ba8`,pink:`#f5c2e7`,yellow:`#f9e2af`,teal:`#94e2d5`,sapphire:`#74c7ec`,sky:`#89dceb`,lavender:`#b4befe`,peach:`#fab387`,maroon:`#eba0ac`,flamingo:`#f2cdcd`},u=Object.assign({"/projects/kitsudo.md":n,"/projects/mcbe-pack-decryptor.md":r,"/projects/pingr.md":i,"/projects/portfolio.md":a,"/projects/recodr.md":o,"/projects/satissuite.md":s,"/projects/wordr.md":c}),d=()=>{let n=[],r=1;return Object.entries(u).forEach(([i,a])=>{let{frontmatter:o,content:s}=t(a,i),c=e(o,i,i);n.push({id:r++,slug:c,title:o.title||c,description:o.description||``,coverImage:o.coverImage||null,accentColor:o.accentColor||`mauve`,accentColorHex:l[o.accentColor]||l.mauve,tags:o.tags||[],url:o.url||null,github:o.github||null,status:o.status||`active`,unlisted:o.unlisted===!0,content:s.trim()})}),n},f=null,p=(e=!1)=>(f||=d(),(e?[...f]:f.filter(e=>!e.unlisted)).sort((e,t)=>e.title.localeCompare(t.title))),m=e=>p(!0).find(t=>t.slug===e),h=()=>{let e=new Set;return p().forEach(t=>{t.tags.forEach(t=>e.add(t))}),Array.from(e).sort()};export{h as n,m as r,p as t};
+`,u={mauve:`#cba6f7`,blue:`#89b4fa`,green:`#a6e3a1`,red:`#f38ba8`,pink:`#f5c2e7`,yellow:`#f9e2af`,teal:`#94e2d5`,sapphire:`#74c7ec`,sky:`#89dceb`,lavender:`#b4befe`,peach:`#fab387`,maroon:`#eba0ac`,flamingo:`#f2cdcd`},d=Object.assign({"/projects/jellycord.md":n,"/projects/kitsudo.md":r,"/projects/mcbe-pack-decryptor.md":i,"/projects/pingr.md":a,"/projects/portfolio.md":o,"/projects/recodr.md":s,"/projects/satissuite.md":c,"/projects/wordr.md":l}),f=()=>{let n=[],r=1;return Object.entries(d).forEach(([i,a])=>{let{frontmatter:o,content:s}=t(a,i),c=e(o,i,i);n.push({id:r++,slug:c,title:o.title||c,description:o.description||``,coverImage:o.coverImage||null,accentColor:o.accentColor||`mauve`,accentColorHex:u[o.accentColor]||u.mauve,tags:o.tags||[],url:o.url||null,github:o.github||null,status:o.status||`active`,unlisted:o.unlisted===!0,content:s.trim()})}),n},p=null,m=(e=!1)=>(p||=f(),(e?[...p]:p.filter(e=>!e.unlisted)).sort((e,t)=>e.title.localeCompare(t.title))),h=e=>m(!0).find(t=>t.slug===e),g=()=>{let e=new Set;return m().forEach(t=>{t.tags.forEach(t=>e.add(t))}),Array.from(e).sort()};export{g as n,h as r,m as t};
