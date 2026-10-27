@@ -16,7 +16,7 @@ onMounted(() => {
         setPageMetadata({
             title: project.title,
             description: project.description,
-            path: "/kitsudo/",
+            path: "/projects/kitsudo/",
             image: project.coverImage,
         });
     }

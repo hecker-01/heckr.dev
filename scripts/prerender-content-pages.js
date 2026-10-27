@@ -46,9 +46,7 @@ const setCanonical = (html, url) => {
 };
 
 const contentRoutePath = (kind, slug) =>
-  kind === "project" && slug === "kitsudo"
-    ? "/kitsudo/"
-    : `/${kind === "post" ? "posts" : "projects"}/${encodeURIComponent(slug)}/`;
+  `/${kind === "post" ? "posts" : "projects"}/${encodeURIComponent(slug)}/`;
 
 const createPage = async (template, fields, routePath, slug) => {
   const title = fields.title || slug;

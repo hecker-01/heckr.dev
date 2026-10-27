@@ -26,16 +26,20 @@ const routes = [
     meta: { title: "Projects | heckr.dev" },
   },
   {
+    path: "/kitsudo",
+    redirect: "/projects/kitsudo",
+  },
+  {
+    path: "/projects/kitsudo",
+    name: "Kitsudo",
+    component: () => import("@/pages/Kitsudo.vue"),
+    meta: { title: "Kitsudo | heckr.dev" },
+  },
+  {
     path: "/projects/:slug",
     name: "ProjectDetail",
     component: () => import("@/pages/Projects.vue"),
     meta: { title: "Project | heckr.dev", pageKey: "/projects" },
-  },
-  {
-    path: "/kitsudo",
-    name: "Kitsudo",
-    component: () => import("@/pages/Kitsudo.vue"),
-    meta: { title: "Kitsudo | heckr.dev" },
   },
   {
     path: "/:pathMatch(.*)*",

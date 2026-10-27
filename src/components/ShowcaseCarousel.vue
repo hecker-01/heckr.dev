@@ -16,7 +16,7 @@ const currentShowcaseItem = computed(() => {
 
 const navigateToProject = (slug) => {
     if (slug === "kitsudo") {
-        router.push("/kitsudo");
+        router.push("/projects/kitsudo");
         return;
     }
 
