@@ -2,7 +2,7 @@
 title: Jellycord
 slug: jellycord
 description: A Jellyfin plugin that shares linked users’ playback as their Discord status, complete with artwork and progress.
-coverImage: /screenshot-jellycord.png
+coverImage: /img/screenshots/screenshot-jellycord.webp
 accentColor: lavender
 tags: [jellyfin, discord, csharp, dotnet, plugin, privacy]
 github: https://github.com/hecker-01/jellycord

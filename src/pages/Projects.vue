@@ -11,7 +11,8 @@ import ProjectList from "@/components/ProjectList.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
 import Footer from "@/components/Footer.vue";
 import NotFound from "@/pages/NotFound.vue";
-import { provideSsrMetadata, setPageMetadata } from "@/services/seoService";
+import PageHead from "@/components/PageHead";
+import { readingMinutes } from "@/services/headTags";
 import {
     highlightCode,
     installCopyCodeHandler,
@@ -44,21 +45,26 @@ if (route.params.slug) {
     currentProject.value = getProjectBySlug(route.params.slug);
     view.value = currentProject.value ? "project" : "not-found";
 }
-provideSsrMetadata(
-    currentProject.value
-        ? {
-              title: currentProject.value.title,
-              description: currentProject.value.description,
-              path: `/projects/${currentProject.value.slug}`,
-              image: currentProject.value.coverImage,
-          }
-        : {
-              title: "Projects",
-              description:
-                  "A collection of projects, tools, and applications by Jesse.",
-              path: "/projects",
-          },
-);
+
+const head = computed(() => {
+    const project = currentProject.value;
+    if (view.value === "project" && project) {
+        return {
+            title: project.title,
+            description: project.description,
+            path: `/projects/${project.slug}/`,
+            image: project.coverImage ?? "",
+            type: "article",
+            readingTime: readingMinutes(project.content),
+            noindex: project.unlisted,
+        };
+    }
+    return {
+        title: "Projects",
+        description: "A collection of projects, tools, and applications by Jesse.",
+        path: "/projects/",
+    };
+});
 
 const openProject = (slug) => {
     if (slug === "kitsudo") {
@@ -70,12 +76,6 @@ const openProject = (slug) => {
     if (currentProject.value) {
         view.value = "project";
         window.scrollTo({ top: 0, behavior: "instant" });
-        setPageMetadata({
-            title: currentProject.value.title,
-            description: currentProject.value.description,
-            path: `/projects/${currentProject.value.slug}`,
-            image: currentProject.value.coverImage,
-        });
         void nextTick(() => highlightCode());
         if (route.params.slug !== slug) {
             const { project: _project, ...query } = route.query;
@@ -87,11 +87,6 @@ const openProject = (slug) => {
         }
     } else if (route.params.slug || route.query.project) {
         view.value = "not-found";
-        setPageMetadata({
-            title: "404 Not Found",
-            description: "This project doesn't exist.",
-            path: route.path,
-        });
     }
 };
 
@@ -99,11 +94,6 @@ const goBack = ({ skipQueryUpdate = false } = {}) => {
     view.value = "list";
     currentProject.value = null;
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setPageMetadata({
-        title: "Projects",
-        description: "A collection of projects, tools, and applications by Jesse.",
-        path: "/projects",
-    });
     if (!skipQueryUpdate && (route.params.slug || "project" in route.query)) {
         const newQuery = { ...route.query };
         delete newQuery.project;
@@ -116,11 +106,6 @@ const toggleTag = (tag) => {
 };
 
 onMounted(() => {
-    setPageMetadata({
-        title: "Projects",
-        description: "A collection of projects, tools, and applications by Jesse.",
-        path: "/projects",
-    });
     document.documentElement.style.overflowY = "auto";
     document.body.style.overflowY = "auto";
 
@@ -158,6 +143,7 @@ watch(
         <div
             class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2"
         >
+            <PageHead v-if="view !== 'not-found'" v-bind="head" />
             <Transition name="fade" mode="out-in">
                 <div v-if="view === 'list'" key="list">
                     <div class="mb-12">

@@ -7,7 +7,8 @@ import PostList from "@/components/PostList.vue";
 import PostComponent from "@/components/PostComponent.vue";
 import Footer from "@/components/Footer.vue";
 import NotFound from "@/pages/NotFound.vue";
-import { provideSsrMetadata, setPageMetadata } from "@/services/seoService";
+import PageHead from "@/components/PageHead";
+import { dutchDateToIso } from "@/services/headTags";
 import {
     highlightCode,
     installCopyCodeHandler,
@@ -40,31 +41,33 @@ if (route.params.slug) {
     currentPost.value = getPostBySlug(route.params.slug);
     view.value = currentPost.value ? "post" : "not-found";
 }
-provideSsrMetadata(
-    currentPost.value
-        ? {
-              title: currentPost.value.title,
-              description: currentPost.value.description,
-              path: `/posts/${currentPost.value.slug}`,
-          }
-        : {
-              title: "Posts",
-              description:
-                  "Thoughts, tutorials, and experiences on web development, programming, and technology.",
-              path: "/posts",
-          },
-);
+
+const head = computed(() => {
+    const post = currentPost.value;
+    if (view.value === "post" && post) {
+        return {
+            title: post.title,
+            description: post.description,
+            path: `/posts/${post.slug}/`,
+            type: "article",
+            publishedTime: dutchDateToIso(post.date),
+            readingTime: post.readingTime,
+            noindex: post.unlisted,
+        };
+    }
+    return {
+        title: "Posts",
+        description:
+            "Thoughts, tutorials, and experiences on web development, programming, and technology.",
+        path: "/posts/",
+    };
+});
 
 const openPost = (slug) => {
     currentPost.value = getPostBySlug(slug);
     if (currentPost.value) {
         view.value = "post";
         window.scrollTo({ top: 0, behavior: "instant" });
-        setPageMetadata({
-            title: currentPost.value.title,
-            description: currentPost.value.description,
-            path: `/posts/${currentPost.value.slug}`,
-        });
         void nextTick(() => highlightCode());
         if (route.params.slug !== slug) {
             const { post: _post, ...query } = route.query;
@@ -76,11 +79,6 @@ const openPost = (slug) => {
         }
     } else if (route.params.slug || route.query.post) {
         view.value = "not-found";
-        setPageMetadata({
-            title: "404 Not Found",
-            description: "This post doesn't exist.",
-            path: route.path,
-        });
     }
 };
 
@@ -88,12 +86,6 @@ const goBack = ({ skipQueryUpdate = false } = {}) => {
     view.value = "list";
     currentPost.value = null;
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setPageMetadata({
-        title: "Posts",
-        description:
-            "Thoughts, tutorials, and experiences on web development, programming, and technology.",
-        path: "/posts",
-    });
     if (!skipQueryUpdate && (route.params.slug || "post" in route.query)) {
         const newQuery = { ...route.query };
         delete newQuery.post;
@@ -106,12 +98,6 @@ const toggleTag = (tag) => {
 };
 
 onMounted(() => {
-    setPageMetadata({
-        title: "Posts",
-        description:
-            "Thoughts, tutorials, and experiences on web development, programming, and technology.",
-        path: "/posts",
-    });
     document.documentElement.style.overflowY = "auto";
     document.body.style.overflowY = "auto";
 
@@ -149,6 +135,7 @@ watch(
         <div
             class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2"
         >
+            <PageHead v-if="view !== 'not-found'" v-bind="head" />
             <Transition name="fade" mode="out-in">
                 <div v-if="view === 'list'" key="list">
                     <div class="mb-12">

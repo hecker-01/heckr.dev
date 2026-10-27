@@ -29,7 +29,7 @@ First navigate to the Android SDK directory. By default, it is located at by nav
 
 Then open a terminal in this directory:
 
-![android-sdk-location](widevine/01-android-sdk-location.png)
+![android-sdk-location](/img/widevine/01-android-sdk-location.png)
 
 Then to download the required system image, run:
 
@@ -39,7 +39,7 @@ Then to download the required system image, run:
 
 wait for this to load and it should say something along the lines of this:
 
-![sdkmanager](widevine/02-sdkmanager.png)
+![sdkmanager](/img/widevine/02-sdkmanager.png)
 
 Next, to create a new virtual device, run:
 
@@ -47,19 +47,19 @@ Next, to create a new virtual device, run:
 .\avdmanager create avd -n widevine28 -k "system-images;android-28;google_apis;x86_64" -d pixel_6
 ```
 
-![avdmanager](widevine/03-avdmanager.png)
+![avdmanager](/img/widevine/03-avdmanager.png)
 
 Now your virtual device is created, so you can start it via the Device Manager in Android Studio:
 
-![device-manager](widevine/04-device-manager.png)
+![device-manager](/img/widevine/04-device-manager.png)
 
 Click Start and wait for the device to boot. It can take a while.
 
-![device-booting](widevine/05-booting.png)
+![device-booting](/img/widevine/05-booting.png)
 
 Your virtual device is ready, and you can now proceed as if this were a real device.
 
-![device-ready](widevine/06-device-ready.png)
+![device-ready](/img/widevine/06-device-ready.png)
 
 You can now close the old terminal if you want.
 
@@ -73,7 +73,7 @@ Open a new terminal and run(assuming you have Python installed correctly, which 
 pip install frida==16.0.2 frida-tools==12.0.4
 ```
 
-![frida-install](widevine/07-frida-install.png)
+![frida-install](/img/widevine/07-frida-install.png)
 
 Go to [https://github.com/frida/frida/releases/tag/16.0.2](https://github.com/frida/frida/releases/tag/16.0.2) and download Frida server version **16.0.2** for **Android x86_64** (that's the same as the android image we downloaded).
 
@@ -81,7 +81,7 @@ Or you can click the link below to download it directly:
 
 [https://github.com/frida/frida/releases/download/16.0.2/frida-server-16.0.2-android-x86_64.xz](https://github.com/frida/frida/releases/download/16.0.2/frida-server-16.0.2-android-x86_64.xz)
 
-![frida-server-download](widevine/08-frida-server-download.png)
+![frida-server-download](/img/widevine/08-frida-server-download.png)
 
 Place the unzipped file in:
 
@@ -93,7 +93,7 @@ Place the unzipped file in:
 The frida-server version must match the version you installed via pip.
 :::
 
-![frida-server-file](widevine/09-frida-server-file.png)
+![frida-server-file](/img/widevine/09-frida-server-file.png)
 
 ---
 
@@ -105,7 +105,7 @@ Assuming you are in the platform-tools directory, open a terminal and verify the
 .\adb.exe devices
 ```
 
-![adb-devices](widevine/10-adb-devices.png)
+![adb-devices](/img/widevine/10-adb-devices.png)
 
 Push the Frida server to the virtual device:
 
@@ -113,7 +113,7 @@ Push the Frida server to the virtual device:
 .\adb.exe push frida-server-16.0.2-android-x86_64 /sdcard
 ```
 
-![adb-push](widevine/11-adb-push.png)
+![adb-push](/img/widevine/11-adb-push.png)
 
 Open a shell, move the file, set permissions, and start the server:
 
@@ -128,7 +128,7 @@ chmod +x /data/local/tmp/frida-server-16.0.2-android-x86_64
 /data/local/tmp/frida-server-16.0.2-android-x86_64
 ```
 
-![frida-server-running](widevine/12-frida-server-running.png)
+![frida-server-running](/img/widevine/12-frida-server-running.png)
 
 :::hint danger
 Keep this terminal open. Closing it stops the Frida server.
@@ -152,7 +152,7 @@ pip3 install -r requirements.txt
 python dump_keys.py
 ```
 
-![dump-keys-running](widevine/13-dump-keys-running.png)
+![dump-keys-running](/img/widevine/13-dump-keys-running.png)
 
 :::hint danger
 Keep this terminal open too. You now have two terminals running.
@@ -168,11 +168,11 @@ On the virtual device, open Google Chrome and go to:
 
 Chrome will ask for permission to allow the website to access the DRM system. Click "Allow".
 
-![allow-drm-access](widevine/14-allow-drm-access.png)
+![allow-drm-access](/img/widevine/14-allow-drm-access.png)
 
 Play the video. The dumper intercepts the keys automatically.
 
-![dump-success](widevine/15-dump-success.png)
+![dump-success](/img/widevine/15-dump-success.png)
 
 ---
 
@@ -180,7 +180,7 @@ Play the video. The dumper intercepts the keys automatically.
 
 In the dumper directory, open the `./key_dumps/Android Emulator xxxx/pricate_keys/xxxx/xxxxxxxxxx` folder. You will find two files.
 
-![private-keys](widevine/16-private-keys.png)
+![private-keys](/img/widevine/16-private-keys.png)
 
 You now have the two CDM files:
 

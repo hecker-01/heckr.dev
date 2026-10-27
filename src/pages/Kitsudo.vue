@@ -1,39 +1,37 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import ProjectComponent from "@/components/ProjectComponent.vue";
 import Footer from "@/components/Footer.vue";
 import ImageLightbox from "@/components/ImageLightbox.vue";
 import { getProjectBySlug } from "@/services/projectService";
 import KitsudoBanner from "@/components/KitsudoBanner.vue";
-import { provideSsrMetadata, setPageMetadata } from "@/services/seoService";
+import PageHead from "@/components/PageHead";
+import { readingMinutes } from "@/services/headTags";
 
 const router = useRouter();
 const project = getProjectBySlug("kitsudo");
 
-const metadata = project && {
+const head = {
     title: project.title,
     description: project.description,
     path: "/projects/kitsudo/",
     image: project.coverImage,
+    type: "article",
+    readingTime: readingMinutes(project.content),
 };
-if (metadata) provideSsrMetadata(metadata);
-
-onMounted(() => {
-    if (metadata) setPageMetadata(metadata);
-});
 
 const phoneScreens = [
-    { src: "/kitsudo/screenshots/home.jpg", label: "Today" },
-    { src: "/kitsudo/screenshots/details.jpg", label: "Task details" },
-    { src: "/kitsudo/screenshots/subtask.jpg", label: "Subtasks" },
-    { src: "/kitsudo/screenshots/themes.jpg", label: "Themes" },
+    { src: "/img/kitsudo/screenshots/home.jpg", label: "Today" },
+    { src: "/img/kitsudo/screenshots/details.jpg", label: "Task details" },
+    { src: "/img/kitsudo/screenshots/subtask.jpg", label: "Subtasks" },
+    { src: "/img/kitsudo/screenshots/themes.jpg", label: "Themes" },
 ];
 
 const wearScreens = [
-    { src: "/kitsudo/screenshots/wear-home.png", label: "Task list" },
-    { src: "/kitsudo/screenshots/wear-details.png", label: "Task details" },
-    { src: "/kitsudo/screenshots/wear-widget.png", label: "Watch tile" },
+    { src: "/img/kitsudo/screenshots/wear-home.png", label: "Task list" },
+    { src: "/img/kitsudo/screenshots/wear-details.png", label: "Task details" },
+    { src: "/img/kitsudo/screenshots/wear-widget.png", label: "Watch tile" },
 ];
 
 const goBack = () => router.push("/projects");
@@ -56,6 +54,7 @@ const closeLightbox = () => {
     <div
         class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
     >
+        <PageHead v-bind="head" />
         <KitsudoBanner />
 
         <div
@@ -274,7 +273,7 @@ const closeLightbox = () => {
                                 />
                             </svg>
                             <img
-                                src="/kitsudo/logo.svg"
+                                src="/img/kitsudo/logo.svg"
                                 alt=""
                                 class="absolute inset-[8%] w-auto h-auto object-contain"
                             />

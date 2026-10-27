@@ -2,7 +2,7 @@
 title: Portfolio
 slug: portfolio
 description: Built with Vue.js and Tailwind CSS, showcasing my projects and skills.
-coverImage: /screenshot.webp
+coverImage: /img/screenshots/screenshot.webp
 accentColor: lavender
 tags: [vue, tailwind, markdown, portfolio]
 url: https://heckr.dev

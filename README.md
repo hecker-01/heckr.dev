@@ -38,7 +38,7 @@ this is a fully custom-built portfolio website featuring:
 heckr.dev/
 ├── posts/                # markdown blog posts
 ├── projects/             # markdown project descriptions
-├── public/               # static assets (images, screenshots)
+├── public/               # static assets (images live in public/img/)
 ├── src/
 │   ├── components/       # vue components
 │   ├── pages/            # page components (Home, Posts, Projects)
@@ -130,7 +130,7 @@ create a new `.md` file in the `/projects/` directory:
 title: Project Name
 slug: project-slug
 description: Brief description for card view
-coverImage: /screenshot.png
+coverImage: /img/screenshots/screenshot.png
 accentColor: mauve
 tags: [vue, nodejs, api]
 url: https://example.com

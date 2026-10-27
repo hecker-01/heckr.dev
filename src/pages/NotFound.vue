@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Footer from "@/components/Footer.vue";
+import PageHead from "@/components/PageHead";
 
 const props = defineProps({
     message: {
@@ -30,6 +31,12 @@ const goToReturn = () => router.push(props.returnTo);
     <div
         class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
     >
+        <PageHead
+            title="404 Not Found"
+            :description="message"
+            :path="route.path"
+            noindex
+        />
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-16">
             <div class="mb-8">
                 <div class="text-catppuccin-subtle text-sm mb-4">

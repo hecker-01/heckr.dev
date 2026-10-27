@@ -277,7 +277,7 @@ Check out the [Docker documentation](https://docs.docker.com/).
 
 ### Images
 
-![site-screenshot](screenshot.png)
+![site-screenshot](/img/screenshots/screenshot.png)
 
 **Syntax:** `![alt text](image-url.jpg)`
 

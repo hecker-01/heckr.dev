@@ -8,6 +8,7 @@ import ContributionGraph from "@/components/ContributionGraph.vue";
 import Footer from "@/components/Footer.vue";
 import { getAllReposWithLanguages } from "@/services/githubService";
 import ReposList from "@/components/ReposList.vue";
+import PageHead from "@/components/PageHead";
 
 const repos = ref([]);
 const reposLoading = ref(true);
@@ -45,6 +46,11 @@ onMounted(() => {
     <div
         class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono"
     >
+        <PageHead
+            title="Home"
+            description="Personal portfolio and blog by Jesse, featuring software projects, tutorials, and experiments."
+            path="/"
+        />
         <!-- <KitsudoBanner /> -->
 
         <div

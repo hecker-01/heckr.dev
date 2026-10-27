@@ -58,12 +58,5 @@ export function createAppRouter(history) {
     },
   });
 
-  router.beforeEach((to, _, next) => {
-    if (typeof document !== "undefined") {
-      document.title = to.meta.title || "heckr.dev";
-    }
-    next();
-  });
-
   return router;
 }

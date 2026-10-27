@@ -93,7 +93,7 @@
                         />
                     </svg>
                     <img
-                        src="/kitsudo/logo.svg"
+                        src="/img/kitsudo/logo.svg"
                         alt=""
                         class="absolute inset-[8%] w-auto h-auto object-contain"
                     />
