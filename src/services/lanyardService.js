@@ -168,6 +168,6 @@ class LanyardService {
 }
 
 const lanyardService = new LanyardService();
-lanyardService.connect();
+if (typeof window !== "undefined") lanyardService.connect();
 
 export { lanyardService, lanyardData };

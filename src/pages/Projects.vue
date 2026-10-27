@@ -11,7 +11,7 @@ import ProjectList from "@/components/ProjectList.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
 import Footer from "@/components/Footer.vue";
 import NotFound from "@/pages/NotFound.vue";
-import { setPageMetadata } from "@/services/seoService";
+import { provideSsrMetadata, setPageMetadata } from "@/services/seoService";
 import {
     highlightCode,
     installCopyCodeHandler,
@@ -37,6 +37,28 @@ const loadProjects = () => {
     projects.value = getAllProjects();
     tags.value = getAllTags();
 };
+
+// Resolve the initial view synchronously so prerender renders real content.
+loadProjects();
+if (route.params.slug) {
+    currentProject.value = getProjectBySlug(route.params.slug);
+    view.value = currentProject.value ? "project" : "not-found";
+}
+provideSsrMetadata(
+    currentProject.value
+        ? {
+              title: currentProject.value.title,
+              description: currentProject.value.description,
+              path: `/projects/${currentProject.value.slug}`,
+              image: currentProject.value.coverImage,
+          }
+        : {
+              title: "Projects",
+              description:
+                  "A collection of projects, tools, and applications by Jesse.",
+              path: "/projects",
+          },
+);
 
 const openProject = (slug) => {
     if (slug === "kitsudo") {
@@ -94,7 +116,6 @@ const toggleTag = (tag) => {
 };
 
 onMounted(() => {
-    loadProjects();
     setPageMetadata({
         title: "Projects",
         description: "A collection of projects, tools, and applications by Jesse.",

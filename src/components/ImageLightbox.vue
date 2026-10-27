@@ -89,12 +89,18 @@ const handleKeydown = (event) => {
 };
 
 watch(() => props.src, resetZoom);
-onMounted(() => window.addEventListener("keydown", handleKeydown));
+// Teleporting to <body> can't be hydrated from prerendered markup, so the
+// lightbox only exists once the page is mounted.
+const mounted = ref(false);
+onMounted(() => {
+    mounted.value = true;
+    window.addEventListener("keydown", handleKeydown);
+});
 onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 </script>
 
 <template>
-    <Teleport to="body">
+    <Teleport v-if="mounted" to="body">
         <Transition name="lightbox-fade">
             <div
                 v-if="src"

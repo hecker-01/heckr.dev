@@ -1,6 +1,13 @@
 import { InlineParser } from "./inlineParserService.js";
 import DOMPurify from "dompurify";
 
+let sanitize = (html) => DOMPurify.sanitize(html);
+
+/** Swap the sanitizer where there is no browser DOM (build-time prerender). */
+export const setSanitizer = (fn) => {
+  sanitize = fn;
+};
+
 /**
  * Full markdown-to-HTML parser.
  *
@@ -60,7 +67,7 @@ export class MarkdownParser {
     html = this._restoreInlineCode(html, ctx);
     html = this._restoreEscapeSequences(html, ctx);
 
-    return DOMPurify.sanitize(html);
+    return sanitize(html);
   }
 
   // --- extraction helpers --------------------------------------

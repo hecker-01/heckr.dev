@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter } from "vue-router";
 
 const routes = [
   {
@@ -49,17 +49,21 @@ const routes = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-  scrollBehavior(_, __, savedPosition) {
-    return savedPosition || { top: 0 };
-  },
-});
+export function createAppRouter(history) {
+  const router = createRouter({
+    history,
+    routes,
+    scrollBehavior(_, __, savedPosition) {
+      return savedPosition || { top: 0 };
+    },
+  });
 
-router.beforeEach((to, _, next) => {
-  document.title = to.meta.title || "heckr.dev";
-  next();
-});
+  router.beforeEach((to, _, next) => {
+    if (typeof document !== "undefined") {
+      document.title = to.meta.title || "heckr.dev";
+    }
+    next();
+  });
 
-export default router;
+  return router;
+}

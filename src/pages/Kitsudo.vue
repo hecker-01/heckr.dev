@@ -6,20 +6,21 @@ import Footer from "@/components/Footer.vue";
 import ImageLightbox from "@/components/ImageLightbox.vue";
 import { getProjectBySlug } from "@/services/projectService";
 import KitsudoBanner from "@/components/KitsudoBanner.vue";
-import { setPageMetadata } from "@/services/seoService";
+import { provideSsrMetadata, setPageMetadata } from "@/services/seoService";
 
 const router = useRouter();
 const project = getProjectBySlug("kitsudo");
 
+const metadata = project && {
+    title: project.title,
+    description: project.description,
+    path: "/projects/kitsudo/",
+    image: project.coverImage,
+};
+if (metadata) provideSsrMetadata(metadata);
+
 onMounted(() => {
-    if (project) {
-        setPageMetadata({
-            title: project.title,
-            description: project.description,
-            path: "/projects/kitsudo/",
-            image: project.coverImage,
-        });
-    }
+    if (metadata) setPageMetadata(metadata);
 });
 
 const phoneScreens = [

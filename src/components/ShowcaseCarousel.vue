@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { getShowcaseItems } from "@/services/showcaseService";
 
 const router = useRouter();
-const showcaseItems = ref([]);
+const showcaseItems = ref(getShowcaseItems());
 const currentShowcaseIndex = ref(0);
 const isHovering = ref(false);
 let showcaseInterval = null;
@@ -24,8 +24,6 @@ const navigateToProject = (slug) => {
 };
 
 onMounted(() => {
-    showcaseItems.value = getShowcaseItems();
-
     // Start cycling through showcase items every 10 seconds (pause on hover)
     if (showcaseItems.value.length > 1) {
         showcaseInterval = setInterval(() => {

@@ -1,6 +1,6 @@
-import { readdir, readFile, mkdir, writeFile } from "node:fs/promises";
+import { readdir, readFile, mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   parseFrontmatter,
   resolveContentSlug,
@@ -8,6 +8,7 @@ import {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
+const ssrDir = path.join(root, "dist-ssr");
 const origin = "https://heckr.dev";
 
 const escapeHtml = (value) =>
@@ -48,39 +49,61 @@ const setCanonical = (html, url) => {
 const contentRoutePath = (kind, slug) =>
   `/${kind === "post" ? "posts" : "projects"}/${encodeURIComponent(slug)}/`;
 
-const createPage = async (template, fields, routePath, slug) => {
-  const title = fields.title || slug;
-  const description = fields.description || "Personal portfolio and blog by Jesse.";
-  const pageUrl = new URL(routePath, origin).href;
-  const imagePath = fields.coverImage || "/screenshot.png";
-  const imageUrl = new URL(imagePath, origin).href;
+// `head` is what the page's component handed to provideSsrMetadata; routes
+// without it (home, 404) keep the template's tags and only get the route title.
+const applyHead = (html, { head, title: routeTitle }, routePath) => {
+  if (!head) {
+    return routeTitle
+      ? html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(routeTitle)}</title>`)
+      : html;
+  }
 
-  let html = template.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)} | heckr.dev</title>`);
-  html = setMeta(html, "name", "title", `${title} | heckr.dev`);
+  const fullTitle = `${head.title} | heckr.dev`;
+  const description = head.description || "Personal portfolio and blog by Jesse.";
+  const pageUrl = new URL(routePath, origin).href;
+  const imageUrl = new URL(head.image || "/screenshot.png", origin).href;
+
+  html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(fullTitle)}</title>`);
+  html = setMeta(html, "name", "title", fullTitle);
   html = setMeta(html, "name", "description", description);
-  html = setMeta(html, "property", "og:title", `${title} | heckr.dev`);
+  html = setMeta(html, "property", "og:title", fullTitle);
   html = setMeta(html, "property", "og:description", description);
   html = setMeta(html, "property", "og:url", pageUrl);
   html = setMeta(html, "property", "og:image", imageUrl);
-  html = setMeta(html, "name", "twitter:title", `${title} | heckr.dev`);
+  html = setMeta(html, "name", "twitter:title", fullTitle);
   html = setMeta(html, "name", "twitter:description", description);
   html = setMeta(html, "name", "twitter:url", pageUrl);
   html = setMeta(html, "name", "twitter:image", imageUrl);
-  html = setCanonical(html, pageUrl);
-
-  const outputDir = path.join(distDir, routePath.replace(/^\/+|\/+$/g, ""));
-  await mkdir(outputDir, { recursive: true });
-  await writeFile(path.join(outputDir, "index.html"), html);
+  return setCanonical(html, pageUrl);
 };
 
+const { render } = await import(
+  pathToFileURL(path.join(ssrDir, "entry-server.js")).href
+);
 const template = await readFile(path.join(distDir, "index.html"), "utf8");
+
+// Renders one route into the template and writes it to dist.
+const createPage = async (routePath, outputFile = null) => {
+  const rendered = await render(routePath);
+  const html = applyHead(template, rendered, routePath)
+    .replace('<div id="app"', `<div id="app" data-prerendered="${routePath === "/404" ? "404" : routePath}"`)
+    .replace("<!--app-html-->", () => rendered.html);
+
+  const file =
+    outputFile ??
+    path.join(distDir, routePath.replace(/^\/+|\/+$/g, ""), "index.html");
+  await mkdir(path.dirname(file), { recursive: true });
+  await writeFile(file, html);
+  console.log(`prerendered ${routePath}`);
+};
+
 const sitemapUrls = [
   new URL("/", origin).href,
   new URL("/posts/", origin).href,
   new URL("/projects/", origin).href,
 ];
 const contentRoutes = new Map();
-const contentPages = [];
+const routePaths = ["/", "/posts/", "/projects/"];
 for (const [sourceDir, kind] of [["posts", "post"], ["projects", "project"]]) {
   const filenames = (await readdir(path.join(root, sourceDir)))
     .filter((filename) => filename.endsWith(".md"))
@@ -102,15 +125,17 @@ for (const [sourceDir, kind] of [["posts", "post"], ["projects", "project"]]) {
     if (fields.unlisted !== true && fields.unlisted !== "true") {
       sitemapUrls.push(new URL(routePath, origin).href);
     }
-    contentPages.push({ fields, routePath, slug });
+    routePaths.push(routePath);
   }
 }
 
-for (const { fields, routePath, slug } of contentPages) {
-  await createPage(template, fields, routePath, slug);
+for (const routePath of routePaths) {
+  await createPage(routePath);
 }
+await createPage("/404", path.join(distDir, "404.html"));
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls
   .map((url) => `  <url><loc>${escapeHtml(url)}</loc></url>`)
   .join("\n")}\n</urlset>\n`;
 await writeFile(path.join(distDir, "sitemap.xml"), sitemap);
+await rm(ssrDir, { recursive: true, force: true });

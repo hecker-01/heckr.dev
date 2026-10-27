@@ -7,7 +7,7 @@ import PostList from "@/components/PostList.vue";
 import PostComponent from "@/components/PostComponent.vue";
 import Footer from "@/components/Footer.vue";
 import NotFound from "@/pages/NotFound.vue";
-import { setPageMetadata } from "@/services/seoService";
+import { provideSsrMetadata, setPageMetadata } from "@/services/seoService";
 import {
     highlightCode,
     installCopyCodeHandler,
@@ -33,6 +33,27 @@ const loadPosts = () => {
     posts.value = getAllPosts();
     tags.value = getAllTags();
 };
+
+// Resolve the initial view synchronously so prerender renders real content.
+loadPosts();
+if (route.params.slug) {
+    currentPost.value = getPostBySlug(route.params.slug);
+    view.value = currentPost.value ? "post" : "not-found";
+}
+provideSsrMetadata(
+    currentPost.value
+        ? {
+              title: currentPost.value.title,
+              description: currentPost.value.description,
+              path: `/posts/${currentPost.value.slug}`,
+          }
+        : {
+              title: "Posts",
+              description:
+                  "Thoughts, tutorials, and experiences on web development, programming, and technology.",
+              path: "/posts",
+          },
+);
 
 const openPost = (slug) => {
     currentPost.value = getPostBySlug(slug);
@@ -85,7 +106,6 @@ const toggleTag = (tag) => {
 };
 
 onMounted(() => {
-    loadPosts();
     setPageMetadata({
         title: "Posts",
         description:

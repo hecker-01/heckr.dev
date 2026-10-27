@@ -1,3 +1,12 @@
+import { useSSRContext } from "vue";
+
+/** During prerender, hand the page's metadata to the build script. */
+export const provideSsrMetadata = (metadata) => {
+  if (typeof document !== "undefined") return;
+  const context = useSSRContext();
+  if (context) context.head = metadata;
+};
+
 const updateMeta = (attribute, key, content) => {
   let element = document.querySelector(`meta[${attribute}="${key}"]`);
   if (!element) {
