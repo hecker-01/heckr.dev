@@ -21,6 +21,23 @@
     <!-- Title, description, robots, canonical, Open Graph and Twitter tags come from <PageHead> (src/components/PageHead.js) -->
     <!--head-->
 
+    <!-- Entity identity: ties heckr.dev, HeckerDev and hecker-01 to one person -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://heckr.dev/#person",
+        "name": "Jesse",
+        "alternateName": ["HeckerDev", "heckerdev", "hecker-01", "Hecker"],
+        "url": "https://heckr.dev",
+        "jobTitle": "Software developer",
+        "sameAs": [
+          "https://heckerdev.net",
+          "https://github.com/hecker-01"
+        ]
+      }
+    </script>
+
     <!-- Load the display font without blocking the first render. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
