@@ -189,7 +189,7 @@ const editorLabel = computed(() => {
                     ><span class="text-catppuccin-blue font-bold">OS</span
                     ><span class="text-catppuccin-subtle"> (v0.1.4)</span>
                 </div>
-                <div class="text-catppuccin-surface mb-2">
+                <div class="text-catppuccin-surface">
                     ------------------
                 </div>
 
@@ -265,22 +265,22 @@ const editorLabel = computed(() => {
                     </span>
                 </div>
 
-                <div class="text-catppuccin-surface mb-2">
+                <div class="text-catppuccin-surface">
                     ------------------
                 </div>
 
                 <!-- Color palette like neofetch -->
-                <div class="flex gap-0.5 mt-3">
-                    <span class="w-4 h-4 rounded-sm bg-catppuccin-red"></span>
-                    <span class="w-4 h-4 rounded-sm bg-catppuccin-peach"></span>
+                <div class="flex gap-0.5">
+                    <span class="w-4 h-4 rounded-xs bg-catppuccin-red"></span>
+                    <span class="w-4 h-4 rounded-xs bg-catppuccin-peach"></span>
                     <span
-                        class="w-4 h-4 rounded-sm bg-catppuccin-yellow"
+                        class="w-4 h-4 rounded-xs bg-catppuccin-yellow"
                     ></span>
-                    <span class="w-4 h-4 rounded-sm bg-catppuccin-green"></span>
-                    <span class="w-4 h-4 rounded-sm bg-catppuccin-teal"></span>
-                    <span class="w-4 h-4 rounded-sm bg-catppuccin-blue"></span>
-                    <span class="w-4 h-4 rounded-sm bg-catppuccin-mauve"></span>
-                    <span class="w-4 h-4 rounded-sm bg-catppuccin-pink"></span>
+                    <span class="w-4 h-4 rounded-xs bg-catppuccin-green"></span>
+                    <span class="w-4 h-4 rounded-xs bg-catppuccin-teal"></span>
+                    <span class="w-4 h-4 rounded-xs bg-catppuccin-blue"></span>
+                    <span class="w-4 h-4 rounded-xs bg-catppuccin-mauve"></span>
+                    <span class="w-4 h-4 rounded-xs bg-catppuccin-pink"></span>
                 </div>
             </div>
         </div>

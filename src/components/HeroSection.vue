@@ -103,7 +103,7 @@ onUnmounted(() => {
                 >
                     <button
                         type="button"
-                        class="cursor-pointer appearance-none border-0 bg-transparent p-0 rounded-sm text-catppuccin-green focus-visible:outline focus-visible:outline-1 focus-visible:outline-catppuccin-green focus-visible:outline-offset-2"
+                        class="cursor-pointer appearance-none border-0 bg-transparent p-0 rounded-xs text-catppuccin-green focus-visible:outline focus-visible:outline-1 focus-visible:outline-catppuccin-green focus-visible:outline-offset-2"
                         @click="cycleAlias"
                         :aria-expanded="aliasHovered || aliasFocused"
                         aria-controls="alias-source-popover"

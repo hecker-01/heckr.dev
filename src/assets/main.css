@@ -1,68 +1,76 @@
 @import "./base.css";
 
-* {
-    box-sizing: border-box;
-}
+@layer base {
+    * {
+        box-sizing: border-box;
+    }
 
-img {
-    -webkit-user-drag: none;
-    user-select: none;
-}
+    img {
+        -webkit-user-drag: none;
+        user-select: none;
+    }
 
-html,
-body {
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-}
+    /* Tailwind v4 preflight resets buttons to cursor: default */
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
 
-body {
-    background-color: #1e1e2e;
-    background-image:
-        radial-gradient(
-            1200px circle at 10% 15%,
-            rgba(203, 166, 247, 0.08),
-            transparent 40%
-        ),
-        radial-gradient(
-            900px circle at 85% 10%,
-            rgba(148, 226, 213, 0.06),
-            transparent 45%
-        ),
-        radial-gradient(
-            1000px circle at 80% 80%,
-            rgba(180, 190, 254, 0.05),
-            transparent 40%
-        ),
-        repeating-linear-gradient(
-            0deg,
-            rgba(147, 153, 178, 0.05) 0,
-            rgba(147, 153, 178, 0.05) 1px,
-            transparent 1px,
-            transparent 40px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            rgba(147, 153, 178, 0.04) 0,
-            rgba(147, 153, 178, 0.04) 1px,
-            transparent 1px,
-            transparent 40px
-        );
-    background-attachment: fixed, fixed, fixed, scroll, scroll;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-@media (max-width: 1023px) {
     html,
     body {
-        overflow-y: auto;
-        height: auto;
         min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: #1e1e2e;
+        background-image:
+            radial-gradient(
+                1200px circle at 10% 15%,
+                rgba(203, 166, 247, 0.08),
+                transparent 40%
+            ),
+            radial-gradient(
+                900px circle at 85% 10%,
+                rgba(148, 226, 213, 0.06),
+                transparent 45%
+            ),
+            radial-gradient(
+                1000px circle at 80% 80%,
+                rgba(180, 190, 254, 0.05),
+                transparent 40%
+            ),
+            repeating-linear-gradient(
+                0deg,
+                rgba(147, 153, 178, 0.05) 0,
+                rgba(147, 153, 178, 0.05) 1px,
+                transparent 1px,
+                transparent 40px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                rgba(147, 153, 178, 0.04) 0,
+                rgba(147, 153, 178, 0.04) 1px,
+                transparent 1px,
+                transparent 40px
+            );
+        background-attachment: fixed, fixed, fixed, scroll, scroll;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 1023px) {
+        html,
+        body {
+            overflow-y: auto;
+            height: auto;
+            min-height: 100vh;
+        }
     }
 }
 
@@ -102,16 +110,19 @@ body {
     border-radius: 2px;
 }
 
-a {
-    transition: color 0.15s ease;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: none;
-}
-*:focus-visible {
-    outline: 1px solid theme("colors.catppuccin-mauve");
-    outline-offset: 2px;
+/* Layered so utilities (underline, focus-visible:outline-*) still override these */
+@layer base {
+    a {
+        transition: color 0.15s ease;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+    *:focus-visible {
+        outline: 1px solid theme("colors.catppuccin-mauve");
+        outline-offset: 2px;
+    }
 }
 
 /* Terminal cursor blink animation */
