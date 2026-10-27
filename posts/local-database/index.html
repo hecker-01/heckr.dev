@@ -9,7 +9,10 @@
     <!-- Primary Meta Tags -->
     <meta name="title" content="Setting up a local database with PHPMyAdmin | heckr.dev" />
     <meta name="description" content="Setting up a local mariaDB database with PHPMyAdmin in docker" />
-    <meta name="keywords" content="database, mariadb, phpmyadmin, tutorial, guide, docker, docker-compose" />
+    <meta
+      name="keywords"
+      content="heckerdev, personal website, portfolio, photography, developer, creative, digital portfolio"
+    />
     <meta name="author" content="heckerdev" />
 
     <!-- Canonical URL -->
@@ -19,7 +22,7 @@
     <link rel="icon" href="/favicon.png" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="website" />
     <meta property="og:url" content="https://heckr.dev/posts/local-database/" />
     <meta property="og:title" content="Setting up a local database with PHPMyAdmin | heckr.dev" />
     <meta property="og:description" content="Setting up a local mariaDB database with PHPMyAdmin in docker" />
@@ -54,295 +57,13 @@
 
     <!-- Accessibility -->
     <meta name="theme-color" content="#11111b" />
-    <script type="module" crossorigin src="/assets/js/index-DIO4s8w9.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/js/vue-BGk8_v1A.js">
-    <link rel="stylesheet" crossorigin href="/assets/css/index-tFggVQGR.css">
-    <meta property="article:published_time" content="2026-01-30" />
-    <meta property="article:tag" content="database" />
-    <meta property="article:tag" content="mariadb" />
-    <meta property="article:tag" content="phpmyadmin" />
-    <meta property="article:tag" content="tutorial" />
-    <meta property="article:tag" content="guide" />
-    <meta property="article:tag" content="docker" />
-    <meta property="article:tag" content="docker-compose" />
-    <script type="application/ld+json">{"@context":"https://schema.org","url":"https://heckr.dev/posts/local-database/","@type":"BlogPosting","headline":"Setting up a local database with PHPMyAdmin","description":"Setting up a local mariaDB database with PHPMyAdmin in docker","image":"https://heckr.dev/screenshot.png","datePublished":"2026-01-30","keywords":"database, mariadb, phpmyadmin, tutorial, guide, docker, docker-compose","author":{"@type":"Person","name":"Jesse","url":"https://heckr.dev/"},"mainEntityOfPage":"https://heckr.dev/posts/local-database/"}</script>
+    <script type="module" crossorigin src="/assets/index-CY-_difg.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BXcBrEwM.css">
   </head>
   <body
     class="overflow-x-hidden bg-catppuccin-crust text-catppuccin-text font-mono antialiased"
-  ><!--teleport start anchor--><!----><!--teleport anchor-->
-    <div id="app" data-prerendered="/posts/local-database/" role="main"><div class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono" data-v-d0a5070c><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2" data-v-d0a5070c><div data-v-d0a5070c><div data-v-d0a5070c data-v-077ea2ea><div class="mb-8" data-v-077ea2ea><div class="text-catppuccin-subtle text-sm mb-2" data-v-077ea2ea> ~$ cat local-database.md </div><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all mb-6 inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><h1 class="text-3xl md:text-4xl font-bold text-catppuccin-mauve mb-3" data-v-077ea2ea>Setting up a local database with PHPMyAdmin</h1><div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-catppuccin-subtle mb-4" data-v-077ea2ea><span data-v-077ea2ea>30-01-2026</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><span data-v-077ea2ea>~4 min read</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><div class="flex flex-wrap gap-2" data-v-077ea2ea><!--[--><span class="text-catppuccin-gray" data-v-077ea2ea> #database</span><span class="text-catppuccin-gray" data-v-077ea2ea> #mariadb</span><span class="text-catppuccin-gray" data-v-077ea2ea> #phpmyadmin</span><span class="text-catppuccin-gray" data-v-077ea2ea> #tutorial</span><span class="text-catppuccin-gray" data-v-077ea2ea> #guide</span><span class="text-catppuccin-gray" data-v-077ea2ea> #docker</span><span class="text-catppuccin-gray" data-v-077ea2ea> #docker-compose</span><!--]--></div></div></div><!----><article class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden" data-v-077ea2ea><div class="prose prose-invert max-w-none text-catppuccin-text" data-v-077ea2ea><h2 id="prerequisites" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Prerequisites<a href="#prerequisites" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Before starting, make sure you have Docker Desktop installed on your machine. Download it from <a href="https://www.docker.com/products/docker-desktop/" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">Docker's official website</a> and ensure it's running (you should see the Docker icon in your system tray).</p>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">New to Docker? Check out the <a href="/posts?post=docker-and-compose" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">Using Docker and Docker Compose</a> guide first for an introduction to containers, images, and essential commands.</p>
-
-<h2 id="installation-with-docker-compose" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Installation with Docker Compose<a href="#installation-with-docker-compose" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">The easiest way to set up the stack is with Docker Compose - define everything in a single file and manage it with one command. See the <a href="/posts?post=docker-and-compose#docker-compose" target="_blank" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">Docker Compose guide</a> for a full overview.</p>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Create a <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker-compose.yml</code> file:</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-text truncate">docker-compose.yml</span><span class="text-catppuccin-subtle shrink-0">(yaml)</span>
-      </div>
-      <button data-clipboard-target="#code-block-0" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-0" class="language-yaml">services:
-  db:
-    image: mariadb:10.5
-    container_name: db
-    environment:
-      - MYSQL_ROOT_PASSWORD=mypass
-    volumes:
-      - db-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    restart: unless-stopped
-
-  phpmyadmin:
-    image: phpmyadmin
-    container_name: phpmyadmin
-    environment:
-      - PMA_HOST=db
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
-    restart: unless-stopped
-
-volumes:
-  db-data:</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Start the stack:</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-1" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-1" class="language-bash">docker compose up -d</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Stop the stack:</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-2" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-2" class="language-bash">docker compose down</code></pre>
-      </div>
-
-<div class="my-4 bg-catppuccin-red/10 border-catppuccin-red/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
-      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
-        <span class="font-mono text-sm">[x]</span>
-        <span>Danger</span>
-      </div>
-      <div class="text-catppuccin-text text-xs sm:text-sm"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose down -v</code> permanently deletes the database volume and all its data.</div>
-    </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Stop and remove all data (including the database volume):</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-3" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-3" class="language-bash">docker compose down -v</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Why Compose over manual commands:</p>
-
-<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">No manual network creation</strong> - Compose creates a shared network automatically</li>
-<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Persistent data</strong> - the named volume <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">db-data</code> keeps your database data between restarts</li>
-<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">One command</strong> - start or stop everything with a single <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose up -d</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker compose down</code></li>
-<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Reproducible</strong> - share the file with teammates and they get an identical setup</li></ul>
-
-<h2 id="accessing-phpmyadmin" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Accessing PHPMyAdmin<a href="#accessing-phpmyadmin" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Navigate to <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">http://localhost:8080</code> in your web browser.</p>
-
-<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Login credentials:</strong></p>
-
-<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">Username: <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">root</code></li>
-<li class="ml-6 text-catppuccin-text mb-1">Password: <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mypass</code> (or whatever password you set earlier)</li></ul>
-
-<hr class="border-catppuccin-surface my-6">
-<h2 id="alternative-using-standalone-docker-commands-standalone" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Alternative: Using Standalone Docker Commands {#standalone}<a href="#alternative-using-standalone-docker-commands-standalone" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">If you prefer running containers individually without a Compose file, you can use <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker run</code> directly.</p>
-
-<h3 id="1-create-a-docker-network" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">1. Create a Docker Network<a href="#1-create-a-docker-network" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">First, create a network so the containers can communicate. Open your terminal (PowerShell on Windows, Terminal on Mac/Linux) and run:</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-4" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-4" class="language-bash">docker network create db-network</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">This creates a bridge network that allows the database and PHPMyAdmin containers to connect.<br>(If you have docker containers that need to connect to the database, you can add them to this network as well.)</p>
-
-<h3 id="2-set-up-mariadb" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">2. Set up MariaDB<a href="#2-set-up-mariadb" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Pull and run the MariaDB container:</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-5" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-5" class="language-bash">docker pull mariadb:10.5
-docker run --name db -e MYSQL_ROOT_PASSWORD=mypass -p 3306:3306 --network db-network -d mariadb:10.5</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">What these flags mean:</strong></p>
-
-<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">--name db</code> - Names the container "db" for easy reference</li>
-<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-e MYSQL_ROOT_PASSWORD=mypass</code> - Sets the root password (change "mypass" to your preferred password)</li>
-<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-p 3306:3306</code> - Maps port 3306 from the container to your machine (MariaDB's default port)</li>
-<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">--network db-network</code> - Connects the container to our network</li>
-<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-d</code> - Runs the container in detached mode (background)</li></ul>
-
-<h3 id="3-set-up-phpmyadmin" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">3. Set up PHPMyAdmin<a href="#3-set-up-phpmyadmin" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Set up the PHPMyAdmin web interface:</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-6" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-6" class="language-bash">docker pull phpmyadmin
-docker run --name phpmyadmin -e PMA_HOST=db -p 8080:80 --network db-network -d phpmyadmin</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">What these flags mean:</strong></p>
-
-<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">--name phpmyadmin</code> - Names the container "phpmyadmin"</li>
-<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-e PMA_HOST=db</code> - Tells PHPMyAdmin to connect to our "db" container</li>
-<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-p 8080:80</code> - Maps port 8080 on your machine to port 80 in the container (PHPMyAdmin's web interface)</li>
-<li class="ml-6 text-catppuccin-text mb-1"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">--network db-network</code> - Connects to the same network as the database</li></ul>
-
-<h3 id="verification" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Verification<a href="#verification" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Open Docker Desktop and you should see both containers running in the Containers tab. They should have green status indicators.</p>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Alternatively, verify in the terminal with:</p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-7" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-7" class="language-bash">docker ps</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">You should see both <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">db</code> and <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">phpmyadmin</code> containers listed.</p>
-
-<h3 id="daily-usage" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Daily Usage<a href="#daily-usage" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
-
-<h4 id="using-docker-desktop" class="group text-base font-semibold text-catppuccin-mauve mt-5 mb-2">Using Docker Desktop<a href="#using-docker-desktop" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h4>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Open Docker Desktop, go to the Containers tab, and use the play/pause buttons to start or stop your containers.</p>
-
-<h4 id="using-command-line" class="group text-base font-semibold text-catppuccin-mauve mt-5 mb-2">Using Command Line<a href="#using-command-line" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h4>
-
-<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Stop containers:</strong></p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-8" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-8" class="language-bash">docker stop db phpmyadmin</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Start containers:</strong></p>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-9" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-9" class="language-bash">docker start db phpmyadmin</code></pre>
-      </div>
-
-<h3 id="cleanup" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Cleanup<a href="#cleanup" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
-
-<h4 id="using-docker-desktop" class="group text-base font-semibold text-catppuccin-mauve mt-5 mb-2">Using Docker Desktop<a href="#using-docker-desktop" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h4>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">Go to Containers tab, click the trash icon next to each container.</p>
-
-<h4 id="using-command-line" class="group text-base font-semibold text-catppuccin-mauve mt-5 mb-2">Using Command Line<a href="#using-command-line" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h4>
-
-<div class="my-4 -mx-2 sm:mx-0">
-        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
-      <div class="flex items-center gap-1 min-w-0 truncate">
-        <span class="text-catppuccin-mauve font-medium">bash</span>
-      </div>
-      <button data-clipboard-target="#code-block-10" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
-    </div>
-        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-10" class="language-bash">docker rm -f db phpmyadmin
-docker network rm db-network</code></pre>
-      </div>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">The <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-f</code> flag forces removal even if containers are running.</p>
-
-<hr class="border-catppuccin-surface my-6">
-<h2 id="troubleshooting" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Troubleshooting<a href="#troubleshooting" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
-
-<div class="my-4 bg-catppuccin-yellow/10 border-catppuccin-yellow/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
-      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
-        <span class="font-mono text-sm">[!]</span>
-        <span>Warning</span>
-      </div>
-      <div class="text-catppuccin-text text-xs sm:text-sm"><strong class="text-catppuccin-mauve font-semibold">Port already in use:</strong> If you get an error about ports 3306 or 8080 being in use, stop the conflicting application or change the host port: <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-p 3307:3306</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">-p 8081:80</code>.</div>
-    </div>
-
-<div class="my-4 bg-catppuccin-yellow/10 border-catppuccin-yellow/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
-      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
-        <span class="font-mono text-sm">[!]</span>
-        <span>Warning</span>
-      </div>
-      <div class="text-catppuccin-text text-xs sm:text-sm"><strong class="text-catppuccin-mauve font-semibold">Can't connect to database:</strong> Make sure both containers are on the same network and the database container has fully started - wait 10-15 seconds after starting.</div>
-    </div>
-
-<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
-      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
-        <span class="font-mono text-sm">[*]</span>
-        <span>Tip</span>
-      </div>
-      <div class="text-catppuccin-text text-xs sm:text-sm"><strong class="text-catppuccin-mauve font-semibold">Containers not showing in Docker Desktop:</strong> Refresh the application or restart Docker Desktop.</div>
-    </div>
-
-<h2 id="conclusion" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Conclusion<a href="#conclusion" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
-
-<p class="text-catppuccin-text leading-relaxed mb-4">That's it! You now have a local MariaDB database with PHPMyAdmin set up using Docker Desktop.</p></div></article><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><!--teleport start--><!--teleport end--></div><footer class="w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400" data-v-d0a5070c><p>© 2020 - 2026 heckr.dev | All rights reserved.</p></footer></div></div></div></div>
+  >
+    <div id="app" role="main"></div>
 
     <!-- Default Statcounter code for heckr.dev https://heckr.dev -->
     <script type="text/javascript">
