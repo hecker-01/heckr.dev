@@ -1,1 +1,0 @@
-import{H as e,k as t,v as n,x as r,z as i}from"./index-BIX5TzN5.js";var a={class:`w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400`},o={__name:`Footer`,setup(o){let s=new Date().getFullYear();return(o,c)=>(t(),r(`footer`,a,[n(`p`,null,`© 2020 - `+e(i(s))+` heckr.dev | All rights reserved.`,1)]))}};export{o as t};

@@ -1,43 +1,49 @@
 <!doctype html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
   <head>
-    <title>Dumping Your Own L3 CDM with Android Studio | heckr.dev</title>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary Meta Tags -->
-    <meta name="title" content="Dumping Your Own L3 CDM with Android Studio | heckr.dev" />
-    <meta name="description" content="How to dump a Widevine L3 CDM using Android Studio and a virtual device, without a physical Android phone." />
     <meta
       name="keywords"
-      content="heckerdev, personal website, portfolio, photography, developer, creative, digital portfolio"
+      content="heckerdev, personal website, portfolio, developer, creative, digital portfolio"
     />
     <meta name="author" content="heckerdev" />
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://heckr.dev/posts/dump-cdm-widevine/" />
-
     <!-- Favicon -->
-    <link rel="icon" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://heckr.dev/posts/dump-cdm-widevine/" />
-    <meta property="og:title" content="Dumping Your Own L3 CDM with Android Studio | heckr.dev" />
-    <meta property="og:description" content="How to dump a Widevine L3 CDM using Android Studio and a virtual device, without a physical Android phone." />
-    <meta property="og:image" content="https://heckr.dev/screenshot.png" />
-    <meta property="og:site_name" content="heckr.dev" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://heckr.dev/posts/dump-cdm-widevine/" />
-    <meta name="twitter:title" content="Dumping Your Own L3 CDM with Android Studio | heckr.dev" />
-    <meta name="twitter:description" content="How to dump a Widevine L3 CDM using Android Studio and a virtual device, without a physical Android phone." />
-    <meta name="twitter:image" content="https://heckr.dev/screenshot.png" />
-
-    <!-- Robots -->
-    <meta name="robots" content="index, follow" />
+    <!-- Title, description, robots, canonical, Open Graph and Twitter tags come from <PageHead> (src/components/PageHead.js) -->
+    <title>Dumping Your Own L3 CDM with Android Studio | heckr.dev</title>
+    <meta name="description" content="How to dump a Widevine L3 CDM using Android Studio and a virtual device, without a physical Android phone." data-page-head />
+    <meta name="robots" content="noindex, follow" data-page-head />
+    <link rel="canonical" href="https://heckr.dev/posts/dump-cdm-widevine/" data-page-head />
+    <meta property="og:locale" content="en_US" data-page-head />
+    <meta property="og:type" content="article" data-page-head />
+    <meta property="og:title" content="Dumping Your Own L3 CDM with Android Studio | heckr.dev" data-page-head />
+    <meta property="og:description" content="How to dump a Widevine L3 CDM using Android Studio and a virtual device, without a physical Android phone." data-page-head />
+    <meta property="og:url" content="https://heckr.dev/posts/dump-cdm-widevine/" data-page-head />
+    <meta property="og:site_name" content="heckr.dev" data-page-head />
+    <meta property="og:updated_time" content="2026-10-27T10:25:17+00:00" data-page-head />
+    <meta property="og:image" content="https://heckr.dev/img/screenshots/screenshot.png" data-page-head />
+    <meta property="og:image:secure_url" content="https://heckr.dev/img/screenshots/screenshot.png" data-page-head />
+    <meta property="og:image:width" content="3584" data-page-head />
+    <meta property="og:image:height" content="2148" data-page-head />
+    <meta property="og:image:alt" content="Dumping Your Own L3 CDM with Android Studio" data-page-head />
+    <meta property="og:image:type" content="image/png" data-page-head />
+    <meta property="article:published_time" content="2026-05-31T00:00:00+00:00" data-page-head />
+    <meta property="article:modified_time" content="2026-10-27T10:25:17+00:00" data-page-head />
+    <meta name="twitter:card" content="summary_large_image" data-page-head />
+    <meta name="twitter:title" content="Dumping Your Own L3 CDM with Android Studio | heckr.dev" data-page-head />
+    <meta name="twitter:description" content="How to dump a Widevine L3 CDM using Android Studio and a virtual device, without a physical Android phone." data-page-head />
+    <meta name="twitter:image" content="https://heckr.dev/img/screenshots/screenshot.png" data-page-head />
+    <meta name="twitter:label1" content="Reading time" data-page-head />
+    <meta name="twitter:data1" content="3 minutes" data-page-head />
 
     <!-- Load the display font without blocking the first render. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,13 +63,13 @@
 
     <!-- Accessibility -->
     <meta name="theme-color" content="#11111b" />
-    <script type="module" crossorigin src="/assets/index-BIX5TzN5.js"></script>
+    <script type="module" crossorigin src="/assets/index-CxaD0xR7.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DC5N_3OH.css">
   </head>
   <body
     class="overflow-x-hidden bg-catppuccin-crust text-catppuccin-text font-mono antialiased"
   >
-    <div id="app" data-prerendered="/posts/dump-cdm-widevine/" role="main"><div class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono" data-v-aec41f06><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2" data-v-aec41f06><div data-v-aec41f06><div data-v-aec41f06 data-v-077ea2ea><div class="mb-8" data-v-077ea2ea><div class="text-catppuccin-subtle text-sm mb-2" data-v-077ea2ea> ~$ cat dump-cdm-widevine.md </div><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all mb-6 inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><h1 class="text-3xl md:text-4xl font-bold text-catppuccin-mauve mb-3" data-v-077ea2ea>Dumping Your Own L3 CDM with Android Studio</h1><div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-catppuccin-subtle mb-4" data-v-077ea2ea><span data-v-077ea2ea>31-05-2026</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><span data-v-077ea2ea>~3 min read</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><div class="flex flex-wrap gap-2" data-v-077ea2ea><!--[--><span class="text-catppuccin-gray" data-v-077ea2ea> #drm</span><span class="text-catppuccin-gray" data-v-077ea2ea> #android</span><span class="text-catppuccin-gray" data-v-077ea2ea> #frida</span><span class="text-catppuccin-gray" data-v-077ea2ea> #widevine</span><!--]--></div></div></div><!----><article class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden" data-v-077ea2ea><div class="prose prose-invert max-w-none text-catppuccin-text" data-v-077ea2ea><p class="text-catppuccin-text leading-relaxed mb-4">This guide will show you how to dump your own Widevine L3 CDM using Android Studio and a virtual device, without needing a physical Android phone.</p>
+    <div id="app" data-prerendered="/posts/dump-cdm-widevine/" role="main"><div class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono" data-v-159a2f20><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2" data-v-159a2f20><!----><div data-v-159a2f20><div data-v-159a2f20 data-v-077ea2ea><div class="mb-8" data-v-077ea2ea><div class="text-catppuccin-subtle text-sm mb-2" data-v-077ea2ea> ~$ cat dump-cdm-widevine.md </div><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all mb-6 inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><h1 class="text-3xl md:text-4xl font-bold text-catppuccin-mauve mb-3" data-v-077ea2ea>Dumping Your Own L3 CDM with Android Studio</h1><div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-catppuccin-subtle mb-4" data-v-077ea2ea><span data-v-077ea2ea>31-05-2026</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><span data-v-077ea2ea>~3 min read</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><div class="flex flex-wrap gap-2" data-v-077ea2ea><!--[--><span class="text-catppuccin-gray" data-v-077ea2ea> #drm</span><span class="text-catppuccin-gray" data-v-077ea2ea> #android</span><span class="text-catppuccin-gray" data-v-077ea2ea> #frida</span><span class="text-catppuccin-gray" data-v-077ea2ea> #widevine</span><!--]--></div></div></div><!----><article class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden" data-v-077ea2ea><div class="prose prose-invert max-w-none text-catppuccin-text" data-v-077ea2ea><p class="text-catppuccin-text leading-relaxed mb-4">This guide will show you how to dump your own Widevine L3 CDM using Android Studio and a virtual device, without needing a physical Android phone.</p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Download Android Studio here: <a href="https://developer.android.com/studio" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">https://developer.android.com/studio</a></p>
 
@@ -94,7 +100,7 @@
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Then open a terminal in this directory:</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/01-android-sdk-location.png" alt="android-sdk-location" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/01-android-sdk-location.png" alt="android-sdk-location" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Then to download the required system image, run:</p>
 
@@ -110,7 +116,7 @@
 
 <p class="text-catppuccin-text leading-relaxed mb-4">wait for this to load and it should say something along the lines of this:</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/02-sdkmanager.png" alt="sdkmanager" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/02-sdkmanager.png" alt="sdkmanager" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Next, to create a new virtual device, run:</p>
 
@@ -124,19 +130,19 @@
         <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-2" class="language-bash">.\avdmanager create avd -n widevine28 -k "system-images;android-28;google_apis;x86_64" -d pixel_6</code></pre>
       </div>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/03-avdmanager.png" alt="avdmanager" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/03-avdmanager.png" alt="avdmanager" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Now your virtual device is created, so you can start it via the Device Manager in Android Studio:</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/04-device-manager.png" alt="device-manager" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/04-device-manager.png" alt="device-manager" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Click Start and wait for the device to boot. It can take a while.</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/05-booting.png" alt="device-booting" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/05-booting.png" alt="device-booting" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Your virtual device is ready, and you can now proceed as if this were a real device.</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/06-device-ready.png" alt="device-ready" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/06-device-ready.png" alt="device-ready" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">You can now close the old terminal if you want.</p>
 
@@ -155,7 +161,7 @@
         <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-3" class="language-bash">pip install frida==16.0.2 frida-tools==12.0.4</code></pre>
       </div>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/07-frida-install.png" alt="frida-install" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/07-frida-install.png" alt="frida-install" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Go to <a href="https://github.com/frida/frida/releases/tag/16.0.2" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">https://github.com/frida/frida/releases/tag/16.0.2</a> and download Frida server version <strong class="text-catppuccin-mauve font-semibold">16.0.2</strong> for <strong class="text-catppuccin-mauve font-semibold">Android x86_64</strong> (that's the same as the android image we downloaded).</p>
 
@@ -163,7 +169,7 @@
 
 <p class="text-catppuccin-text leading-relaxed mb-4"><a href="https://github.com/frida/frida/releases/download/16.0.2/frida-server-16.0.2-android-x86_64.xz" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">https://github.com/frida/frida/releases/download/16.0.2/frida-server-16.0.2-android-x86_64.xz</a></p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/08-frida-server-download.png" alt="frida-server-download" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/08-frida-server-download.png" alt="frida-server-download" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Place the unzipped file in:</p>
 
@@ -185,7 +191,7 @@
       <div class="text-catppuccin-text text-xs sm:text-sm">The frida-server version must match the version you installed via pip.</div>
     </div>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/09-frida-server-file.png" alt="frida-server-file" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/09-frida-server-file.png" alt="frida-server-file" class="max-w-full h-auto rounded my-4"></p>
 
 <hr class="border-catppuccin-surface my-6">
 <h2 id="3-connect-to-the-virtual-device" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">3. Connect to the Virtual Device<a href="#3-connect-to-the-virtual-device" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
@@ -202,7 +208,7 @@
         <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-5" class="language-bash">.\adb.exe devices</code></pre>
       </div>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/10-adb-devices.png" alt="adb-devices" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/10-adb-devices.png" alt="adb-devices" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Push the Frida server to the virtual device:</p>
 
@@ -216,7 +222,7 @@
         <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-6" class="language-bash">.\adb.exe push frida-server-16.0.2-android-x86_64 /sdcard</code></pre>
       </div>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/11-adb-push.png" alt="adb-push" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/11-adb-push.png" alt="adb-push" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Open a shell, move the file, set permissions, and start the server:</p>
 
@@ -243,7 +249,7 @@ chmod +x /data/local/tmp/frida-server-16.0.2-android-x86_64
 /data/local/tmp/frida-server-16.0.2-android-x86_64</code></pre>
       </div>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/12-frida-server-running.png" alt="frida-server-running" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/12-frida-server-running.png" alt="frida-server-running" class="max-w-full h-auto rounded my-4"></p>
 
 <div class="my-4 bg-catppuccin-red/10 border-catppuccin-red/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
       <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
@@ -278,7 +284,7 @@ chmod +x /data/local/tmp/frida-server-16.0.2-android-x86_64
 python dump_keys.py</code></pre>
       </div>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/13-dump-keys-running.png" alt="dump-keys-running" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/13-dump-keys-running.png" alt="dump-keys-running" class="max-w-full h-auto rounded my-4"></p>
 
 <div class="my-4 bg-catppuccin-red/10 border-catppuccin-red/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
       <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
@@ -297,18 +303,18 @@ python dump_keys.py</code></pre>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Chrome will ask for permission to allow the website to access the DRM system. Click "Allow".</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/14-allow-drm-access.png" alt="allow-drm-access" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/14-allow-drm-access.png" alt="allow-drm-access" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">Play the video. The dumper intercepts the keys automatically.</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/15-dump-success.png" alt="dump-success" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/15-dump-success.png" alt="dump-success" class="max-w-full h-auto rounded my-4"></p>
 
 <hr class="border-catppuccin-surface my-6">
 <h2 id="6-retrieve-the-files" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">6. Retrieve the Files<a href="#6-retrieve-the-files" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">In the dumper directory, open the <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">./key_dumps/Android Emulator xxxx/pricate_keys/xxxx/xxxxxxxxxx</code> folder. You will find two files.</p>
 
-<p class="text-catppuccin-text leading-relaxed mb-4"><img src="widevine/16-private-keys.png" alt="private-keys" class="max-w-full h-auto rounded my-4"></p>
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="/img/widevine/16-private-keys.png" alt="private-keys" class="max-w-full h-auto rounded my-4"></p>
 
 <p class="text-catppuccin-text leading-relaxed mb-4">You now have the two CDM files:</p>
 
@@ -329,7 +335,7 @@ python dump_keys.py</code></pre>
       <div class="text-catppuccin-text text-xs sm:text-sm">To get a fresh CDM pair, create a new virtual device and repeat the process from step 1.</div>
     </div>
 
-<blockquote class="border-l-4 border-catppuccin-mauve pl-4 py-2 my-4 text-catppuccin-text italic bg-catppuccin-surface/20">Disclaimer: This guide is for educational purposes only. Dumping CDMs may violate the terms of service of certain applications and could be illegal in some jurisdictions. Always ensure you have the right to access and use the content you are working with.</blockquote></div></article><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><!----></div><footer class="w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400" data-v-aec41f06><p>© 2020 - 2026 heckr.dev | All rights reserved.</p></footer></div></div></div></div>
+<blockquote class="border-l-4 border-catppuccin-mauve pl-4 py-2 my-4 text-catppuccin-text italic bg-catppuccin-surface/20">Disclaimer: This guide is for educational purposes only. Dumping CDMs may violate the terms of service of certain applications and could be illegal in some jurisdictions. Always ensure you have the right to access and use the content you are working with.</blockquote></div></article><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><!----></div><footer class="w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400" data-v-159a2f20><p>© 2020 - 2026 heckr.dev | All rights reserved.</p></footer></div></div></div></div>
 
     <!-- Default Statcounter code for heckr.dev https://heckr.dev -->
     <script type="text/javascript">
