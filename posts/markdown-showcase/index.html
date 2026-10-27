@@ -57,13 +57,515 @@
 
     <!-- Accessibility -->
     <meta name="theme-color" content="#11111b" />
-    <script type="module" crossorigin src="/assets/index-C9WOO4Qe.js"></script>
+    <script type="module" crossorigin src="/assets/index-BIX5TzN5.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DC5N_3OH.css">
   </head>
   <body
     class="overflow-x-hidden bg-catppuccin-crust text-catppuccin-text font-mono antialiased"
   >
-    <div id="app" role="main"></div>
+    <div id="app" data-prerendered="/posts/markdown-showcase/" role="main"><div class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono" data-v-aec41f06><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2" data-v-aec41f06><div data-v-aec41f06><div data-v-aec41f06 data-v-077ea2ea><div class="mb-8" data-v-077ea2ea><div class="text-catppuccin-subtle text-sm mb-2" data-v-077ea2ea> ~$ cat markdown-showcase.md </div><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all mb-6 inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><h1 class="text-3xl md:text-4xl font-bold text-catppuccin-mauve mb-3" data-v-077ea2ea>Markdown Features Showcase</h1><div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-catppuccin-subtle mb-4" data-v-077ea2ea><span data-v-077ea2ea>01-03-2026</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><span data-v-077ea2ea>~4 min read</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><div class="flex flex-wrap gap-2" data-v-077ea2ea><!--[--><span class="text-catppuccin-gray" data-v-077ea2ea> #documentation</span><span class="text-catppuccin-gray" data-v-077ea2ea> #markdown</span><span class="text-catppuccin-gray" data-v-077ea2ea> #reference</span><!--]--></div></div></div><div class="mb-6 border border-catppuccin-surface rounded-md p-4 bg-catppuccin-surface/10" data-v-077ea2ea><div class="text-sm text-catppuccin-subtle mb-3" data-v-077ea2ea> ~$ configure variables </div><div class="space-y-3" data-v-077ea2ea><!--[--><div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3" data-v-077ea2ea><label for="var-server-ip" class="text-sm text-catppuccin-text sm:min-w-[120px]" data-v-077ea2ea>server-ip: </label><input id="var-server-ip" type="text" placeholder="server-ip" class="flex-1 px-3 py-2 text-sm bg-catppuccin-base border border-catppuccin-surface/60 rounded text-catppuccin-text placeholder-catppuccin-subtle focus:outline-none focus:border-catppuccin-mauve transition-colors" data-v-077ea2ea></div><!--]--></div></div><article class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden" data-v-077ea2ea><div class="prose prose-invert max-w-none text-catppuccin-text" data-v-077ea2ea><p class="text-catppuccin-text leading-relaxed mb-4">This post demonstrates all the custom markdown features available for writing posts. Use this as a reference when creating new content.</p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="code-blocks" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Code Blocks<a href="#code-blocks" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Code blocks support syntax highlighting and an optional filename in the header bar.</p>
+
+<h3 id="basic-code-block" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Basic Code Block<a href="#basic-code-block" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Just specify the language:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-0" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-0" class="language-bash">docker compose up -d</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-1" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-1" class="language-txt">```bash
+docker compose up -d
+```</code></pre>
+      </div>
+
+<h3 id="code-block-with-filename" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Code Block with Filename<a href="#code-block-with-filename" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Add a filename after the language using a colon:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-text truncate">docker-compose.yml</span><span class="text-catppuccin-subtle shrink-0">(yaml)</span>
+      </div>
+      <button data-clipboard-target="#code-block-2" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-2" class="language-yaml">services:
+  app:
+    image: nginx:latest
+    ports:
+      - "8080:80"</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-3" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-3" class="language-txt">```yaml:docker-compose.yml
+services:
+  app:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+```</code></pre>
+      </div>
+
+<h3 id="supported-languages" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Supported Languages<a href="#supported-languages" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">bash</code>, <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">yaml</code>, <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">javascript</code>, <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">python</code>, <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">css</code>, <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">dockerfile</code>, <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">txt</code>, and more via Prism.js.</p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="dropdowncollapsible-sections" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Dropdown/Collapsible Sections<a href="#dropdowncollapsible-sections" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use dropdowns to hide content until clicked. Great for platform-specific instructions or optional details.</p>
+
+<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
+      <summary class="bg-catppuccin-crust px-3 sm:px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors text-sm sm:text-base">
+        Linux/Ubuntu Installation
+      </summary>
+      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm"><p class="text-catppuccin-text leading-relaxed mb-4">Remove old packages:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-4" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-4" class="language-bash">sudo apt remove docker.io docker-compose -y</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Install Docker:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-5" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-5" class="language-bash">sudo apt install docker-ce docker-ce-cli containerd.io -y</code></pre>
+      </div></div>
+    </details>
+
+<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
+      <summary class="bg-catppuccin-crust px-3 sm:px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors text-sm sm:text-base">
+        Windows Installation
+      </summary>
+      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm"><p class="text-catppuccin-text leading-relaxed mb-4">Download and install Docker Desktop from the official website.</p></div>
+    </details>
+
+<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
+      <summary class="bg-catppuccin-crust px-3 sm:px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors text-sm sm:text-base">
+        macOS Installation
+      </summary>
+      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm"><p class="text-catppuccin-text leading-relaxed mb-4">Download Docker Desktop for Mac or use Homebrew:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-6" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-6" class="language-bash">brew install --cask docker</code></pre>
+      </div></div>
+    </details>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-7" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-7" class="language-txt">:::details Title Goes Here
+Your content here. Can include code blocks, lists, etc.
+:::</code></pre>
+      </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="hints-callouts" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Hints / Callouts<a href="#hints-callouts" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use hints to highlight important information with different severity levels.</p>
+
+<h3 id="info" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Info<a href="#info" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 bg-catppuccin-blue/10 border-catppuccin-blue/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[i]</span>
+        <span>Info</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">This is general information that might be useful to know.</div>
+    </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-8" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-8" class="language-txt">:::hint info
+This is general information that might be useful to know.
+:::</code></pre>
+      </div>
+
+<h3 id="tip" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Tip<a href="#tip" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">Pro tip: Use keyboard shortcuts to work faster!</div>
+    </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-9" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-9" class="language-txt">:::hint tip
+Pro tip: Use keyboard shortcuts to work faster!
+:::</code></pre>
+      </div>
+
+<h3 id="warning" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Warning<a href="#warning" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 bg-catppuccin-yellow/10 border-catppuccin-yellow/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[!]</span>
+        <span>Warning</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">Make sure to backup your data before proceeding.</div>
+    </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-10" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-10" class="language-txt">:::hint warning
+Make sure to backup your data before proceeding.
+:::</code></pre>
+      </div>
+
+<h3 id="danger" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Danger<a href="#danger" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 bg-catppuccin-red/10 border-catppuccin-red/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[x]</span>
+        <span>Danger</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">This action is irreversible and will delete all data!</div>
+    </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-11" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-11" class="language-txt">:::hint danger
+This action is irreversible and will delete all data!
+:::</code></pre>
+      </div>
+
+<h3 id="note" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Note<a href="#note" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 bg-catppuccin-mauve/10 border-catppuccin-mauve/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[#]</span>
+        <span>Note</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">This feature is only available in version 2.0 and above.</div>
+    </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-12" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-12" class="language-txt">:::hint note
+This feature is only available in version 2.0 and above.
+:::</code></pre>
+      </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="tables" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Tables<a href="#tables" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Tables support inline code inside cells.</p>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Command</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Description</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker ps</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">List running containers</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker images</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">List downloaded images</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker stop name</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Stop a container</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">docker rm name</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Remove a container</td></tr></tbody></table></div>
+<strong class="text-catppuccin-mauve font-semibold">Syntax:</strong>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-13" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-13" class="language-txt">| Command | Description |
+| ------- | ----------- |
+| `docker ps` | List running containers |
+| `docker images` | List downloaded images |</code></pre>
+      </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="lists" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Lists<a href="#lists" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="unordered-lists" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Unordered Lists<a href="#unordered-lists" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">First item</li>
+<li class="ml-6 text-catppuccin-text mb-1">Second item</li>
+<li class="ml-6 text-catppuccin-text mb-1">Third item</li></ul>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-14" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-14" class="language-txt">- First item
+- Second item
+- Third item</code></pre>
+      </div>
+
+<h3 id="ordered-lists" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Ordered Lists<a href="#ordered-lists" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<ol class="list-decimal my-4 pl-2"><li class="ml-6 text-catppuccin-text mb-1">First step</li>
+<li class="ml-6 text-catppuccin-text mb-1">Second step</li>
+<li class="ml-6 text-catppuccin-text mb-1">Third step</li></ol>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-15" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-15" class="language-txt">1. First step
+2. Second step
+3. Third step</code></pre>
+      </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="text-formatting" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Text Formatting<a href="#text-formatting" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="inline-code" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Inline Code<a href="#inline-code" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">backticks</code> for inline code.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">`backticks`</code></p>
+
+<h3 id="bold" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Bold<a href="#bold" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use <strong class="text-catppuccin-mauve font-semibold">double asterisks</strong> for bold text.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">**double asterisks**</code></p>
+
+<h3 id="italic" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Italic<a href="#italic" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use _single asterisks_ for italic text.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">*single asterisks*</code></p>
+
+<h3 id="bold-italic" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Bold Italic<a href="#bold-italic" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use <strong class="text-catppuccin-mauve font-semibold">_double asterisks with underscores_</strong> for bold italic.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">**_double asterisks with underscores_**</code></p>
+
+<h3 id="strikethrough" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Strikethrough<a href="#strikethrough" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use <del class="text-catppuccin-subtle line-through">double tildes</del> for strikethrough.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">~~double tildes~~</code></p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="links-and-images" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Links and Images<a href="#links-and-images" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Links<a href="#links" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Check out the <a href="https://docs.docker.com/" class="text-catppuccin-mauve hover:text-catppuccin-mauve underline transition-colors">Docker documentation</a>.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">[link text](https://url.com/)</code></p>
+
+<h3 class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Images<a href="#images" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><img src="screenshot.png" alt="site-screenshot" class="max-w-full h-auto rounded my-4"></p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">![alt text](image-url.jpg)</code></p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="blockquotes" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Blockquotes<a href="#blockquotes" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<blockquote class="border-l-4 border-catppuccin-mauve pl-4 py-2 my-4 text-catppuccin-text italic bg-catppuccin-surface/20">This is a blockquote. Use it for quotes or important callouts.</blockquote>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-16" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-16" class="language-txt">&gt; This is a blockquote.</code></pre>
+      </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="horizontal-rules" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Horizontal Rules<a href="#horizontal-rules" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Use <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">---</code> on its own line for a horizontal rule.</p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="variable-substitution" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Variable Substitution<a href="#variable-substitution" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">You can use variables that readers can fill in:</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Server IP: server-ip</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Syntax:</strong> <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">$[variable-name]</code></p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">To escape a variable (show it literally), use a backslash: <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">\$[variable-name]</code></p>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="headings" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Headings<a href="#headings" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Headings automatically get anchor links (hover to see the <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">#</code> link).</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">txt</span>
+      </div>
+      <button data-clipboard-target="#code-block-17" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-17" class="language-txt"># H1 Heading
+## H2 Heading
+### H3 Heading</code></pre>
+      </div>
+
+<hr class="border-catppuccin-surface my-6">
+<h2 id="complete-example" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Complete Example<a href="#complete-example" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Here's a real-world example combining multiple features:</p>
+
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">This guide assumes you have Docker installed. See the installation section below if needed.</div>
+    </div>
+
+<details class="my-4 border border-catppuccin-surface rounded overflow-hidden">
+      <summary class="bg-catppuccin-crust px-3 sm:px-4 py-2 cursor-pointer text-catppuccin-text hover:bg-catppuccin-surface/30 transition-colors text-sm sm:text-base">
+        Installation Instructions
+      </summary>
+      <div class="p-3 sm:p-4 bg-catppuccin-base/30 text-sm"><div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-18" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-18" class="language-bash"># Install Docker on Ubuntu
+sudo apt update
+sudo apt install docker-ce -y</code></pre>
+      </div></div>
+    </details>
+
+<h3 id="quick-start" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Quick Start<a href="#quick-start" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<ol class="list-decimal my-4 pl-2"><li class="ml-6 text-catppuccin-text mb-1">Create a compose file</li>
+<li class="ml-6 text-catppuccin-text mb-1">Start the stack</li>
+<li class="ml-6 text-catppuccin-text mb-1">Verify it's running</li></ol>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-text truncate">docker-compose.yml</span><span class="text-catppuccin-subtle shrink-0">(yaml)</span>
+      </div>
+      <button data-clipboard-target="#code-block-19" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-19" class="language-yaml">services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"</code></pre>
+      </div>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-20" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-20" class="language-bash">docker compose up -d
+docker ps</code></pre>
+      </div>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Service</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Port</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Status</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">web</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">80</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Running</td></tr></tbody></table></div>
+<div class="my-4 bg-catppuccin-yellow/10 border-catppuccin-yellow/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[!]</span>
+        <span>Warning</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">Remember to open port 80 in your firewall!</div>
+    </div></div></article><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><!----></div><footer class="w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400" data-v-aec41f06><p>© 2020 - 2026 heckr.dev | All rights reserved.</p></footer></div></div></div></div>
 
     <!-- Default Statcounter code for heckr.dev https://heckr.dev -->
     <script type="text/javascript">

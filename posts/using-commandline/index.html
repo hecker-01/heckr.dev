@@ -57,13 +57,859 @@
 
     <!-- Accessibility -->
     <meta name="theme-color" content="#11111b" />
-    <script type="module" crossorigin src="/assets/index-C9WOO4Qe.js"></script>
+    <script type="module" crossorigin src="/assets/index-BIX5TzN5.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DC5N_3OH.css">
   </head>
   <body
     class="overflow-x-hidden bg-catppuccin-crust text-catppuccin-text font-mono antialiased"
   >
-    <div id="app" role="main"></div>
+    <div id="app" data-prerendered="/posts/using-commandline/" role="main"><div class="w-full min-h-screen h-screen overflow-x-hidden overflow-y-auto font-mono" data-v-aec41f06><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-14 md:pb-2" data-v-aec41f06><div data-v-aec41f06><div data-v-aec41f06 data-v-077ea2ea><div class="mb-8" data-v-077ea2ea><div class="text-catppuccin-subtle text-sm mb-2" data-v-077ea2ea> ~$ cat using-commandline.md </div><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all mb-6 inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><h1 class="text-3xl md:text-4xl font-bold text-catppuccin-mauve mb-3" data-v-077ea2ea>Using the Command Line (crashcourse)</h1><div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-catppuccin-subtle mb-4" data-v-077ea2ea><span data-v-077ea2ea>16-12-2025</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><span data-v-077ea2ea>~10 min read</span><span class="hidden sm:inline text-catppuccin-surface" data-v-077ea2ea>•</span><div class="flex flex-wrap gap-2" data-v-077ea2ea><!--[--><span class="text-catppuccin-gray" data-v-077ea2ea> #tutorial</span><span class="text-catppuccin-gray" data-v-077ea2ea> #guide</span><span class="text-catppuccin-gray" data-v-077ea2ea> #cli</span><span class="text-catppuccin-gray" data-v-077ea2ea> #terminal</span><span class="text-catppuccin-gray" data-v-077ea2ea> #bash</span><span class="text-catppuccin-gray" data-v-077ea2ea> #powershell</span><span class="text-catppuccin-gray" data-v-077ea2ea> #windows</span><span class="text-catppuccin-gray" data-v-077ea2ea> #linux</span><!--]--></div></div></div><!----><article class="sm:border-l-2 sm:border-catppuccin-surface sm:pl-4 pl-2 mb-8 overflow-hidden" data-v-077ea2ea><div class="prose prose-invert max-w-none text-catppuccin-text" data-v-077ea2ea><h2 id="why-learn-the-command-line" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Why Learn the Command Line?<a href="#why-learn-the-command-line" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">The command line (also called terminal, shell, or console) is a powerful tool that lets you interact with your computer using text commands. While it might seem intimidating at first, learning it will:</p>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">Make you faster and more efficient</li>
+<li class="ml-6 text-catppuccin-text mb-1">Give you more control over your system</li>
+<li class="ml-6 text-catppuccin-text mb-1">Enable automation of repetitive tasks</li>
+<li class="ml-6 text-catppuccin-text mb-1">Be essential for development, servers, and IT work</li></ul>
+
+<h2 id="opening-your-terminal" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Opening Your Terminal<a href="#opening-your-terminal" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="windows" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Windows<a href="#windows" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">PowerShell (Recommended):</strong></p>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">Press <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Win + X</code> and select "Windows Terminal" or "PowerShell"</li>
+<li class="ml-6 text-catppuccin-text mb-1">Or press <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Win + R</code>, type <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">powershell</code>, and press Enter</li></ul>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Command Prompt (Legacy):</strong></p>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">Press <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Win + R</code>, type <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cmd</code>, and press Enter</li></ul>
+
+<h3 id="linuxmac" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Linux/Mac<a href="#linuxmac" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1">Press <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Ctrl + Alt + T</code> (Linux)</li>
+<li class="ml-6 text-catppuccin-text mb-1">Open Spotlight (<code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Cmd + Space</code>) and type "Terminal" (Mac)</li>
+<li class="ml-6 text-catppuccin-text mb-1">Or find Terminal in your applications menu</li></ul>
+
+<h2 id="understanding-the-prompt" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Understanding the Prompt<a href="#understanding-the-prompt" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">When you open your terminal, you'll see a prompt waiting for input:</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Linux/Mac (Bash):</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-0" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-0" class="language-bash">username@hostname:~$</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Windows (PowerShell):</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">powershell</span>
+      </div>
+      <button data-clipboard-target="#code-block-1" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-1" class="language-powershell">PS C:\Users\Username&gt;</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">The prompt shows your current location. The <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">~</code> symbol represents your home directory.</p>
+
+<h2 id="navigating-the-file-system" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Navigating the File System<a href="#navigating-the-file-system" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="print-current-directory" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Print Current Directory<a href="#print-current-directory" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">See where you are right now:</p>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">pwd</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">pwd</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cd</code> (without arguments)</td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-2" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-2" class="language-bash"># Linux/Mac
+pwd
+# Output: /home/username
+
+# Windows PowerShell
+pwd
+# Output: C:\Users\Username</code></pre>
+      </div>
+
+<h3 id="list-files-and-folders" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">List Files and Folders<a href="#list-files-and-folders" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">See what's in the current directory:</p>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ls</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ls</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">dir</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-3" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-3" class="language-bash"># Linux/Mac
+ls
+
+# Show hidden files too
+ls -a
+
+# Show detailed information
+ls -l
+
+# Combine options
+ls -la</code></pre>
+      </div>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">powershell</span>
+      </div>
+      <button data-clipboard-target="#code-block-4" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-4" class="language-powershell"># Windows PowerShell
+ls
+
+# Or the classic command
+dir
+
+# Show hidden files
+ls -Force</code></pre>
+      </div>
+
+<h3 id="change-directory" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Change Directory<a href="#change-directory" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Move between folders:</p>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cd path</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cd path</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-5" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-5" class="language-bash"># Go to a folder
+cd Documents
+
+# Go up one level
+cd ..
+
+# Go up two levels
+cd ../..
+
+# Go to home directory
+cd ~       # Linux/Mac
+cd $HOME   # Also works on Linux/Mac
+
+# Go to previous directory
+cd -       # Linux/Mac only
+
+# Go to root directory
+cd /       # Linux/Mac
+cd \       # Windows</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Windows-specific:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">powershell</span>
+      </div>
+      <button data-clipboard-target="#code-block-6" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-6" class="language-powershell"># Change drive
+D:
+
+# Go to a folder on another drive
+cd D:\Projects</code></pre>
+      </div>
+
+<h3 id="path-separators" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Path Separators<a href="#path-separators" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<ul class="list-disc my-4"><li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Linux/Mac:</strong> Forward slash <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">/</code> → <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">/home/user/Documents</code></li>
+<li class="ml-6 text-catppuccin-text mb-1"><strong class="text-catppuccin-mauve font-semibold">Windows:</strong> Backslash <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">\</code> → <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">C:\Users\User\Documents</code></li></ul>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">PowerShell accepts both, but CMD requires backslashes.</p>
+
+<h2 id="working-with-files-and-folders" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Working with Files and Folders<a href="#working-with-files-and-folders" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="create-a-directory" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Create a Directory<a href="#create-a-directory" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac.</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mkdir name</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mkdir name</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-7" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-7" class="language-bash"># Create a single folder
+mkdir projects
+
+# Create nested folders at once
+mkdir -p projects/website/css    # Linux/Mac
+mkdir -Path projects/website/css # Windows PowerShell</code></pre>
+      </div>
+
+<h3 id="create-a-file" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Create a File<a href="#create-a-file" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">touch filename</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">New-Item filename</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ni filename</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-8" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-8" class="language-bash"># Linux/Mac
+touch notes.txt
+touch index.html style.css script.js
+
+# Windows PowerShell
+New-Item notes.txt
+ni index.html, style.css, script.js</code></pre>
+      </div>
+
+<h3 id="copy-files-and-folders" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Copy Files and Folders<a href="#copy-files-and-folders" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cp source dest</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cp source dest</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">copy</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-9" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-9" class="language-bash"># Copy a file
+cp file.txt backup.txt
+
+# Copy to another directory
+cp file.txt Documents/
+
+# Copy a folder (recursive)
+cp -r folder/ folder-backup/    # Linux/Mac
+cp -Recurse folder/ folder-backup/ # Windows PowerShell</code></pre>
+      </div>
+
+<h3 id="moverename-files-and-folders" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Move/Rename Files and Folders<a href="#moverename-files-and-folders" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mv source dest</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mv source dest</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">move</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-10" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-10" class="language-bash"># Rename a file
+mv oldname.txt newname.txt
+
+# Move to another directory
+mv file.txt Documents/
+
+# Move and rename
+mv file.txt Documents/newname.txt</code></pre>
+      </div>
+
+<h3 id="delete-files-and-folders" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Delete Files and Folders<a href="#delete-files-and-folders" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">rm filename</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">rm filename</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">del</code></td></tr></tbody></table></div>
+<div class="my-4 bg-catppuccin-red/10 border-catppuccin-red/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[x]</span>
+        <span>Danger</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm">Files deleted via terminal bypass the Recycle Bin/Trash. They are gone immediately and cannot be recovered.</div>
+    </div>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-11" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-11" class="language-bash"># Delete a file
+rm unwanted.txt
+
+# Delete multiple files
+rm file1.txt file2.txt
+
+# Delete a folder (recursive)
+rm -r foldername       # Linux/Mac
+rm -Recurse foldername # Windows PowerShell
+
+# Force delete without confirmation
+rm -rf foldername      # Linux/Mac
+rm -Recurse -Force foldername # Windows PowerShell</code></pre>
+      </div>
+
+<h2 id="viewing-and-editing-files" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Viewing and Editing Files<a href="#viewing-and-editing-files" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="view-file-contents" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View File Contents<a href="#view-file-contents" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cat filename</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cat filename</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">type filename</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-12" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-12" class="language-bash"># Display entire file
+cat readme.md
+
+# Display with line numbers
+cat -n readme.md  # Linux/Mac</code></pre>
+      </div>
+
+<h3 id="view-large-files" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View Large Files<a href="#view-large-files" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">less filename</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">more filename</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-13" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-13" class="language-bash"># Linux/Mac - scrollable viewer
+less largefile.log
+# Press q to quit, arrows to scroll, / to search
+
+# Windows
+more largefile.log
+# Press Space for next page, q to quit</code></pre>
+      </div>
+
+<h3 id="view-beginningend-of-files" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View Beginning/End of Files<a href="#view-beginningend-of-files" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-14" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-14" class="language-bash"># First 10 lines
+head filename.txt       # Linux/Mac
+Get-Content filename.txt -Head 10  # Windows PowerShell
+
+# Last 10 lines
+tail filename.txt       # Linux/Mac
+Get-Content filename.txt -Tail 10  # Windows PowerShell
+
+# Specify number of lines
+head -n 20 filename.txt
+tail -n 50 filename.txt</code></pre>
+      </div>
+
+<h3 id="edit-files-terminal-editors" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Edit Files (Terminal Editors)<a href="#edit-files-terminal-editors" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Linux/Mac:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-15" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-15" class="language-bash"># Nano (beginner-friendly)
+nano filename.txt
+# Ctrl+O to save, Ctrl+X to exit
+
+# Vim (powerful but steep learning curve)
+vim filename.txt
+# Press i to insert, Esc then :wq to save and quit</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Windows:</strong></p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">powershell</span>
+      </div>
+      <button data-clipboard-target="#code-block-16" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-16" class="language-powershell"># Open in Notepad
+notepad filename.txt
+
+# Or use VS Code if installed
+code filename.txt</code></pre>
+      </div>
+
+<h2 id="searching-and-finding" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Searching and Finding<a href="#searching-and-finding" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="find-files" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Find Files<a href="#find-files" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">find</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Get-ChildItem -Recurse</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-17" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-17" class="language-bash"># Linux/Mac
+# Find by name
+find . -name "*.txt"
+
+# Find files modified in last 7 days
+find . -mtime -7
+
+# Find by size (larger than 100MB)
+find . -size +100M</code></pre>
+      </div>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">powershell</span>
+      </div>
+      <button data-clipboard-target="#code-block-18" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-18" class="language-powershell"># Windows PowerShell
+# Find by name
+Get-ChildItem -Recurse -Filter "*.txt"
+
+# Short form
+gci -r -fi "*.txt"</code></pre>
+      </div>
+
+<h3 id="search-inside-files" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Search Inside Files<a href="#search-inside-files" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">grep pattern file</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Select-String pattern file</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-19" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-19" class="language-bash"># Linux/Mac
+# Search for text in a file
+grep "error" logfile.txt
+
+# Case-insensitive search
+grep -i "error" logfile.txt
+
+# Search recursively in all files
+grep -r "TODO" .
+
+# Show line numbers
+grep -n "function" script.js</code></pre>
+      </div>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">powershell</span>
+      </div>
+      <button data-clipboard-target="#code-block-20" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-20" class="language-powershell"># Windows PowerShell
+Select-String "error" logfile.txt
+
+# Recursive search
+Get-ChildItem -Recurse | Select-String "TODO"</code></pre>
+      </div>
+
+<h2 id="working-with-text" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Working with Text<a href="#working-with-text" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="redirect-output-to-file" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Redirect Output to File<a href="#redirect-output-to-file" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-21" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-21" class="language-bash"># Create/overwrite file with output
+ls &gt; filelist.txt
+
+# Append to file
+echo "new line" &gt;&gt; notes.txt</code></pre>
+      </div>
+
+<h3 id="pipe-commands-together" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Pipe Commands Together<a href="#pipe-commands-together" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Send the output of one command as input to another:</p>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-22" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-22" class="language-bash"># Count files in a directory
+ls | wc -l           # Linux/Mac
+(ls).Count           # Windows PowerShell
+
+# Find specific files and count them
+ls | grep ".txt" | wc -l     # Linux/Mac
+(ls *.txt).Count             # Windows PowerShell
+
+# Search and paginate results
+cat largefile.log | grep "error" | less  # Linux/Mac</code></pre>
+      </div>
+
+<h3 id="print-text" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Print Text<a href="#print-text" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-23" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-23" class="language-bash"># Linux/Mac
+echo "Hello, World!"
+
+# Windows PowerShell
+echo "Hello, World!"
+Write-Host "Hello, World!"</code></pre>
+      </div>
+
+<h2 id="system-information" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">System Information<a href="#system-information" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="view-system-info" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View System Info<a href="#view-system-info" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-24" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-24" class="language-bash"># Linux
+uname -a         # System information
+lsb_release -a   # Distribution info
+df -h            # Disk space
+free -h          # Memory usage
+
+# Windows PowerShell
+systeminfo
+Get-ComputerInfo</code></pre>
+      </div>
+
+<h3 id="view-running-processes" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View Running Processes<a href="#view-running-processes" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ps</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">top</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Get-Process</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">tasklist</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-25" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-25" class="language-bash"># Linux/Mac
+ps aux           # All processes
+top              # Live process viewer
+htop             # Better process viewer (if installed)
+
+# Windows PowerShell
+Get-Process
+tasklist</code></pre>
+      </div>
+
+<h3 id="kill-a-process" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Kill a Process<a href="#kill-a-process" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">kill PID</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Stop-Process -Id PID</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-26" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-26" class="language-bash"># Linux/Mac
+kill 1234        # Graceful termination
+kill -9 1234     # Force kill
+
+# Windows PowerShell
+Stop-Process -Id 1234
+Stop-Process -Name "notepad"</code></pre>
+      </div>
+
+<h2 id="network-commands" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Network Commands<a href="#network-commands" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="test-connectivity" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Test Connectivity<a href="#test-connectivity" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-27" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-27" class="language-bash"># Ping a server
+ping google.com
+
+# Limit number of pings (Linux/Mac)
+ping -c 4 google.com</code></pre>
+      </div>
+
+<h3 id="view-network-configuration" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View Network Configuration<a href="#view-network-configuration" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-28" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-28" class="language-bash"># Linux
+ip addr
+ifconfig    # older systems
+
+# Windows
+ipconfig
+ipconfig /all</code></pre>
+      </div>
+
+<h3 id="download-files" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Download Files<a href="#download-files" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">curl</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">wget</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Invoke-WebRequest</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">curl</code></td></tr></tbody></table></div>
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-29" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-29" class="language-bash"># Linux/Mac
+curl -O https://example.com/file.zip
+wget https://example.com/file.zip
+
+# Windows PowerShell
+Invoke-WebRequest -Uri https://example.com/file.zip -OutFile file.zip
+# Or shorter
+iwr https://example.com/file.zip -OutFile file.zip</code></pre>
+      </div>
+
+<h2 id="permissions-linuxmac" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Permissions (Linux/Mac)<a href="#permissions-linuxmac" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="view-permissions" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View Permissions<a href="#view-permissions" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-30" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-30" class="language-bash">ls -l
+# Output: -rw-r--r-- 1 user group 1234 Jan 1 12:00 file.txt</code></pre>
+      </div>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Permission breakdown: <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">rwx</code> = read, write, execute for owner, group, others.</p>
+
+<h3 id="change-permissions" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Change Permissions<a href="#change-permissions" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-31" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-31" class="language-bash"># Make a script executable
+chmod +x script.sh
+
+# Set specific permissions (owner: rwx, group: rx, others: rx)
+chmod 755 script.sh
+
+# Change owner
+chown username filename</code></pre>
+      </div>
+
+<h2 id="environment-variables" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Environment Variables<a href="#environment-variables" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="view-environment-variables" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">View Environment Variables<a href="#view-environment-variables" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-32" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-32" class="language-bash"># Linux/Mac
+echo $PATH
+printenv
+
+# Windows PowerShell
+echo $env:PATH
+Get-ChildItem Env:</code></pre>
+      </div>
+
+<h3 id="set-environment-variables" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Set Environment Variables<a href="#set-environment-variables" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-33" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-33" class="language-bash"># Linux/Mac (temporary, current session)
+export MY_VAR="value"
+
+# Windows PowerShell (temporary)
+$env:MY_VAR = "value"</code></pre>
+      </div>
+
+<h2 id="useful-shortcuts" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Useful Shortcuts<a href="#useful-shortcuts" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="keyboard-shortcuts-works-in-most-terminals" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Keyboard Shortcuts (Works in most terminals)<a href="#keyboard-shortcuts-works-in-most-terminals" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Shortcut</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Action</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Tab</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Auto-complete commands and paths</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">↑</code> / <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">↓</code>.</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Navigate command history</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Ctrl + C</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Cancel current command</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Ctrl + L</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Clear the screen</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Ctrl + A</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Go to beginning of line</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Ctrl + E</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Go to end of line</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Ctrl + U</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Clear line before cursor</td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Ctrl + R</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Search command history</td></tr></tbody></table></div>
+<h3 id="command-history" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Command History<a href="#command-history" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-34" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-34" class="language-bash"># View command history
+history
+
+# Run previous command
+!!              # Linux/Mac
+
+# Run specific command from history
+!123            # Run command number 123</code></pre>
+      </div>
+
+<h2 id="chaining-commands" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Chaining Commands<a href="#chaining-commands" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-35" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-35" class="language-bash"># Run commands sequentially
+command1 ; command2 ; command3
+
+# Run next command only if previous succeeds
+command1 &amp;&amp; command2
+
+# Run next command only if previous fails
+command1 || command2
+
+# Example: Create folder and enter it
+mkdir newproject &amp;&amp; cd newproject</code></pre>
+      </div>
+
+<h2 id="aliases-shortcuts-for-commands" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Aliases (Shortcuts for Commands)<a href="#aliases-shortcuts-for-commands" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<h3 id="linux-mac" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Linux/ Mac<a href="#linux-mac" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">bash</span>
+      </div>
+      <button data-clipboard-target="#code-block-36" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-36" class="language-bash"># Create temporary alias
+alias ll="ls -la"
+alias ..="cd .."
+
+# Make permanent (add to ~/.bashrc or ~/.zshrc)
+echo 'alias ll="ls -la"' &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+      </div>
+
+<h3 id="windows-powershell" class="group text-lg font-semibold text-catppuccin-mauve mt-6 mb-3">Windows PowerShell<a href="#windows-powershell" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h3>
+
+<div class="my-4 -mx-2 sm:mx-0">
+        <div class="flex items-center justify-between bg-catppuccin-crust border border-catppuccin-surface/50 border-b-0 rounded-t px-2 sm:px-3 py-1.5 text-xs">
+      <div class="flex items-center gap-1 min-w-0 truncate">
+        <span class="text-catppuccin-mauve font-medium">powershell</span>
+      </div>
+      <button data-clipboard-target="#code-block-37" aria-label="Copy code to clipboard" class="text-catppuccin-subtle hover:text-catppuccin-mauve transition-colors cursor-pointer shrink-0 ml-2 p-1">copy</button>
+    </div>
+        <pre class="bg-catppuccin-base/50 border border-catppuccin-surface/50 rounded-t-none rounded-b p-2 sm:p-4 overflow-x-auto mt-0 text-xs sm:text-sm"><code id="code-block-37" class="language-powershell"># Create temporary alias
+Set-Alias -Name ll -Value Get-ChildItem
+
+# View all aliases
+Get-Alias</code></pre>
+      </div>
+
+<h2 id="quick-reference-cheat-sheet" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Quick Reference Cheat Sheet<a href="#quick-reference-cheat-sheet" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<div class="overflow-x-auto -mx-2 sm:mx-0 my-4"><table class="w-full text-sm border-collapse min-w-[400px]"><thead><tr><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Task</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Linux/Mac</th><th class="border border-catppuccin-surface px-3 py-2 text-left text-catppuccin-mauve bg-catppuccin-surface/30">Windows PowerShell</th></tr></thead><tbody><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Current directory</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">pwd</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">pwd</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">gl</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">List files</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ls</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ls</code> or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">dir</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Change directory</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cd path</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cd path</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Create folder</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mkdir name</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mkdir name</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Create file</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">touch file</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">ni file</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Copy</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cp src dest</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cp src dest</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Move/Rename</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mv src dest</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">mv src dest</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Delete file</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">rm file</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">rm file</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Delete folder</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">rm -r folder</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">rm -r folder</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">View file</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cat file</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cat file</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Search in file</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">grep pattern file</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">sls pattern file</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Find files</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">find . -name "*.txt"</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">gci -r -fi "*.txt"</code></td></tr><tr><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text">Clear screen</td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">clear</code></td><td class="border border-catppuccin-surface px-3 py-2 text-catppuccin-text"><code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">clear</code></td></tr></tbody></table></div>
+<h2 id="best-practices" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Best Practices<a href="#best-practices" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm"><strong class="text-catppuccin-mauve font-semibold">Use Tab completion:</strong> Press Tab to auto-complete file names and commands - saves time and prevents typos.</div>
+    </div>
+
+<div class="my-4 bg-catppuccin-yellow/10 border-catppuccin-yellow/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[!]</span>
+        <span>Warning</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm"><strong class="text-catppuccin-mauve font-semibold">Be careful with rm/delete:</strong> Always double-check before deleting, especially with recursive operations.</div>
+    </div>
+
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm"><strong class="text-catppuccin-mauve font-semibold">Use man pages:</strong> Type <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">man command</code> (Linux/Mac) or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">Get-Help command</code> (PowerShell) for built-in documentation.</div>
+    </div>
+
+<div class="my-4 bg-catppuccin-green/10 border-catppuccin-green/50 border-l-4 rounded-r px-3 sm:px-4 py-3">
+      <div class="flex items-center gap-2 font-medium text-catppuccin-text mb-1 text-sm sm:text-base">
+        <span class="font-mono text-sm">[*]</span>
+        <span>Tip</span>
+      </div>
+      <div class="text-catppuccin-text text-xs sm:text-sm"><strong class="text-catppuccin-mauve font-semibold">Learn one thing at a time:</strong> Don't try to memorize everything - learn commands as you need them.</div>
+    </div>
+
+<h2 id="troubleshooting" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Troubleshooting<a href="#troubleshooting" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">"Command not found":</strong> The program isn't installed or isn't in your PATH. Try installing it or using the full path.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">"Permission denied":</strong> You don't have rights to access that file/folder. Try using <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">sudo</code> (Linux/Mac) or running as Administrator (Windows).</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">"No such file or directory":</strong> Check your spelling and make sure you're in the right location with <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">pwd</code>.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4"><strong class="text-catppuccin-mauve font-semibold">Wrong directory:</strong> Use <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cd</code> to navigate to the correct location. Use <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">cd -</code> (Linux/Mac) to go back to your previous location.</p>
+
+<h2 id="conclusion" class="group text-xl font-semibold text-catppuccin-mauve mt-8 mb-4">Conclusion<a href="#conclusion" class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-catppuccin-subtle hover:text-catppuccin-mauve" aria-label="Link to this section">#</a></h2>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">The command line is a fundamental skill for any developer or power user. Start with the basics - navigation, file operations, and viewing files - then gradually add more commands to your toolkit as you need them.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Practice regularly, and soon these commands will become second nature. Don't be afraid to experiment (safely!) and use <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">man</code> pages or <code class="bg-catppuccin-surface/50 px-1.5 sm:px-2 py-0.5 rounded text-catppuccin-pink text-xs sm:text-sm break-words">--help</code> to learn more about any command.</p>
+
+<p class="text-catppuccin-text leading-relaxed mb-4">Happy commanding!</p></div></article><button class="text-sm px-3 py-1.5 rounded-md border border-catppuccin-surface/60 bg-catppuccin-base/20 hover:bg-catppuccin-base/30 hover:border-catppuccin-mauve/40 transition-all inline-flex items-center gap-1.5 group" data-v-077ea2ea><span class="text-catppuccin-subtle group-hover:text-catppuccin-text transition-colors" data-v-077ea2ea>cd</span><span class="text-catppuccin-mauve font-medium" data-v-077ea2ea>~/posts</span></button><!----></div><footer class="w-full py-8 text-center text-sm text-catppuccin-subtle dark:text-gray-400" data-v-aec41f06><p>© 2020 - 2026 heckr.dev | All rights reserved.</p></footer></div></div></div></div>
 
     <!-- Default Statcounter code for heckr.dev https://heckr.dev -->
     <script type="text/javascript">
