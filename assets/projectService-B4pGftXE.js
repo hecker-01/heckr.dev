@@ -1,4 +1,4 @@
-import{n as e,t}from"./frontmatterService-D5_gk3XS.js";var n=`---
+import{n as e,t}from"./frontmatterService-COEGX6Lh.js";var n=`---
 title: Jellycord
 slug: jellycord
 description: A Jellyfin plugin that shares linked users’ playback as their Discord status, complete with artwork and progress.
