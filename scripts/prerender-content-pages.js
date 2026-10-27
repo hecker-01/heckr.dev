@@ -1,6 +1,8 @@
-import { readdir, readFile, mkdir, rm, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { readdir, readFile, mkdir, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { promisify } from "node:util";
 import {
   parseFrontmatter,
   resolveContentSlug,
@@ -97,11 +99,26 @@ const createPage = async (routePath, outputFile = null) => {
   console.log(`prerendered ${routePath}`);
 };
 
-const sitemapUrls = [
-  new URL("/", origin).href,
-  new URL("/posts/", origin).href,
-  new URL("/projects/", origin).href,
-];
+// Last change of a source file: its latest commit, else its mtime. Formatted
+// like "2026-10-27T09:30:30+00:00".
+const lastModified = async (filepath) => {
+  let date;
+  try {
+    const { stdout } = await promisify(execFile)(
+      "git",
+      ["log", "-1", "--format=%cI", "--", filepath],
+      { cwd: root },
+    );
+    if (stdout.trim()) date = new Date(stdout.trim());
+  } catch {
+    // not a git checkout
+  }
+  date ??= (await stat(filepath)).mtime;
+  return date.toISOString().replace(/\.\d{3}Z$/, "+00:00");
+};
+const newest = (entries) => entries.map((entry) => entry.lastmod).sort().at(-1);
+
+const sitemapEntries = { post: [], project: [] };
 const contentRoutes = new Map();
 const routePaths = ["/", "/posts/", "/projects/"];
 for (const [sourceDir, kind] of [["posts", "post"], ["projects", "project"]]) {
@@ -123,7 +140,10 @@ for (const [sourceDir, kind] of [["posts", "post"], ["projects", "project"]]) {
     contentRoutes.set(routePath, sourceName);
 
     if (fields.unlisted !== true && fields.unlisted !== "true") {
-      sitemapUrls.push(new URL(routePath, origin).href);
+      sitemapEntries[kind].push({
+        loc: new URL(routePath, origin).href,
+        lastmod: await lastModified(sourcePath),
+      });
     }
     routePaths.push(routePath);
   }
@@ -134,8 +154,23 @@ for (const routePath of routePaths) {
 }
 await createPage("/404", path.join(distDir, "404.html"));
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls
-  .map((url) => `  <url><loc>${escapeHtml(url)}</loc></url>`)
-  .join("\n")}\n</urlset>\n`;
+const sitemapUrls = [
+  { loc: new URL("/", origin).href, lastmod: newest([...sitemapEntries.post, ...sitemapEntries.project]) },
+  { loc: new URL("/posts/", origin).href, lastmod: newest(sitemapEntries.post) },
+  { loc: new URL("/projects/", origin).href, lastmod: newest(sitemapEntries.project) },
+  ...sitemapEntries.post,
+  ...sitemapEntries.project,
+];
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls
+  .map(
+    ({ loc, lastmod }) =>
+      `\t<url>\n\t\t<loc>${escapeHtml(loc)}</loc>\n\t\t<lastmod>${lastmod}</lastmod>\n\t</url>`,
+  )
+  .join("\n")}
+</urlset>
+`;
 await writeFile(path.join(distDir, "sitemap.xml"), sitemap);
 await rm(ssrDir, { recursive: true, force: true });
