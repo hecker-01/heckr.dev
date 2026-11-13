@@ -7,7 +7,7 @@
             <img
                 src="/img/look-studio/logo.svg"
                 alt="Look Studio app icon"
-                class="h-12 w-12 shrink-0 rounded-[24%] drop-shadow-[0_4px_2px_rgba(0,0,0,0.35)] sm:h-14 sm:w-14"
+                class="h-9 w-9 shrink-0 rounded-[24%] drop-shadow-[0_4px_2px_rgba(0,0,0,0.35)] sm:h-10 sm:w-10"
             />
 
             <div class="min-w-[180px] flex-1">
