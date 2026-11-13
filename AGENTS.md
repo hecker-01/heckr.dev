@@ -23,7 +23,7 @@ Run `npm run build` after any change to routes, content, images, head tags or sc
 - Projects: `title, slug, description, coverImage, accentColor, tags, url, github, status, unlisted`. See `prompt-example-project.md` for the full rules.
 - Posts: `title, slug, date (dd-mm-yyyy), tags, description, unlisted`.
 - `unlisted: true` keeps a page out of the sitemap and sets `noindex`.
-- Adding a page needs no manual route, sitemap or prerender edits: the prerender script finds every `.md` file. Kitsudo is the only project with its own page (`src/pages/Kitsudo.vue`, route `/projects/kitsudo`, registered before `/projects/:slug` in `src/router/index.js`).
+- Adding a page needs no manual route, sitemap or prerender edits: the prerender script finds every `.md` file. Kitsudo and Look Studio have their own pages (`src/pages/Kitsudo.vue`, `src/pages/LookStudio.vue`, routes `/projects/kitsudo` and `/projects/look-studio`, registered before `/projects/:slug` in `src/router/index.js`).
 - After adding or removing a notable page, update `public/llms.txt` (it is hand-written) and the README if the structure changed.
 
 ## Images

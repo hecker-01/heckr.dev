@@ -72,6 +72,11 @@ const openProject = (slug) => {
         return;
     }
 
+    if (slug === "look-studio") {
+        router.push({ name: "LookStudio" });
+        return;
+    }
+
     currentProject.value = getProjectBySlug(slug);
     if (currentProject.value) {
         view.value = "project";

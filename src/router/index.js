@@ -36,6 +36,12 @@ const routes = [
     meta: { title: "Kitsudo | heckr.dev" },
   },
   {
+    path: "/projects/look-studio",
+    name: "LookStudio",
+    component: () => import("@/pages/LookStudio.vue"),
+    meta: { title: "Look Studio | heckr.dev" },
+  },
+  {
     path: "/projects/:slug",
     name: "ProjectDetail",
     component: () => import("@/pages/Projects.vue"),

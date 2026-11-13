@@ -8,3 +8,4 @@ Personal portfolio and technical blog by Jesse.
 - [Posts](https://heckr.dev/posts/): Technical articles and guides.
 - [Projects](https://heckr.dev/projects/): Software projects and showcases.
 - [Kitsudo](https://heckr.dev/projects/kitsudo/): Details about the Kitsudo app.
+- [Look Studio](https://heckr.dev/projects/look-studio/): A Pterodactyl 2.0 theme with a live editor.
