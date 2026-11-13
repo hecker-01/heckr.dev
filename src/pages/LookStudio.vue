@@ -132,17 +132,17 @@ const closeLightbox = () => {
                         />
                         <div class="flex-1 min-w-[180px]">
                             <div class="text-xs text-catppuccin-subtle mb-1">
-                                ~$ install look-studio
+                                ~$ php artisan p:extension:install look-studio
                             </div>
                             <h2
                                 id="download-heading"
                                 class="text-lg sm:text-xl font-bold text-catppuccin-text mb-1"
                             >
-                                Ready when you are.
+                                Make your panel yours.
                             </h2>
                             <p class="text-xs sm:text-sm text-catppuccin-gray">
-                                One extension file. Install it from the admin
-                                area and make it yours.
+                                Install it in a minute. Needs Pterodactyl 2.0,
+                                and removing it brings the classic panel back.
                             </p>
                         </div>
                         <div class="flex flex-wrap gap-3">
