@@ -1,3 +1,8 @@
+<script setup>
+// On the homepage the banner links to the project page instead of the stores.
+defineProps({ moreInfo: Boolean });
+</script>
+
 <template>
     <aside
         aria-labelledby="look-studio-announcement"
@@ -22,7 +27,16 @@
                 </p>
             </div>
 
-            <div class="flex w-full gap-2 sm:w-auto">
+            <div v-if="moreInfo" class="flex w-full gap-2 sm:w-auto">
+                <router-link
+                    to="/projects/look-studio"
+                    class="announcement-button announcement-primary flex-1 sm:flex-none"
+                >
+                    [ More info ]
+                </router-link>
+            </div>
+
+            <div v-else class="flex w-full gap-2 sm:w-auto">
                 <a
                     href="https://voxel.shop/product/10617/look-studio"
                     target="_blank"

@@ -55,7 +55,7 @@ onMounted(() => {
             description="Personal portfolio and blog by Jesse, featuring software projects, tutorials, and experiments."
             path="/"
         />
-        <LookStudioBanner v-if="showLookStudioBanner" />
+        <LookStudioBanner v-if="showLookStudioBanner" more-info />
 
         <div
             class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-10 md:pb-2"
