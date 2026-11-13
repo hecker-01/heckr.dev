@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import KitsudoBanner from "@/components/KitsudoBanner.vue";
+import LookStudioBanner from "@/components/LookStudioBanner.vue";
 import HeroSection from "@/components/HeroSection.vue";
 import LanguagesList from "@/components/LanguagesList.vue";
 import ShowcaseCarousel from "@/components/ShowcaseCarousel.vue";
@@ -9,6 +9,9 @@ import Footer from "@/components/Footer.vue";
 import { getAllReposWithLanguages } from "@/services/githubService";
 import ReposList from "@/components/ReposList.vue";
 import PageHead from "@/components/PageHead";
+
+// Shown until 1 December 2026. Set after mount so the prerendered HTML and hydration match.
+const showLookStudioBanner = ref(false);
 
 const repos = ref([]);
 const reposLoading = ref(true);
@@ -38,6 +41,7 @@ const fetchProjects = async () => {
 };
 
 onMounted(() => {
+    showLookStudioBanner.value = Date.now() < new Date(2026, 11, 1).getTime();
     fetchProjects();
 });
 </script>
@@ -51,7 +55,7 @@ onMounted(() => {
             description="Personal portfolio and blog by Jesse, featuring software projects, tutorials, and experiments."
             path="/"
         />
-        <!-- <KitsudoBanner /> -->
+        <LookStudioBanner v-if="showLookStudioBanner" />
 
         <div
             class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:pt-10 md:pb-2"
