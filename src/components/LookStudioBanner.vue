@@ -55,6 +55,7 @@
     gap: 0.75rem;
     padding: 0.75rem;
     border: 1px solid rgba(203, 166, 247, 0.25);
+    border-top: 0;
     border-radius: 0 0 0.5rem 0.5rem;
     background: linear-gradient(
         110deg,
