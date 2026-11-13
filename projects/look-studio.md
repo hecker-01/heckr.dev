@@ -1,7 +1,7 @@
 ---
 title: Look Studio
 slug: look-studio
-description: A theme for Pterodactyl 2.0 with 16 looks, 7 bar layouts, server card styles and a live editor.
+description: Your panel, your look. A theme extension for Pterodactyl 2.0 with 16 looks, 7 bar layouts and a live editor.
 coverImage: /img/screenshots/screenshot-look-studio.webp
 accentColor: pink
 tags: [pterodactyl, theme, php, typescript, react, game-hosting]

@@ -18,7 +18,7 @@
                     Look Studio is now available on BuiltByBit and Voxel.shop.
                 </h2>
                 <p class="hidden text-catppuccin-gray sm:block sm:text-xs">
-                    A theme for Pterodactyl 2.0 with a live editor.
+                    Your panel, your look. A theme extension for Pterodactyl 2.0.
                 </p>
             </div>
 
