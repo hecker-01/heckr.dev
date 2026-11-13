@@ -85,6 +85,55 @@ cd Kitsudo
 ./gradlew assembleGithubRelease
 \`\`\`
 `,i=`---
+title: Marquee
+slug: marquee
+description: A small card slides in on your desktop whenever a new Spotify song starts, then slips away.
+coverImage: /img/screenshots/screenshot-marquee.webp
+accentColor: peach
+tags: [rust, windows, macos, desktop-app, spotify]
+github: https://github.com/hecker-01/Marquee
+status: active
+unlisted: false
+---
+
+## About
+
+Marquee answers "what song is this?" without making you find the Spotify window. When a new track starts, a small card with the cover, title, artist and album appears in a corner of your screen for a few seconds and then leaves. It runs on Windows 10/11 and macOS 13+.
+
+It never asks for your Spotify login. Spotify already tells the operating system what is playing, and Marquee listens to that.
+
+:::hint note
+Marquee is an independent project and is not affiliated with Spotify. macOS support is newer and has had less real-world testing than Windows.
+:::
+
+## Features
+
+- Three themes: System (follows light and dark mode), Spotify (dark green style) and Cover (gradient from the album art)
+- Any of the four screen corners, 3, 5 or 8 seconds on screen, primary monitor or the one your mouse is on
+- Fades out when your mouse gets close
+- Lives in the tray (Windows) or menu bar (macOS), with a "Test card" button
+- Optional start at login
+- Settings apply instantly and are saved to a JSON file
+
+## Technical Highlights
+
+- Written in Rust. The card is drawn from native parts on each platform, not a web view
+- Windows reads the Global System Media Transport Controls session, macOS listens to Spotify's distributed notification
+- Windows 11 uses DWM round corners and a transient acrylic backdrop, tinted so the card matches a real system toast
+- Around 6.6 MB private working set and about 0.1 % of one core while Spotify plays
+- The only network request is the album cover. On macOS it comes from Spotify's public page for the song
+
+\`\`\`bash
+cargo build --release
+\`\`\`
+
+:::details Known quirks
+- Windows has no track id, so Marquee builds one from artist, title and album
+- Ads on Windows are detected by an empty artist
+- Spotify sometimes reports a skip several seconds late
+- Exclusive fullscreen games can draw over the card
+:::
+`,a=`---
 title: MCBE Pack Decryptor
 slug: mcbe-pack-decryptor
 description: Python CLI that decrypts encrypted Minecraft Bedrock Edition marketplace packs using AES-CFB.
@@ -175,7 +224,7 @@ Decryption complete! Output folder: /home/user/my-pack-decrypted
 \`\`\`
 
 :::
-`,a=`---
+`,o=`---
 title: Pingr
 slug: pingr
 description: Overlay a Discord ping badge onto any server icon to make your entire server think they got pinged.
@@ -230,7 +279,7 @@ Keeps things dead simple. The overlay is just a transparent PNG with the badge s
 ---
 
 Built in an afternoon on April 1st. It does exactly one thing.
-`,o=`---
+`,s=`---
 title: Portfolio
 slug: portfolio
 description: Built with Vue.js and Tailwind CSS, showcasing my projects and skills.
@@ -325,7 +374,7 @@ Post and project detail views are not separate routes - they render inline when 
 - **HTTP**: Fetch (GitHub API, contribution API)
 - **Presence**: Lanyard WebSocket API
 - **Hosting**: Static deployment
-`,s=`---
+`,c=`---
 title: reCodr
 slug: recodr
 description: Desktop video re-encoder with hardware-accelerated GPU encoding via ffmpeg.
@@ -410,7 +459,7 @@ An encoder family is included if **at least one** of its codecs (H.264 or HEVC) 
 - **Backend:** ffmpeg / ffprobe via \`child_process.spawn()\`
 - **Language:** Vanilla JavaScript - no frameworks, no bundler
 - **License:** GPL-2.0
-`,c=`---
+`,l=`---
 title: satisSuite
 slug: satissuite
 description: Modular Minecraft plugin suite for Spigot/Paper servers, covering moderation, player management, and server utilities.
@@ -442,7 +491,7 @@ satisSuite is a Minecraft plugin suite for Spigot/Paper servers. It's built arou
 ## Technical Details
 
 Built in Java for the Spigot/Paper API. The plugin targets clean command structure and a straightforward configuration format.
-`,l=`---
+`,u=`---
 title: Wordr
 slug: wordr
 description: Client-side Markdown to DOCX converter
@@ -496,4 +545,4 @@ Wordr never sends your content to a server. Markdown parsing, AST transformation
 - **Icons:** Font Awesome 6
 - **License:** GPL-2.0
   :::
-`,u={mauve:`#cba6f7`,blue:`#89b4fa`,green:`#a6e3a1`,red:`#f38ba8`,pink:`#f5c2e7`,yellow:`#f9e2af`,teal:`#94e2d5`,sapphire:`#74c7ec`,sky:`#89dceb`,lavender:`#b4befe`,peach:`#fab387`,maroon:`#eba0ac`,flamingo:`#f2cdcd`},d=Object.assign({"/projects/jellycord.md":n,"/projects/kitsudo.md":r,"/projects/mcbe-pack-decryptor.md":i,"/projects/pingr.md":a,"/projects/portfolio.md":o,"/projects/recodr.md":s,"/projects/satissuite.md":c,"/projects/wordr.md":l}),f=()=>{let n=[],r=1;return Object.entries(d).forEach(([i,a])=>{let{frontmatter:o,content:s}=t(a,i),c=e(o,i,i);n.push({id:r++,slug:c,title:o.title||c,description:o.description||``,coverImage:o.coverImage||null,accentColor:o.accentColor||`mauve`,accentColorHex:u[o.accentColor]||u.mauve,tags:o.tags||[],url:o.url||null,github:o.github||null,status:o.status||`active`,unlisted:o.unlisted===!0,content:s.trim()})}),n},p=null,m=(e=!1)=>(p||=f(),(e?[...p]:p.filter(e=>!e.unlisted)).sort((e,t)=>e.title.localeCompare(t.title))),h=e=>m(!0).find(t=>t.slug===e),g=()=>{let e=new Set;return m().forEach(t=>{t.tags.forEach(t=>e.add(t))}),Array.from(e).sort()};export{g as n,h as r,m as t};
+`,d={mauve:`#cba6f7`,blue:`#89b4fa`,green:`#a6e3a1`,red:`#f38ba8`,pink:`#f5c2e7`,yellow:`#f9e2af`,teal:`#94e2d5`,sapphire:`#74c7ec`,sky:`#89dceb`,lavender:`#b4befe`,peach:`#fab387`,maroon:`#eba0ac`,flamingo:`#f2cdcd`},f=Object.assign({"/projects/jellycord.md":n,"/projects/kitsudo.md":r,"/projects/marquee.md":i,"/projects/mcbe-pack-decryptor.md":a,"/projects/pingr.md":o,"/projects/portfolio.md":s,"/projects/recodr.md":c,"/projects/satissuite.md":l,"/projects/wordr.md":u}),p=()=>{let n=[],r=1;return Object.entries(f).forEach(([i,a])=>{let{frontmatter:o,content:s}=t(a,i),c=e(o,i,i);n.push({id:r++,slug:c,title:o.title||c,description:o.description||``,coverImage:o.coverImage||null,accentColor:o.accentColor||`mauve`,accentColorHex:d[o.accentColor]||d.mauve,tags:o.tags||[],url:o.url||null,github:o.github||null,status:o.status||`active`,unlisted:o.unlisted===!0,content:s.trim()})}),n},m=null,h=(e=!1)=>(m||=p(),(e?[...m]:m.filter(e=>!e.unlisted)).sort((e,t)=>e.title.localeCompare(t.title))),g=e=>h(!0).find(t=>t.slug===e),_=()=>{let e=new Set;return h().forEach(t=>{t.tags.forEach(t=>e.add(t))}),Array.from(e).sort()};export{_ as n,g as r,h as t};

@@ -2,7 +2,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://heckr.dev/</loc>
-		<lastmod>2026-10-27T10:25:17+00:00</lastmod>
+		<lastmod>2026-11-13T10:55:47+00:00</lastmod>
 	</url>
 	<url>
 		<loc>https://heckr.dev/posts/</loc>
@@ -10,7 +10,7 @@
 	</url>
 	<url>
 		<loc>https://heckr.dev/projects/</loc>
-		<lastmod>2026-10-27T10:25:17+00:00</lastmod>
+		<lastmod>2026-11-13T10:55:47+00:00</lastmod>
 	</url>
 	<url>
 		<loc>https://heckr.dev/posts/docker-and-compose/</loc>
@@ -31,6 +31,10 @@
 	<url>
 		<loc>https://heckr.dev/projects/kitsudo/</loc>
 		<lastmod>2026-10-27T10:25:17+00:00</lastmod>
+	</url>
+	<url>
+		<loc>https://heckr.dev/projects/marquee/</loc>
+		<lastmod>2026-11-13T10:55:47+00:00</lastmod>
 	</url>
 	<url>
 		<loc>https://heckr.dev/projects/mcbe-pack-decryptor/</loc>
