@@ -30,6 +30,10 @@ const routes = [
     redirect: "/projects/kitsudo",
   },
   {
+    path: "/quoter",
+    redirect: "/projects/quoter",
+  },
+  {
     path: "/projects/kitsudo",
     name: "Kitsudo",
     component: () => import("@/pages/Kitsudo.vue"),
