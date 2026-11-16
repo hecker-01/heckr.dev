@@ -375,6 +375,62 @@ Post and project detail views are not separate routes - they render inline when 
 - **Presence**: Lanyard WebSocket API
 - **Hosting**: Static deployment
 `,c=`---
+title: Quoter
+slug: quoter
+description: A Discord bot that turns any message into a beautiful quote image, perfect for sharing and saving conversations.
+coverImage: /img/screenshots/screenshot-quoter.webp
+accentColor: lavender
+tags: [discord, discord-bot, nodejs, discordjs, canvas]
+url: https://discord.com/oauth2/authorize?client_id=1373998912569872497
+urlLabel: Add to Discord
+github: https://github.com/hecker-01/quoter
+status: active
+unlisted: false
+---
+
+## About
+
+> "Every message has a story; I'll make sure it's remembered." — Quoter
+
+Quoter makes sure that every message on your Discord server is remembered. Easily quote messages as beautiful images, perfect for sharing and saving meaningful conversations. Simple, sleek, and user-friendly.
+
+Right-click a message, pick **Quote Message**, and the image appears in the channel: the author's avatar next to the message text, their name and the date. It works in servers, group DMs and in the app's own DMs. Every quote comes with controls underneath, so you can restyle it after the fact without making a new one.
+
+**[Add Quoter to your server](https://discord.com/oauth2/authorize?client_id=1373998912569872497)**
+
+## How to use it
+
+- Right-click (or long-press) a message, then **Apps**, then **Quote Message**
+- Choose **Quote Message Silently** to keep the quote private to you
+- Reply to a message and mention the app to quote it
+- \`/quote\` takes a message link or ID, and an optional starting theme
+- \`/help\`, or mentioning the app on its own, shows these steps
+
+:::hint note
+Quoter needs the **Attach Files** permission in a channel to send the image.
+:::
+
+## Customization
+
+- Eight themes, from soft black and white to rose, silver, warm, muted, haze and gold
+- Nineteen fonts, three sizes or a custom size, and your own text colors by hex code
+- Image effects: GIF export, curved blend, flip, lyric style, grayscale, blur, brightness, pixelate, speech bubble, magik and hide name
+- Text colors are chosen to stay readable on each theme, including the random-color option
+- Quotes cover message text, attachments, stickers and embeds, with Discord and unicode emoji drawn as images
+
+## Technical Highlights
+
+- Written in Node.js with discord.js. The image is drawn with \`@napi-rs/canvas\` at 857 × 450 and rendered at 2× for sharp text
+- Emoji are drawn from a Twemoji image set, so they look the same on every device
+- The speech bubble is a real transparent cut-out in PNGs. GIFs only have on/off transparency, so the edge is snapped to fully opaque or fully clear
+- Customization state is kept in memory with a bounded cache, and only the person who made a quote can change it
+
+:::details Known quirks
+- GIFs have 256 colors, so soft gradients show banding
+- Custom colors and sizes are forgotten when the app restarts; the controls on an older quote fall back to the theme defaults
+- Lyric style is its own layout, so curved blend and magik do nothing there
+:::
+`,l=`---
 title: reCodr
 slug: recodr
 description: Desktop video re-encoder with hardware-accelerated GPU encoding via ffmpeg.
@@ -459,7 +515,7 @@ An encoder family is included if **at least one** of its codecs (H.264 or HEVC) 
 - **Backend:** ffmpeg / ffprobe via \`child_process.spawn()\`
 - **Language:** Vanilla JavaScript - no frameworks, no bundler
 - **License:** GPL-2.0
-`,l=`---
+`,u=`---
 title: satisSuite
 slug: satissuite
 description: Modular Minecraft plugin suite for Spigot/Paper servers, covering moderation, player management, and server utilities.
@@ -491,7 +547,7 @@ satisSuite is a Minecraft plugin suite for Spigot/Paper servers. It's built arou
 ## Technical Details
 
 Built in Java for the Spigot/Paper API. The plugin targets clean command structure and a straightforward configuration format.
-`,u=`---
+`,d=`---
 title: Wordr
 slug: wordr
 description: Client-side Markdown to DOCX converter
@@ -545,4 +601,4 @@ Wordr never sends your content to a server. Markdown parsing, AST transformation
 - **Icons:** Font Awesome 6
 - **License:** GPL-2.0
   :::
-`,d={mauve:`#cba6f7`,blue:`#89b4fa`,green:`#a6e3a1`,red:`#f38ba8`,pink:`#f5c2e7`,yellow:`#f9e2af`,teal:`#94e2d5`,sapphire:`#74c7ec`,sky:`#89dceb`,lavender:`#b4befe`,peach:`#fab387`,maroon:`#eba0ac`,flamingo:`#f2cdcd`},f=Object.assign({"/projects/jellycord.md":n,"/projects/kitsudo.md":r,"/projects/marquee.md":i,"/projects/mcbe-pack-decryptor.md":a,"/projects/pingr.md":o,"/projects/portfolio.md":s,"/projects/recodr.md":c,"/projects/satissuite.md":l,"/projects/wordr.md":u}),p=()=>{let n=[],r=1;return Object.entries(f).forEach(([i,a])=>{let{frontmatter:o,content:s}=t(a,i),c=e(o,i,i);n.push({id:r++,slug:c,title:o.title||c,description:o.description||``,coverImage:o.coverImage||null,accentColor:o.accentColor||`mauve`,accentColorHex:d[o.accentColor]||d.mauve,tags:o.tags||[],url:o.url||null,github:o.github||null,status:o.status||`active`,unlisted:o.unlisted===!0,content:s.trim()})}),n},m=null,h=(e=!1)=>(m||=p(),(e?[...m]:m.filter(e=>!e.unlisted)).sort((e,t)=>e.title.localeCompare(t.title))),g=e=>h(!0).find(t=>t.slug===e),_=()=>{let e=new Set;return h().forEach(t=>{t.tags.forEach(t=>e.add(t))}),Array.from(e).sort()};export{_ as n,g as r,h as t};
+`,f={mauve:`#cba6f7`,blue:`#89b4fa`,green:`#a6e3a1`,red:`#f38ba8`,pink:`#f5c2e7`,yellow:`#f9e2af`,teal:`#94e2d5`,sapphire:`#74c7ec`,sky:`#89dceb`,lavender:`#b4befe`,peach:`#fab387`,maroon:`#eba0ac`,flamingo:`#f2cdcd`},p=Object.assign({"/projects/jellycord.md":n,"/projects/kitsudo.md":r,"/projects/marquee.md":i,"/projects/mcbe-pack-decryptor.md":a,"/projects/pingr.md":o,"/projects/portfolio.md":s,"/projects/quoter.md":c,"/projects/recodr.md":l,"/projects/satissuite.md":u,"/projects/wordr.md":d}),m=()=>{let n=[],r=1;return Object.entries(p).forEach(([i,a])=>{let{frontmatter:o,content:s}=t(a,i),c=e(o,i,i);n.push({id:r++,slug:c,title:o.title||c,description:o.description||``,coverImage:o.coverImage||null,accentColor:o.accentColor||`mauve`,accentColorHex:f[o.accentColor]||f.mauve,tags:o.tags||[],url:o.url||null,urlLabel:o.urlLabel||`Live Site`,github:o.github||null,status:o.status||`active`,unlisted:o.unlisted===!0,content:s.trim()})}),n},h=null,g=(e=!1)=>(h||=m(),(e?[...h]:h.filter(e=>!e.unlisted)).sort((e,t)=>e.title.localeCompare(t.title))),_=e=>g(!0).find(t=>t.slug===e),v=()=>{let e=new Set;return g().forEach(t=>{t.tags.forEach(t=>e.add(t))}),Array.from(e).sort()};export{v as n,_ as r,g as t};
