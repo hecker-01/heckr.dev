@@ -153,6 +153,7 @@ Full project description with markdown...
 - `accentColor` - One of: mauve, blue, green, red, pink, yellow, teal, sapphire, sky, lavender, peach, maroon, flamingo
 - `tags` - Array of tags
 - `url` - Optional live demo link
+- `urlLabel` - Optional text for the `url` button (defaults to "Live Site"), e.g. "Add to Discord" for a bot invite
 - `github` - Optional GitHub repository link
 - `status` - One of: active, archived, in-progress, beta
 - `unlisted` - If true, hidden from list but accessible via direct URL

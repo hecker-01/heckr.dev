@@ -20,7 +20,7 @@ Run `npm run build` after any change to routes, content, images, head tags or sc
 
 - Posts live in `posts/*.md`, projects in `projects/*.md`. Frontmatter is parsed by `src/services/frontmatterService.js`.
 - `slug` must be lowercase letters, numbers and single hyphens; it becomes the URL (`/posts/<slug>/`, `/projects/<slug>/`). Duplicate routes fail the build.
-- Projects: `title, slug, description, coverImage, accentColor, tags, url, github, status, unlisted`. See `prompt-example-project.md` for the full rules.
+- Projects: `title, slug, description, coverImage, accentColor, tags, url, urlLabel, github, status, unlisted`. `urlLabel` is optional: the text on the `url` button (default "Live Site"). See `prompt-example-project.md` for the full rules.
 - Posts: `title, slug, date (dd-mm-yyyy), tags, description, unlisted`.
 - `unlisted: true` keeps a page out of the sitemap and sets `noindex`.
 - Adding a page needs no manual route, sitemap or prerender edits: the prerender script finds every `.md` file. Kitsudo is the only project with its own page (`src/pages/Kitsudo.vue`, route `/projects/kitsudo`, registered before `/projects/:slug` in `src/router/index.js`).
