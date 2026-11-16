@@ -44,6 +44,7 @@ const loadProjects = () => {
         catppuccinColors[frontmatter.accentColor] || catppuccinColors.mauve,
       tags: frontmatter.tags || [],
       url: frontmatter.url || null,
+      urlLabel: frontmatter.urlLabel || "Live Site",
       github: frontmatter.github || null,
       status: frontmatter.status || "active",
       unlisted: frontmatter.unlisted === true,

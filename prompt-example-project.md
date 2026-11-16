@@ -22,6 +22,7 @@ Frontmatter rules (must match exactly):
   - `accentColor`
   - `tags`
   - `url` (optional)
+  - `urlLabel` (optional, only with `url`)
   - `github` (optional)
   - `status`
   - `unlisted`
@@ -36,6 +37,7 @@ coverImage: </image-from-public-folder.png>
 accentColor: <one valid color>
 tags: [tag1, tag2, tag3]
 url: <https://live-site-or-omit>
+urlLabel: <button-text-or-omit>
 github: <https://github.com/user/repo-or-omit>
 status: <active|archived|in-progress|beta|stale>
 unlisted: <true|false>
@@ -107,4 +109,5 @@ Now generate a project markdown file using this input:
   <PASTE YOUR PROJECT NOTES HERE>
 
 If Live URL is `NONE`, omit the `url` field.
+The `url` button says "Live Site" by default. Add `urlLabel` only when the link is not a live site (for example `urlLabel: Add to Discord` for a bot invite); otherwise omit it.
 If GitHub URL is `NONE`, omit the `github` field.

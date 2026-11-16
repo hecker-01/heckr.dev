@@ -9,3 +9,4 @@ Personal portfolio and technical blog by Jesse.
 - [Projects](https://heckr.dev/projects/): Software projects and showcases.
 - [Kitsudo](https://heckr.dev/projects/kitsudo/): Details about the Kitsudo app.
 - [Look Studio](https://heckr.dev/projects/look-studio/): A Pterodactyl 2.0 theme with a live editor.
+- [Quoter](https://heckr.dev/quoter): A Discord app that turns any message into a customizable quote image.
