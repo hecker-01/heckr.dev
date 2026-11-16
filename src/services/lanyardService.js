@@ -128,11 +128,23 @@ class LanyardService {
   startHeartbeat(interval) {
     if (this.heartbeat) clearInterval(this.heartbeat);
 
+    const MIN_HEARTBEAT_INTERVAL = 1000;
+    const MAX_HEARTBEAT_INTERVAL = 60000;
+    const DEFAULT_HEARTBEAT_INTERVAL = 30000;
+
+    const parsedInterval = Number(interval);
+    const safeInterval = Number.isFinite(parsedInterval)
+      ? Math.min(
+          MAX_HEARTBEAT_INTERVAL,
+          Math.max(MIN_HEARTBEAT_INTERVAL, Math.floor(parsedInterval)),
+        )
+      : DEFAULT_HEARTBEAT_INTERVAL;
+
     this.heartbeat = setInterval(() => {
       if (this.ws?.readyState === WebSocket.OPEN) {
         this.ws.send(JSON.stringify({ op: 3 }));
       }
-    }, interval);
+    }, safeInterval);
   }
 
   scheduleReconnect() {
